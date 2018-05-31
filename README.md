@@ -1,5 +1,5 @@
 ## Project
 
-This project is for the course CS5610 - Web development.
+This repository contains the source code for the project which is requirement in the course CS5610 - Web development.
 
-Team - 2070
+Project Team : 2070
