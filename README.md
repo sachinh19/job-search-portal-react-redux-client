@@ -7,7 +7,7 @@ This repository contains the source code for a project which is a requirement in
 1. Aparna Sharma
 2. Sachin Haldavanekar
 
-The project is a Job Search Portal where users will search for jobs which will be posted by Employers and also a amongst jobs which will be populated using an external API.
+The project is a Job Search Portal where users will search for jobs which will be posted by Employers and also amongst jobs which will be populated using an external API.
 
 There will also be Administrators and Moderators who will administer domain objects like jobs, applications and companies.
 
