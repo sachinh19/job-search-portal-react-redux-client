@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
-import LoginReducer from "../reducers/LoginReducer";
+
 
 class Login extends Component {
 
@@ -25,7 +25,6 @@ class Login extends Component {
                     this.props.changePassword(passwordFld.value)
                 }}
                        ref={node => passwordFld = node} />
-
                 <button onClick={()=>{this.props.doLogin(this.props.username, this.props.password)}}>
                     Login
                 </button>

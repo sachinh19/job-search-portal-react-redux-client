@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.1.1",
     "fb-watchman": "^2.0.0",
+    "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
