@@ -1,6 +1,6 @@
-import * as constants from '../constants/constant'
+import * as constants from '../constants'
 
-const Alert = (state = null, action) => {
+const AlertReducer = (state = null, action) => {
 
     switch (action.type) {
 
@@ -9,4 +9,4 @@ const Alert = (state = null, action) => {
     }
 };
 
-export default Alert;
+export default AlertReducer;
