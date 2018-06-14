@@ -37,6 +37,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
 })
 
 
-const homeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Home)
+const HomeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Home)
 
-export default homeContainer
+export default HomeContainer

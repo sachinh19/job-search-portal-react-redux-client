@@ -45,6 +45,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
 });
 
 
-const loginContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Login)
+const LoginContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Login)
 
-export default loginContainer
+export default LoginContainer
