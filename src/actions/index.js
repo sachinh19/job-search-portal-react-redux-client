@@ -1,4 +1,4 @@
-import * as constants from '../constants/constant'
+import * as constants from '../constants'
 import history from '../History'
 
 export const doLogin = (dispatch, username, password) => {

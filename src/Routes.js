@@ -1,4 +1,4 @@
-import React, {Component} from 'React';
+import React, {Component} from 'react';
 import HomeContainer from './containers/Home'
 import LoginContainer from './containers/Login'
 import {Route,Swithc} from 'react-router-dom'
