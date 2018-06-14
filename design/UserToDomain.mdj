@@ -116,7 +116,7 @@
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "User",
+													"text": "UserReducer",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -4069,7 +4069,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFjuSCH9gR/yac="
 							},
-							"name": "User",
+							"name": "UserReducer",
 							"visibility": "public",
 							"represent": {
 								"$ref": "AAAAAAFjuSC0RQSTOZA="
