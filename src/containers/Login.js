@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
+import LoginReducer from "../reducers/LoginReducer";
 
 class Login extends Component {
 
@@ -34,8 +35,8 @@ class Login extends Component {
 }
 
 const stateToPropertyMapper = (state) => ({
-    username: state.LoginDetails.username,
-    password: state.LoginDetails.password
+    username: state.LoginReducer.username,
+    password: state.LoginReducer.password
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
