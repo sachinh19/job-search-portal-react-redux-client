@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import * as actions from "../actions";
+import * as actions from "../actions/index";
 
 class AdminConsoleJob extends Component {
     constructor(props) {
@@ -21,9 +21,12 @@ class AdminConsoleJob extends Component {
     }
 }
 
-const stateToPropertyMapper = (state) => ({})
+const stateToPropertyMapper = (state) => ({
+})
 
-export const dispatcherToPropsMapper = (dispatch) => ({})
+export const dispatcherToPropsMapper = (dispatch) => ({
+
+})
 
 const AdminConsoleJobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleJob)
 

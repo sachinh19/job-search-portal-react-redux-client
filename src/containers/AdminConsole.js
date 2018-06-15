@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
 import * as actions from "../actions";
-import './AdminConsole.css'
-import AdminConsoleJobContainer from './AdminConsoleJobContainer'
-import AdminConsoleCompaniesContainer from './AdminConsoleCompaniesContainer'
-import AdminConsoleUsersContainer from './AdminConsoleUserContainer'
+import '../styles/AdminConsole.css'
+import AdminConsoleJobContainer from '../components/AdminConsoleJobContainer'
+import AdminConsoleCompaniesContainer from '../components/AdminConsoleCompaniesContainer'
+import AdminConsoleUsersContainer from '../components/AdminConsoleUserContainer'
 
 
 class AdminConsole extends Component {
@@ -20,14 +20,14 @@ class AdminConsole extends Component {
                     <div className="col-3">
                         <div className="container wbdv-options-container">
                             <ul className="list-group">
-                                <li className="list-group-item">
-                                    <Link to={`/console/jobs`}>View All Jobs</Link>
+                                <li className="list-group-item wbdv-options">
+                                    <Link to={`/console/jobs`} className="wbdv-options-item">View All Jobs</Link>
                                 </li>
-                                <li className="list-group-item">
-                                    <Link to={`/console/companies`}>View All Companies</Link>
+                                <li className="list-group-item wbdv-options">
+                                    <Link to={`/console/companies`} className="wbdv-options-item">View All Companies</Link>
                                 </li>
-                                <li className="list-group-item">
-                                    <Link to={`/console/users`}>View All Users</Link>
+                                <li className="list-group-item wbdv-options">
+                                    <Link to={`/console/users`} className="wbdv-options-item">View All Users</Link>
                                 </li>
                             </ul>
                         </div>
