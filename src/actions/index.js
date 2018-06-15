@@ -61,3 +61,8 @@ export const logOut = (dispatch) => {
         type: constants.RESET_LOGIN_DETAILS,
     })
 }
+
+export const getNewJobs =(dispatch) => {
+    console.log("dewfef");
+    fetch('http://localhost:8080/api/getjobs')
+}
