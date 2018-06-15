@@ -16,7 +16,7 @@ const Job = ({job}) => {
 
                 </span>
                 <p className="card-text col-md-2">
-                    {job.postedDate}
+                    {job.postedDate && job.postedDate.split("T")[0]}
                 </p>
                 <a href="#"
                    className="btn btn-primary col-md-2">

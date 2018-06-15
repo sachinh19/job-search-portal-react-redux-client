@@ -29,6 +29,11 @@ class AdminConsole extends Component {
                                 <li className="list-group-item wbdv-options">
                                     <Link to={`/console/users`} className="wbdv-options-item">View All Users</Link>
                                 </li>
+                                <li>
+                                    <button onClick={()=>{this.props.getNewJobs()}}>
+                                        Click
+                                    </button>
+                                </li>
                             </ul>
                         </div>
                     </div>
