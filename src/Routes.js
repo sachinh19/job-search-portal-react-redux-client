@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import HomeContainer from './containers/Home'
 import LoginContainer from './containers/Login'
 import AdminConsoleContainer from './containers/AdminConsole'
-import NavBar from './components/NavBar'
+import NavBarContainer from './components/NavBar'
 import {Route, Switch} from 'react-router-dom'
+import FooterContainer from './components/Footer'
 import './styles/Routes.css'
 
 
@@ -12,7 +13,7 @@ export default class Routes extends Component {
         return (
             <div>
                 <div>
-                    <NavBar/>
+                    <NavBarContainer/>
                 </div>
                 <div className={"wbdv-body"}>
                     <Route exact path={"/"} component={HomeContainer}/>
@@ -20,7 +21,7 @@ export default class Routes extends Component {
                     <Route exact path={"/console"} component={AdminConsoleContainer}/>
                 </div>
                 <div>
-                    Footer
+                    <FooterContainer/>
                 </div>
             </div>
         )

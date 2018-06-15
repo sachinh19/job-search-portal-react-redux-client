@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom';
-import * as actions from "../actions";
 
 class Home extends Component {
 
@@ -9,34 +7,63 @@ class Home extends Component {
         super(props)
     }
 
-    renderLogin() {
-        if(this.props.userId !== null){
-            return <button onClick={this.props.logOut}>LogOut</button>
-        } else {
-            return <Link to={`/login`}>Login</Link>
-        }
-    }
 
     render() {
         return (
-            <div>
+            <div className={"container"}>
                 <h1>Home Page</h1>
-                {this.renderLogin()}
+                <div >
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
 }
 
-const stateToPropertyMapper = (state) => ({
-
-    userId:localStorage.getItem('id')
-})
-
-export const dispatcherToPropsMapper = (dispatch) => ({
-    logOut: () => actions.logOut(dispatch)
-})
 
 
-const HomeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Home)
+const HomeContainer = connect()(Home)
 
 export default HomeContainer

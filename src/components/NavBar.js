@@ -1,29 +1,64 @@
 import React, {Component} from 'react'
-import {Navbar, NavItem, Nav, MenuItem, NavDropdown} from 'react-bootstrap'
+import * as actions from "../actions";
+import {connect} from "react-redux";
+import {Link} from 'react-router-dom';
 
 
-export default class NavBar extends Component{
+class NavBar extends Component{
     constructor(props){
         super(props);
     }
+
+    renderLogin() {
+        if(this.props.userId !== null){
+            return <button onClick={this.props.logOut}>LogOut</button>
+        } else {
+            return <Link to={`/login`}>Login</Link>
+        }
+    }
+
     render(){
         return(
-
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark nav-fill fixed-top">
-                    <div className={"col-2"}>
-                        <h4 className={"text-white"}>Job Search Portal</h4>
+            <header>
+                <nav className={"navbar navbar-expand-md navbar-dark fixed-top bg-dark"}>
+                    <a className={"navbar-brand"} href={"#"}>Job Search Portal</a>
+                    <button className={"navbar-toggler collapsed"} type={"button"} data-toggle={"collapse"}
+                            data-target={"#navbarCollapse"} aria-controls={"navbarCollapse"} aria-expanded={"false"}
+                            aria-label={"Toggle navigation"}>
+                        <span className={"navbar-toggler-icon"}></span>
+                    </button>
+                    <div className={"navbar-collapse collapse"} id={"navbarCollapse"}>
+                        <ul className={"navbar-nav mr-auto"}>
+                            <li className={"nav-item active"}>
+                                <a className={"nav-link"} href={"/"}>Home <span className={"sr-only"}>(current)</span></a>
+                            </li>
+                            <li className={"nav-item"}>
+                                <a className={"nav-link"}  style={{color:'#FFF'}}>{this.renderLogin()}</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div className={"col-8"}>
-                        <input className="form-control form-group wbdv-search-bar"
-                               id="titleFld"
-                               placeholder="New Course Title"/>
-                    </div>
-                    <div className={"col-2"}>
-                    </div>
+                    <form className={"form-inline mt-2 mt-md-0"}>
+                        <input className={"form-control mr-sm-2 wbdv-search-bar"}
+                               type={"text"} placeholder={"Search"}
+                               aria-label={"Search"}/>
+                        <button className={"btn btn-outline-success my-2 my-sm-0"} type={"submit"}>Search</button>
+                    </form>
                 </nav>
-
-
+            </header>
         )
     }
 
 }
+
+const stateToPropertyMapper = (state) => ({
+
+    userId:localStorage.getItem('id')
+})
+
+export const dispatcherToPropsMapper = (dispatch) => ({
+    logOut: () => actions.logOut(dispatch)
+})
+
+const NavBarContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(NavBar)
+
+export default NavBarContainer
