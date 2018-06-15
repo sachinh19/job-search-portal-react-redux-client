@@ -14,7 +14,10 @@ class NavBar extends Component{
         if(this.props.userId !== null){
             return <button onClick={this.props.logOut}>LogOut</button>
         } else {
-            return <Link to={`/login`} className={'link-login'}>Login</Link>
+            return <Link to={`/login`} className={'link-login nav-link'}>
+                        Login
+                        <span className={"sr-only"}>(current)</span>
+                    </Link>
         }
     }
 
@@ -53,15 +56,18 @@ class NavBar extends Component{
                         <div className={"navbar-collapse collapse"} id={"navbarCollapse"}>
                             <ul className={"navbar-nav mr-auto"}>
                                 <li className={"nav-item active"}>
-                                    <a className={"nav-link"}>
-                                        <Link to={`/`} className={'link-login'}>Home</Link>
-                                        <span className={"sr-only"}>(current)</span>
-                                    </a>
+                                    {/*<a className={""}>*/}
+                                        <Link to={`/`} className={'link-login nav-link'}>
+                                            Home
+                                            <span className={"sr-only"}>(current)</span>
+                                        </Link>
+
+                                    {/*</a>*/}
                                 </li>
                                 <li className={"nav-item"}>
-                                    <a className={"nav-link"}>
+                                    {/*<a className={""}>*/}
                                         {this.renderLogin()}
-                                    </a>
+                                    {/*</a>*/}
                                 </li>
                             </ul>
                         </div>
