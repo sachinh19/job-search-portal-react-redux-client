@@ -23,9 +23,6 @@ class JobList extends Component {
         this.props.findAllJobs();
     }
 
-    componentWillReceiveProps(newProps){
-        newProps.findAllJobs();
-    }
 
     renderJobs(){
       let jobs = null;
@@ -46,17 +43,14 @@ class JobList extends Component {
     }
 
     render (){
-        if(this.props.jobs) {
-            this.props.jobs.sort(compare)
-            alert(this.props.jobs)
-        }
+        this.props.jobs.sort(compare)
         return (
             <div>
                 <div className={"card"}>
                     <div className={"card-header"}>
                         <div className={"row"}>
                             <div className={"col-sm-9"}>
-                                {/*<h2>Jobs Count: {this.props.jobs && this.props.jobs.length}</h2>*/}
+                                <h2>Jobs Count: {this.props.jobs.length}</h2>
                             </div>
                             {/*<div className={"col-sm-2"}>*/}
                                 {/*<button type={"button"}*/}
@@ -91,7 +85,7 @@ class JobList extends Component {
 
 
 const stateToPropsMapper = (state, props) => ({
-    jobs: state.jobs
+    jobs: state.JobReducer.jobs
 })
 
 const dispatchToPropsMatcher = dispatch => ({

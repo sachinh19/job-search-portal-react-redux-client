@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
 import * as actions from "../actions";
-import './AdminConsole.css'
+import '../styles/AdminConsole.css'
 import AdminConsoleJobContainer from './AdminConsoleJobContainer'
 import AdminConsoleCompaniesContainer from './AdminConsoleCompaniesContainer'
 import AdminConsoleUsersContainer from './AdminConsoleUserContainer'
