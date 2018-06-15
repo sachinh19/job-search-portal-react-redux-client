@@ -16,7 +16,7 @@ export default class Routes extends Component {
                 <div className={"wbdv-body"}>
                     <Route exact path={"/"} component={HomeContainer}/>
                     <Route exact path={"/login"} component={LoginContainer}/>
-                    <Route exact path={"/console"} component={AdminConsoleContainer}/>
+                    <Route path={"/console"} component={AdminConsoleContainer}/>
                 </div>
                 <FooterContainer/>
             </div>
