@@ -1,4 +1,22 @@
 .wbdv-search-bar{
-    height:40px;
-    margin-top:10px;
+    display: inline-block;
+    vertical-align: center;
+    width: 100% !important;
+}
+
+.btn-outline-success{
+    width: 100% !important;
+}
+
+.form-inline .form-control{
+}
+
+.link-login{
+    color: white;
+}
+
+
+.logo{
+    height:100px;
+    width: auto;
 }
