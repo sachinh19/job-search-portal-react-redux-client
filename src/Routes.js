@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import HomeContainer from './containers/Home'
 import LoginContainer from './containers/Login'
-import {Route,Swithc} from 'react-router-dom'
-import AdminConsoleContainer from "./containers/AdminConsole";
+import NavBar from './components/NavBar'
+import {Route, Switch} from 'react-router-dom'
+import './styles/Routes.css'
+
 
 export default class Routes extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                <div className={"navbar"}>
-                    Header
+                <div>
+                    <NavBar/>
                 </div>
-                <Route exact path={"/"} component={HomeContainer}/>
-                <Route exact path={"/login"} component={LoginContainer}/>
-                <Route exact path={"/console"} component={AdminConsoleContainer}/>
+                <div className={"wbdv-body"}>
+                    <Route exact path={"/"} component={HomeContainer}/>
+                    <Route exact path={"/login"} component={LoginContainer}/>
+                </div>
                 <div>
                     Footer
                 </div>
