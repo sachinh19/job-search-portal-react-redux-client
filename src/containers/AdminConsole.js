@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
 import * as actions from "../actions";
 import '../styles/AdminConsole.css'
-import AdminConsoleJobContainer from './AdminConsoleJobContainer'
-import AdminConsoleCompaniesContainer from './AdminConsoleCompaniesContainer'
-import AdminConsoleUsersContainer from './AdminConsoleUserContainer'
+import AdminConsoleJobContainer from '../components/AdminConsoleJobContainer'
+import AdminConsoleCompaniesContainer from '../components/AdminConsoleCompaniesContainer'
+import AdminConsoleUsersContainer from '../components/AdminConsoleUserContainer'
 
 
 class AdminConsole extends Component {
