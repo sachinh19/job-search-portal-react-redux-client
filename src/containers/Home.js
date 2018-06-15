@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
+import JobListContainer from "../containers/JobList"
 
 class Home extends Component {
 
@@ -15,7 +16,7 @@ class Home extends Component {
             <div className={"container"}>
                 <h1>Home Page</h1>
                 <div>
-
+                    <JobListContainer/>
                 </div>
             </div>
         )

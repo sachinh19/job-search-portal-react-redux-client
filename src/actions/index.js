@@ -62,7 +62,25 @@ export const logOut = (dispatch) => {
     })
 }
 
+export const findAllJobs = (dispatch) => {
+    console.log("fetching all jobs...")
+    fetch('http://localhost:8080/api/job')
+        .then((response)=>{
+            var content = response.headers.get("content-type");
+            if(content!=null && content.startsWith('application/json'))
+                return response.json();
+            else
+                return null;
+        })
+        .then(jobs=>{
+            console.log(jobs)
+            dispatch({
+            type:constants.JOBS_CHANGED,
+            jobs:jobs
+        })})
+}
+
 export const getNewJobs =(dispatch) => {
-    console.log("dewfef");
+    console.log("getting new Jobs");
     fetch('http://localhost:8080/api/getjobs')
 }
