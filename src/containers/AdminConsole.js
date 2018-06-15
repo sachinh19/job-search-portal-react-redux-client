@@ -29,6 +29,11 @@ class AdminConsole extends Component {
                                 <li className="list-group-item">
                                     <Link to={`/console/users`}>View All Users</Link>
                                 </li>
+                                <li>
+                                    <button onClick={()=>{this.props.getNewJobs()}}>
+                                        Click
+                                    </button>
+                                </li>
                             </ul>
                         </div>
                     </div>
