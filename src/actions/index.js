@@ -73,10 +73,11 @@ export const findAllJobs = (dispatch) => {
                 return null;
         })
         .then(jobs=>{
+            console.log("inside")
             console.log(jobs)
             dispatch({
-            type:constants.JOBS_CHANGED,
-            jobs:jobs
+                type:constants.JOBS_CHANGED,
+                jobs:jobs
         })})
 }
 

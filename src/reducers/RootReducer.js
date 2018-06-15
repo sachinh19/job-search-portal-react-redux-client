@@ -6,10 +6,10 @@ import JobReducer from './JobReducer'
 
 
 const RootReducer = combineReducers({
+    JobReducer,
     LoginReducer,
     UserReducer,
-    AlertReducer,
-    JobReducer
+    AlertReducer
 })
 
 export default RootReducer;

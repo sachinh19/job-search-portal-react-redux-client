@@ -16,66 +16,66 @@ function compare(a,b) {
 class JobList extends Component {
     constructor(props){
         super(props);
+        this.renderJobs = this.renderJobs.bind(this);
     }
 
     componentDidMount(){
         this.props.findAllJobs();
     }
 
-    componentWillReceiveProps(newProps){
-        newProps.findAllJobs();
+
+    renderJobs(){
+      let jobs = null;
+      if(this.props.jobs){
+        jobs = this.props.jobs.map(job=>{
+            console.log("card")
+            return (
+                <JobCard key={job.id}
+                         job={job}/>
+                // <JobCard widget={widget}
+                //         key={widget.id}
+                //         preview={this.props.preview}
+                //         maxLen={this.props.jobs.length}/>
+            )}
+        )
+      }
+      return jobs;
     }
 
     render (){
-        // this.props.jobs.sort(compare)
+        this.props.jobs.sort(compare)
         return (
             <div>
                 <div className={"card"}>
                     <div className={"card-header"}>
                         <div className={"row"}>
                             <div className={"col-sm-9"}>
-                                <h2>Job Count : {this.props.jobs.length}</h2>
+                                <h2>Jobs Count: {this.props.jobs.length}</h2>
                             </div>
-                            <div className={"col-sm-2"}>
-                                <button type={"button"}
-                                        hidden={this.props.preview}
-                                        onClick={this.props.saveWidget}
-                                        className={"btn btn-success float-right"}>
-                                    Save
-                                </button>
-                            </div>
-                            <div className={"col-sm-1"}>
-                                <i hidden={!this.props.preview}
-                                   className={"fa fa-2x fa-toggle-on float-right"}
-                                   onClick={this.props.previewWidget}>
-                                </i>
-                                <i hidden={this.props.preview}
-                                   className={"fa fa-2x fa-toggle-off float-right"}
-                                   onClick={this.props.previewWidget}>
-                                </i>
-                            </div>
+                            {/*<div className={"col-sm-2"}>*/}
+                                {/*<button type={"button"}*/}
+                                        {/*hidden={this.props.preview}*/}
+                                        {/*onClick={this.props.saveWidget}*/}
+                                        {/*className={"btn btn-success float-right"}>*/}
+                                    {/*Save*/}
+                                {/*</button>*/}
+                            {/*</div>*/}
+                            {/*<div className={"col-sm-1"}>*/}
+                                {/*<i hidden={!this.props.preview}*/}
+                                   {/*className={"fa fa-2x fa-toggle-on float-right"}*/}
+                                   {/*onClick={this.props.previewWidget}>*/}
+                                {/*</i>*/}
+                                {/*<i hidden={this.props.preview}*/}
+                                   {/*className={"fa fa-2x fa-toggle-off float-right"}*/}
+                                   {/*onClick={this.props.previewWidget}>*/}
+                                {/*</i>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <div className={"card-body"}>
                         <ul>
-                            {
-                                this.props.jobs.map(job=>(
-                                        <JobCard key={job.id}
-                                                 job={job}/>
-                                        // <JobCard widget={widget}
-                                        //         key={widget.id}
-                                        //         preview={this.props.preview}
-                                        //         maxLen={this.props.jobs.length}/>
-                                    )
-                                )
-                            }
+                            {this.renderJobs() }
                         </ul>
-                    </div>
-                    <div className={"card-footer"}>
-                        <i hidden={this.props.preview}
-                           className="fa fa-3x fa-plus-circle float-right"
-                           onClick={this.props.addWidget}>
-                        </i>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@ class JobList extends Component {
 
 
 const stateToPropsMapper = (state, props) => ({
-    jobs: state.jobs
+    jobs: state.JobReducer.jobs
 })
 
 const dispatchToPropsMatcher = dispatch => ({

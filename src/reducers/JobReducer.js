@@ -3,16 +3,17 @@ import * as constants from '../constants'
 const JobReducer = (state = {jobs:[]}, action) => {
 
     console.log("job reducer...")
-    console.log(action.jobs)
+    // console.log(action.jobs)
+    console.log(state.jobs)
     switch (action.type) {
         case constants.JOBS_CHANGED:
-            console.log("inside jobs changed")
-            return {
+            let newState = {
                 jobs:action.jobs
             }
-            break;
+            console.log(newState.jobs)
+            return newState
         default :
-            return state
+            return state;
     }
 };
 

@@ -15,11 +15,11 @@
     color: white;
 }
 
+.link-login:hover{
+    color: white;
+}
+
 .logo{
     height:100px;
     width: auto;
-}
-
-.link-login:hover{
-    color: white;
 }
