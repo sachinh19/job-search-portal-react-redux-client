@@ -49,7 +49,6 @@ export const changePassword = (dispatch, password) => (
 
 export const logOut = (dispatch) => {
 
-    // alert('logout 123')
     localStorage.removeItem('username');
     localStorage.removeItem('id');
 
@@ -63,25 +62,40 @@ export const logOut = (dispatch) => {
 }
 
 export const findAllJobs = (dispatch) => {
-    console.log("fetching all jobs...")
     fetch('http://localhost:8080/api/job')
-        .then((response)=>{
+        .then((response) => {
             var content = response.headers.get("content-type");
-            if(content!=null && content.startsWith('application/json'))
+            if (content != null && content.startsWith('application/json'))
                 return response.json();
             else
                 return null;
         })
-        .then(jobs=>{
-            console.log("inside")
-            console.log(jobs)
+        .then(jobs => {
             dispatch({
-                type:constants.JOBS_CHANGED,
-                jobs:jobs
-        })})
+                type: constants.JOBS_CHANGED,
+                jobs: jobs
+            })
+        })
 }
 
-export const getNewJobs =(dispatch) => {
-    console.log("getting new Jobs");
+export const getNewJobs = (dispatch) => {
     fetch('http://localhost:8080/api/getjobs')
+}
+
+export const updateJobList = (dispatch) => {
+    fetch('http://localhost:8080/api/job')
+        .then((response) => {
+            var content = response.headers.get("content-type");
+            if (content != null && content.startsWith('application/json'))
+                return response.json();
+            else
+                return null;
+        })
+        .then(jobs => {
+            dispatch({
+                type: constants.SHOW_JOBLIST,
+                jobs: jobs
+            })
+        })
+
 }
