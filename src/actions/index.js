@@ -85,7 +85,8 @@ export const searchTextChanged = (dispatch,searchText) => {
 }
 
 export const searchJobsByKeyword = (dispatch,searchText) =>  {
-    searchText = searchText.split(" ").join("++")
+    if(searchText.includes(" "))
+        searchText = searchText.split(" ").join("++")
     fetch('http://localhost:8080/api/searchJob/' + searchText)
         .then((response) => {
             console.log(response)
