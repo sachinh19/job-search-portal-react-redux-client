@@ -9,16 +9,16 @@ const Job = ({job}) => {
             <img className="card-img-top"
                  src=""/>
             <div className="card-body row">
-                <h5 className="card-title col-md-6">
-                   Job Title: {job.position}
-                </h5>
+                <h6 className="card-title col-md-7">
+                    {job.position}
+                </h6>
                 <p className="card-text col-md-3">
                     Posted Date : {job.postedDate && job.postedDate.split("T")[0]}
                 </p>
-                <a href="#"
-                   className="btn btn-primary col-md-3">
+                <button className={"btn btn-outline-primary my-2 my-sm-0 col-md-2"} type={"submit"}>
                     Job Details...
-                </a>
+                </button>
+
             </div>
             <div className="card-footer text-muted">
                 Last Updated : 2 days ago
