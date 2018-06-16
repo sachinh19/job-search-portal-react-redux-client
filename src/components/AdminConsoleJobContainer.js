@@ -12,7 +12,7 @@ class AdminConsoleJob extends Component {
     renderJobs() {
 
         let jobList = null;
-        if (this.props.jobs) {
+        if (this.props.jobs.length >0) {
             jobList = this.props.jobs.map(job=>{
                 return (
                     <tr key={job.id}>
@@ -23,14 +23,19 @@ class AdminConsoleJob extends Component {
 
             return jobList
         }else {
-            return(<h3>No Data</h3>)
+            return(<h3>Sorry, no data found</h3>)
         }
     }
 
     render() {
         return (
             <div className="wbdv-all-jobs">
-                <h1>Jobs</h1><br/>
+                <div className={"row"}>
+                <h1>Jobs</h1>
+                    <div className={"col-md-7"}></div>
+                    <button type="button" className={"col-md-2 btn btn-success"} onClick={()=>this.props.getNewJobs()}>Fetch New Jobs</button>
+                </div>
+                    <br/>
                 <div className="wbdv-jobs-list col-10 card">
                     <table className="table table-hover">
                         <tbody>
@@ -50,7 +55,8 @@ const stateToPropertyMapper = (state) => ({
 
 export const dispatcherToPropsMapper = (dispatch) => ({
     updateJobList: () => actions.updateJobList(dispatch),
-    deleteJob: (jobId) => actions.deleteJob(dispatch,jobId)
+    deleteJob: (jobId) => actions.deleteJob(dispatch,jobId),
+    getNewJobs: () => actions.getNewJobs(dispatch)
 })
 
 const AdminConsoleJobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleJob)

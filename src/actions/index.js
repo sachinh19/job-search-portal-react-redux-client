@@ -64,8 +64,7 @@ export const logOut = (dispatch) => {
 export const findAllJobs = (dispatch) => {
     fetch('http://localhost:8080/api/job')
         .then((response) => {
-            var content = response.headers.get("content-type");
-            if (content != null && content.startsWith('application/json'))
+            if (response.status == 200)
                 return response.json();
             else
                 return null;
@@ -80,13 +79,23 @@ export const findAllJobs = (dispatch) => {
 
 export const getNewJobs = (dispatch) => {
     fetch('http://localhost:8080/api/getjobs')
+        .then((response) => {
+            if (response.status == 200)
+                return response.json();
+            else
+                return null;
+        }).then(jobs => {
+        dispatch({
+            type: constants.SHOW_JOBLIST,
+            jobs: jobs
+        })
+    })
 }
 
 export const updateJobList = (dispatch) => {
     fetch('http://localhost:8080/api/job')
         .then((response) => {
-            var content = response.headers.get("content-type");
-            if (content != null && content.startsWith('application/json'))
+            if (response.status == 200)
                 return response.json();
             else
                 return null;
@@ -100,26 +109,26 @@ export const updateJobList = (dispatch) => {
 
 }
 
-export const deleteJob =(dispatch,jobId) => {
+export const deleteJob = (dispatch, jobId) => {
     var choice = window.confirm("Do you want to delete this job?")
-    if(choice == true){
-    fetch(('http://localhost:8080/api/job/JID').replace('JID',jobId),{
-     method:'delete'
-    }).then(dispatch({
-        type: constants.REMOVE_JOB,
-        jobId: jobId
-    }))
-        .then(dispatch({
-        type: constants.SUCCESS,
-        message:"Job Deleted Successfully"}))
+    if (choice == true) {
+        fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId), {
+            method: 'delete'
+        }).then(dispatch({
+            type: constants.REMOVE_JOB,
+            jobId: jobId
+        }))
+            .then(dispatch({
+                type: constants.SUCCESS,
+                message: "Job Deleted Successfully"
+            }))
     }
 }
 
 export const updateUserList = (dispatch) => {
     fetch('http://localhost:8080/api/person')
         .then((response) => {
-            var content = response.headers.get("content-type");
-            if (content != null && content.startsWith('application/json'))
+            if (response.status == 200)
                 return response.json();
             else
                 return null;
@@ -133,28 +142,27 @@ export const updateUserList = (dispatch) => {
 
 }
 
-export const deleteUser =(dispatch,userId) => {
+export const deleteUser = (dispatch, userId) => {
     var choice = window.confirm("Do you want to delete this user?")
-    if(choice == true){
-        fetch(('http://localhost:8080/api/person/PID').replace('PID',userId),{
-            method:'delete'
+    if (choice == true) {
+        fetch(('http://localhost:8080/api/person/PID').replace('PID', userId), {
+            method: 'delete'
         }).then(dispatch({
             type: constants.REMOVE_USER,
             userId: userId
         }))
             .then(dispatch({
                 type: constants.SUCCESS,
-                message:"User Deleted Successfully"}))
+                message: "User Deleted Successfully"
+            }))
     }
 }
-
 
 
 export const updateCompanyList = (dispatch) => {
     fetch('http://localhost:8080/api/company')
         .then((response) => {
-            var content = response.headers.get("content-type");
-            if (content != null && content.startsWith('application/json'))
+            if (response.status == 200)
                 return response.json();
             else
                 return null;
@@ -168,17 +176,18 @@ export const updateCompanyList = (dispatch) => {
 
 }
 
-export const deleteCompany =(dispatch,companyId) => {
+export const deleteCompany = (dispatch, companyId) => {
     var choice = window.confirm("Do you want to delete this company?")
-    if(choice == true){
-        fetch(('http://localhost:8080/api/company/CID').replace('CID',companyId),{
-            method:'delete'
+    if (choice == true) {
+        fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId), {
+            method: 'delete'
         }).then(dispatch({
             type: constants.REMOVE_COMPANY,
             companyId: companyId
         }))
             .then(dispatch({
                 type: constants.SUCCESS,
-                message:"User Deleted Successfully"}))
+                message: "User Deleted Successfully"
+            }))
     }
 }

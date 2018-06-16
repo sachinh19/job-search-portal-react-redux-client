@@ -46,7 +46,6 @@ const stateToPropertyMapper = (state) => ({})
 
 export const dispatcherToPropsMapper = (dispatch) => ({
 
-    getNewJobs: () => actions.getNewJobs(dispatch)
 })
 
 const AdminConsoleContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsole)
