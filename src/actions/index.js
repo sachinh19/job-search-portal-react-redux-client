@@ -77,7 +77,33 @@ export const findAllJobs = (dispatch) => {
         })
 }
 
+export const searchTextChanged = (dispatch,searchText) => {
+    dispatch({
+        type:constants.SEARCH_TEXT_CHANGED,
+        searchText: searchText
+    })
+}
+
+export const searchJobsByKeyword = (dispatch,searchText) =>  {
+    searchText = searchText.split(" ").join("++")
+    fetch('http://localhost:8080/api/searchJob/' + searchText)
+        .then((response) => {
+            console.log(response)
+            if (response.status == 200)
+                return response.json();
+            else
+                return null;
+        })
+        .then(jobs => {
+            dispatch({
+                type: constants.SEARCHED_JOBS_CHANGED,
+                jobs: jobs
+            })
+        })
+}
+
 export const getNewJobs = (dispatch) => {
+
     fetch('http://localhost:8080/api/getjobs')
         .then((response) => {
             if (response.status == 200)

@@ -38,15 +38,14 @@ class AdminConsole extends Component {
                             <Route path={"/console/companies"} component={AdminConsoleCompaniesContainer}/>
                         </div>
                     </div>
-                </div>        )
+                </div>
+        )
     }
 }
 
 const stateToPropertyMapper = (state) => ({})
 
-export const dispatcherToPropsMapper = (dispatch) => ({
-
-})
+export const dispatcherToPropsMapper = (dispatch) => ({})
 
 const AdminConsoleContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsole)
 

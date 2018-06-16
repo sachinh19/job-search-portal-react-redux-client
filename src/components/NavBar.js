@@ -22,6 +22,7 @@ class NavBar extends Component{
     }
 
     render(){
+        let newSearchText
         return(
             <header className={"container-fluid"}>
                     <nav className={"navbar navbar-expand-md navbar-dark fixed-top bg-dark row"}>
@@ -40,10 +41,16 @@ class NavBar extends Component{
                             <div className={"col-md-9"}>
                                 <input className={"form-control wbdv-search-bar input-lg"}
                                        type={"text"} placeholder={"Enter keywords to search Jobs"}
+                                       onChange={()=> this.props.searchTextChanged(newSearchText.value)}
+                                       ref={node => newSearchText=node}
                                        aria-label={"Search"}/>
                             </div>
                             <div className={"col-md-3"}>
-                                <button className={"btn btn-outline-success my-2 my-sm-0"} type={"submit"}>Find Jobs</button>
+                                <button className={"btn btn-outline-success my-2 my-sm-0"}
+                                        type={"button"}
+                                        onClick={()=>this.props.searchJobsByKeyword(this.props.searchText)}>
+                                    Find Jobs
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -56,18 +63,13 @@ class NavBar extends Component{
                         <div className={"navbar-collapse collapse"} id={"navbarCollapse"}>
                             <ul className={"navbar-nav mr-auto"}>
                                 <li className={"nav-item active"}>
-                                    {/*<a className={""}>*/}
-                                        <Link to={`/`} className={'link-login nav-link'}>
-                                            Home
-                                            <span className={"sr-only"}>(current)</span>
-                                        </Link>
-
-                                    {/*</a>*/}
+                                    <Link to={`/`} className={'link-login nav-link'}>
+                                        Home
+                                        <span className={"sr-only"}>(current)</span>
+                                    </Link>
                                 </li>
                                 <li className={"nav-item"}>
-                                    {/*<a className={""}>*/}
-                                        {this.renderLogin()}
-                                    {/*</a>*/}
+                                    {this.renderLogin()}
                                 </li>
                             </ul>
                         </div>
@@ -80,12 +82,14 @@ class NavBar extends Component{
 }
 
 const stateToPropertyMapper = (state) => ({
-
-    userId:localStorage.getItem('id')
+    userId:localStorage.getItem('id'),
+    searchText: state.JobsReducer.searchText
 })
 
 export const dispatcherToPropsMapper = (dispatch) => ({
-    logOut: () => actions.logOut(dispatch)
+    searchTextChanged: (newText)=> {actions.searchTextChanged(dispatch,newText)},
+    logOut: () => actions.logOut(dispatch),
+    searchJobsByKeyword: (searchText) => {actions.searchJobsByKeyword(dispatch, searchText)}
 })
 
 const NavBarContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(NavBar)

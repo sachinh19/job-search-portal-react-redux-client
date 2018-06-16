@@ -15,6 +15,9 @@ const Job = ({job}) => {
                 <p className="card-text col-md-3">
                     Posted Date : {job.postedDate && job.postedDate.split("T")[0]}
                 </p>
+                {/*<div style={{wordWrap: "breakWord"}}>*/}
+                    {/*Keywords: {job.keywords}*/}
+                {/*</div>*/}
                 <button className={"btn btn-outline-primary my-2 my-sm-0 col-md-2"} type={"submit"}>
                     Job Details...
                 </button>

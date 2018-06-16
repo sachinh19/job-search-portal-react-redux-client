@@ -28,7 +28,6 @@ class JobList extends Component {
       let jobs = null;
       if(this.props.jobs){
         jobs = this.props.jobs.map(job=>{
-            console.log("card")
             return (
                 <JobCard key={job.id}
                          job={job}/>
