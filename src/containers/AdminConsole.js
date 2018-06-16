@@ -16,7 +16,7 @@ class AdminConsole extends Component {
     render() {
         return (
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-md-3">
                         <div className="container wbdv-options-container">
                             <ul className="list-group">
                                 <li className="list-group-item wbdv-options">
@@ -31,7 +31,7 @@ class AdminConsole extends Component {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-9">
+                    <div className="col-md-9">
                         <div className="wbdv-option-list-container">
                             <Route path={"/console/jobs"} component={AdminConsoleJobContainer}/>
                             <Route path={"/console/users"} component={AdminConsoleUsersContainer}/>
