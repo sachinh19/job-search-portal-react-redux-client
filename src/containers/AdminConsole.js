@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
+import {Route,Link} from 'react-router-dom'
 import * as actions from "../actions";
 import '../styles/AdminConsole.css'
 import AdminConsoleJobContainer from '../components/AdminConsoleJobContainer'
@@ -15,7 +15,6 @@ class AdminConsole extends Component {
 
     render() {
         return (
-            <Router>
                 <div className="row">
                     <div className="col-3">
                         <div className="container wbdv-options-container">
@@ -44,9 +43,7 @@ class AdminConsole extends Component {
                             <Route path={"/console/companies"} component={AdminConsoleCompaniesContainer}/>
                         </div>
                     </div>
-                </div>
-            </Router>
-        )
+                </div>        )
     }
 }
 

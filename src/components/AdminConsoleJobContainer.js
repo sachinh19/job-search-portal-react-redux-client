@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import * as actions from "../actions";
 import {Link} from 'react-router-dom'
 
-
 class AdminConsoleJob extends Component {
     constructor(props) {
         super(props)
@@ -16,13 +15,15 @@ class AdminConsoleJob extends Component {
         if (this.props.jobs) {
             jobList = this.props.jobs.map(job=>{
                 return (
-                    <tr>
+                    <tr key={job.id}>
                         <td><Link to={`/job/${job.id}`}>{job.position}</Link></td></tr>
                 )}
             )
 
             return jobList
-        }else {return(<h3>No Data</h3>)}
+        }else {
+            return(<h3>No Data</h3>)
+        }
     }
 
     render() {
@@ -31,8 +32,11 @@ class AdminConsoleJob extends Component {
                 <h1>Jobs</h1><br/>
                 <div className="wbdv-jobs-list col-10 card">
                     <table className="table table-hover">
+                        <tbody>
                         {this.renderJobs()}
+                        </tbody>
                     </table>
+
                 </div>
             </div>
         )

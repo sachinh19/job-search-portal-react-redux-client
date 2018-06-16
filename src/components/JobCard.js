@@ -1,26 +1,23 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import '../styles/JobCard.css'
 
 const Job = ({job}) => {
     let selectElement
     return (
-        <div className="card"
-             styles={{width: '18rem'}}>
+        <div className="card job-card">
             <img className="card-img-top"
                  src=""/>
             <div className="card-body row">
-                <h5 className="card-title col-md-4">
-                    {job.position}
+                <h5 className="card-title col-md-6">
+                   Job Title: {job.position}
                 </h5>
-                <span className={"col-md-4"}>
-
-                </span>
-                <p className="card-text col-md-2">
-                    {job.postedDate && job.postedDate.split("T")[0]}
+                <p className="card-text col-md-3">
+                    Posted Date : {job.postedDate && job.postedDate.split("T")[0]}
                 </p>
                 <a href="#"
-                   className="btn btn-primary col-md-2">
-                    Click for more details...
+                   className="btn btn-primary col-md-3">
+                    Job Details...
                 </a>
             </div>
             <div className="card-footer text-muted">

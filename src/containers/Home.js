@@ -11,8 +11,11 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
-                <div>
+            <div className={"row"}>
+                <div className={"col-md-3"}>
+
+                </div>
+                <div className={"col-md-9"}>
                     <JobListContainer/>
                 </div>
             </div>
@@ -32,6 +35,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
 });
 
 
-const HomeContainer = connect()(Home)
+const HomeContainer = connect(stateToPropertyMapper,dispatcherToPropsMapper)(Home)
 
 export default HomeContainer
