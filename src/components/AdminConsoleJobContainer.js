@@ -16,8 +16,16 @@ class AdminConsoleJob extends Component {
             jobList = this.props.jobs.map(job=>{
                 return (
                     <tr key={job.id}>
-                        <td><Link to={`/job/${job.id}`}>{job.position}</Link></td>
-                        <td><button type="button" className="btn btn-danger" onClick={()=>{this.props.deleteJob(job.id)}}><i className="fa fa-trash"></i></button></td></tr>
+                        <td>
+                            <Link to={`/job/${job.id}`}>{job.position}</Link>
+                        </td>
+                        <td>
+                            <button type="button" className="btn btn-danger"
+                                    onClick={()=>{this.props.deleteJob(job.id)}}>
+                            <i className="fa fa-trash"></i>
+                        </button>
+                        </td>
+                    </tr>
                 )}
             )
 
@@ -32,8 +40,11 @@ class AdminConsoleJob extends Component {
             <div className="wbdv-all-jobs">
                 <div className={"row"}>
                 <h1>Jobs</h1>
-                    <div className={"col-md-7"}></div>
-                    <button type="button" className={"col-md-2 btn btn-success"} onClick={()=>this.props.getNewJobs()}>Fetch New Jobs</button>
+                    <div className={"col-md-6"}></div>
+                    <button type="button" className={"col-md-2 btn btn-success"}
+                            onClick={()=>this.props.getNewJobs()}>
+                        Fetch New Jobs
+                    </button>
                 </div>
                     <br/>
                 <div className="wbdv-jobs-list col-10 card">

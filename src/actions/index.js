@@ -92,6 +92,21 @@ export const getNewJobs = (dispatch) => {
     })
 }
 
+export const getNewCompanies = (dispatch) => {
+    fetch('http://localhost:8080/api/getcompanies')
+        .then((response) => {
+            if (response.status == 200)
+                return response.json();
+            else
+                return null;
+        }).then(companies => {
+        dispatch({
+            type: constants.SHOW_COMPANYLIST,
+            companies: companies
+        })
+    })
+}
+
 export const updateJobList = (dispatch) => {
     fetch('http://localhost:8080/api/job')
         .then((response) => {
