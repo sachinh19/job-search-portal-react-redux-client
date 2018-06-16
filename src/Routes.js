@@ -12,7 +12,7 @@ import './styles/Routes.css'
 export default class Routes extends Component {
     render() {
         return (
-            <div className={"container"}>
+            <div className={"container-fluid"}>
                 <NavBarContainer/>
                 <div className={"wbdv-body"}>
                     <Route exact path={"/"} component={HomeContainer}/>
