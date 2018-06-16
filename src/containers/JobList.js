@@ -84,8 +84,8 @@ class JobList extends Component {
 }
 
 
-const stateToPropsMapper = (state, props) => ({
-    jobs: state.JobReducer.jobs
+const stateToPropsMapper = (state) => ({
+    jobs: state.JobsReducer.jobs
 })
 
 const dispatchToPropsMatcher = dispatch => ({

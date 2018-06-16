@@ -12,7 +12,7 @@ class AdminConsoleUser extends Component {
     renderUsers() {
 
         let userList = null;
-        if (this.props.users) {
+        if (this.props.users != null && this.props.users.length >0) {
             userList = this.props.users.map(user=>{
                 return (
                     <tr key={user.id}>
@@ -34,6 +34,11 @@ class AdminConsoleUser extends Component {
                 <h1>Users</h1><br/>
                 <div className="wbdv-users-list col-10 card">
                     <table className="table table-hover">
+                        <thead>
+                        <th>Username</th>
+                        <th>User Type</th>
+                        <th></th>
+                        </thead>
                         <tbody>
                         {this.renderUsers()}
                         </tbody>

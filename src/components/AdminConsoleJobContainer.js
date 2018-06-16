@@ -12,7 +12,7 @@ class AdminConsoleJob extends Component {
     renderJobs() {
 
         let jobList = null;
-        if (this.props.jobs.length >0) {
+        if (this.props.jobs != null && this.props.jobs.length >0) {
             jobList = this.props.jobs.map(job=>{
                 return (
                     <tr key={job.id}>

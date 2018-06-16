@@ -206,3 +206,23 @@ export const deleteCompany = (dispatch, companyId) => {
             }))
     }
 }
+
+
+export const getJobDetails = (dispatch, jobId) => {
+    fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId))
+        .then((response) => {
+            if (response.status == 200)
+                return response.json();
+            else
+                return null;
+        }).then(job =>
+        dispatch({
+            type: constants.SET_JOB_DETAILS,
+            job: job,
+
+        })
+    )
+}
+
+
+

@@ -12,7 +12,7 @@ class AdminConsoleCompanies extends Component {
     renderCompanies() {
 
         let companyList = null;
-        if (this.props.companies.length > 0) {
+        if (this.props.companies != null && this.props.companies.length > 0) {
             companyList = this.props.companies.map(company => {
                     return (
                         <tr key={company.id}>
