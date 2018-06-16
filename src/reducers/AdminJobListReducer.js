@@ -7,6 +7,10 @@ const AdminJobListReducer = (state = {jobs:[]}, action) => {
             return{
                 jobs:action.jobs,
             };
+        case constants.REMOVE_JOB:
+            return{
+                jobs:state.jobs.filter(job=>job.id !== action.jobId),
+            };
         default :
             return state;
     }

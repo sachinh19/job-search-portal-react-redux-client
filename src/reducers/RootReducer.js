@@ -4,6 +4,8 @@ import UserReducer from './UserReducer'
 import AlertReducer from './AlertReducer'
 import JobReducer from './JobReducer'
 import AdminJobListReducer from "./AdminJobListReducer";
+import AdminCompanyListReducer from "./AdminCompanyListReducer";
+import AdminUserListReducer from "./AdminUserListReducer";
 
 
 const RootReducer = combineReducers({
@@ -11,7 +13,9 @@ const RootReducer = combineReducers({
     LoginReducer,
     UserReducer,
     AlertReducer,
-    AdminJobListReducer
+    AdminJobListReducer,
+    AdminCompanyListReducer,
+    AdminUserListReducer
 })
 
 export default RootReducer;

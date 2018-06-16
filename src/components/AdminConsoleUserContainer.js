@@ -1,23 +1,59 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import * as actions from "../actions/index";
+import * as actions from "../actions";
+import {Link} from 'react-router-dom'
 
 class AdminConsoleUser extends Component {
     constructor(props) {
         super(props)
+        this.props.updateUserList();
     }
 
-    render(){
-        return(<h1>Hello User</h1>)
+    renderUsers() {
+
+        let userList = null;
+        if (this.props.users) {
+            userList = this.props.users.map(user=>{
+                return (
+                    <tr key={user.id}>
+                        <td><Link to={`/user/${user.id}`}>{user.username}</Link></td>
+                        <td>{user.roleType}</td>
+                        <td><button type="button" className="btn btn-danger" onClick={()=>{this.props.deleteUser(user.id)}}><i className="fa fa-trash"></i></button></td></tr>
+                )}
+            )
+
+            return userList
+        }else {
+            return(<h3>No Data</h3>)
+        }
+    }
+
+    render() {
+        return (
+            <div className="wbdv-all-users">
+                <h1>Users</h1><br/>
+                <div className="wbdv-users-list col-10 card">
+                    <table className="table table-hover">
+                        <tbody>
+                        {this.renderUsers()}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        )
     }
 }
 
-const stateToPropertyMapper = (state) => ({})
-
-export const dispatcherToPropsMapper = (dispatch) => ({
-
+const stateToPropertyMapper = (state) => ({
+    users: state.AdminUserListReducer.users
 })
 
-const AdminConsoleUsersContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleUser)
+export const dispatcherToPropsMapper = (dispatch) => ({
+    updateUserList: () => actions.updateUserList(dispatch),
+    deleteUser: (userId) => actions.deleteUser(dispatch,userId)
+})
 
-export default AdminConsoleUsersContainer
+const AdminConsoleUserContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleUser)
+
+export default AdminConsoleUserContainer

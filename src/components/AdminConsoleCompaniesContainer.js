@@ -1,21 +1,54 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions/index";
+import {Link} from 'react-router-dom'
 
 class AdminConsoleCompanies extends Component {
     constructor(props) {
         super(props)
+        this.props.updateCompanyList();
+    }
+
+    renderCompanies() {
+
+        let companyList = null;
+        if (this.props.companies) {
+            companyList = this.props.companies.map(company=>{
+                return (
+                    <tr key={company.id}>
+                        <td><Link to={`/company/${company.id}`}>{company.name}</Link></td>
+                        <td><button type="button" className="btn btn-danger" onClick={()=>{this.props.deleteCompany(company.id)}}><i className="fa fa-trash"></i></button></td></tr>
+                )}
+            )
+
+            return companyList
+        }else {
+            return(<h3>No Data</h3>)
+        }
     }
 
     render(){
-        return(<h1>Hello companies</h1>)
+        return(<div className="wbdv-all-companies">
+            <h1>Companies</h1><br/>
+            <div className="wbdv-companies-list col-10 card">
+                <table className="table table-hover">
+                    <tbody>
+                    {this.renderCompanies()}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>)
     }
 }
 
-const stateToPropertyMapper = (state) => ({})
+const stateToPropertyMapper = (state) => ({
+    companies: state.AdminCompanyListReducer.companies
+})
 
 export const dispatcherToPropsMapper = (dispatch) => ({
-
+    updateCompanyList: () => actions.updateCompanyList(dispatch),
+    deleteCompany: (companyId) => actions.deleteCompany(dispatch,companyId)
 })
 
 const AdminConsoleCompaniesContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleCompanies)
