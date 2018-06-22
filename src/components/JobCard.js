@@ -11,17 +11,17 @@ const Job = ({job}) => {
                 <h6 className="card-title col-md-7">
                     {job.position}
                 </h6>
-                <p className="card-text col-md-3">
-                    Posted Date : {job.postedDate && job.postedDate.split("T")[0]}
-                </p>
+                {/*<p className="card-text col-md-3">*/}
+                    {/*Posted Date : {job.postedDate && job.postedDate.split("T")[0]}*/}
+                {/*</p>*/}
                 <button className={"btn btn-outline-primary my-2 my-sm-0 col-md-2"} type={"submit"}>
                     Job Details...
                 </button>
 
             </div>
-            <div className="card-footer text-muted">
-                Last Updated : 2 days ago
-            </div>
+            {/*<div className="card-footer text-muted">*/}
+                {/*Last Updated : 2 days ago*/}
+            {/*</div>*/}
         </div>
     )
 }

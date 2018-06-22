@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
 import JobListContainer from "../containers/JobList"
+import '../styles/Home.css'
 
 class Home extends Component {
 
@@ -11,12 +12,21 @@ class Home extends Component {
 
     render() {
         return (
-            <div className={"row"}>
-                <div className={"col-md-2"}>
-
+            <div>
+                <div className={"row"}>
+                    <img class="wbdv-home-page-image"
+                        src={"http://manpowerillinois.com/wp-content/uploads/2016/03/MP_UnderpageHeader_People-1500x300.jpg"}/>
                 </div>
-                <div className={"col-md-9"}>
-                    <JobListContainer/>
+                <div className={"row wbdv-job-row"}>
+                    <div className={"col-md-2"}>
+
+                    </div>
+                    <div className={"col-md-8"}>
+                        <JobListContainer/>
+                    </div>
+                    <div className={"col-md-2"}>
+
+                    </div>
                 </div>
             </div>
         )
