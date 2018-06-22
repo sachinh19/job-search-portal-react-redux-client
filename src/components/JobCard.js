@@ -3,11 +3,10 @@ import {connect} from 'react-redux'
 import '../styles/JobCard.css'
 
 const Job = ({job}) => {
-    let selectElement
     return (
         <div className="card job-card">
             <img className="card-img-top"
-                 src=""/>
+                 src="" alt="Card image"/>
             <div className="card-body row">
                 <h6 className="card-title col-md-7">
                     {job.position}
@@ -15,9 +14,6 @@ const Job = ({job}) => {
                 <p className="card-text col-md-3">
                     Posted Date : {job.postedDate && job.postedDate.split("T")[0]}
                 </p>
-                {/*<div style={{wordWrap: "breakWord"}}>*/}
-                    {/*Keywords: {job.keywords}*/}
-                {/*</div>*/}
                 <button className={"btn btn-outline-primary my-2 my-sm-0 col-md-2"} type={"submit"}>
                     Job Details...
                 </button>

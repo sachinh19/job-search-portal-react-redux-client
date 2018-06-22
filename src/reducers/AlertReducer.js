@@ -1,5 +1,3 @@
-import * as constants from '../constants'
-
 const AlertReducer = (state = null, action) => {
 
     switch (action.type) {
