@@ -59,6 +59,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     deleteUser: (userId) => actions.deleteUser(dispatch,userId)
 })
 
-const AdminConsoleUserContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleUser)
+const AdminConsoleUserComponent = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleUser)
 
-export default AdminConsoleUserContainer
+export default AdminConsoleUserComponent

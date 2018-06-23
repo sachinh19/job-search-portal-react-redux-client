@@ -70,6 +70,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     getNewJobs: () => actions.getNewJobs(dispatch)
 })
 
-const AdminConsoleJobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleJob)
+const AdminConsoleJobComponent = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleJob)
 
-export default AdminConsoleJobContainer
+export default AdminConsoleJobComponent
