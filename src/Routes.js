@@ -8,7 +8,7 @@ import UserContainer from './containers/User'
 import NavBarContainer from './components/NavBar'
 import {Route} from 'react-router-dom'
 import FooterContainer from './components/Footer'
-import './styles/Routes.css'
+import './Routes.css'
 
 
 export default class Routes extends Component {
