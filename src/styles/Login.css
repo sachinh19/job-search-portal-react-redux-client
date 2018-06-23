@@ -1,3 +1,30 @@
 .container-login{
-    padding-top: 100px;
+    padding-top: 56px;
+    padding-bottom:18%;
+    background-image: url("../images/loginBg.jpg");
+    height:100%;
+}
+
+/*.wbdv-body {*/
+    /*padding-top: 56px;*/
+    /*background-image: url("../images/loginBg.jpg");*/
+/*}*/
+
+.wbdv-login-container {
+    width: 600px !important;
+    padding-top: 4%;
+    background-color: rgba(245, 245, 245, 1);
+    opacity:0.9;
+}
+
+.wbdv-links {
+    padding-bottom: 10px;
+}
+
+#errorMessage{
+    display: none;
+}
+
+#successMessage {
+    display: none;
 }
