@@ -13,7 +13,6 @@ export const doLogin = (dispatch, username, password) => {
             'content-type': 'application/json'
         }
     }).then(response => {
-
         if (response.status === 200) {
             return response.json()
         } else {
@@ -32,19 +31,86 @@ export const doLogin = (dispatch, username, password) => {
     })
 };
 
+export const doRegister = (dispatch, username, password,password2, role) => {
+
+    if(role === 'jobseeker') {
+        fetch('http://localhost:8080/api/register/jobseeker', {
+            method: 'post',
+            body: JSON.stringify({
+                'username': username,
+                'password': password
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            })
+    } else if (role === 'employer') {
+        fetch('http://localhost:8080/api/register/employer', {
+            method: 'post',
+            body: JSON.stringify({
+                'username': username,
+                'password': password
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            })
+    }
+};
+
 export const changeUsername = (dispatch, username) => (
     dispatch({
-        type: constants.LOGIN_USERNAME,
+        type: constants.CHANGE_LOGIN_USERNAME,
         username: username
     })
 )
 
 export const changePassword = (dispatch, password) => (
     dispatch({
-        type: constants.LOGIN_PASSWORD,
+        type: constants.CHANGE_LOGIN_PASSWORD,
         password: password
     })
 )
+
+export const changeRegisterUsername = (dispatch, username) => (
+    dispatch({
+        type: constants.CHANGE_REGISTER_USERNAME,
+        username: username
+    })
+)
+
+export const changeRegisterPassword = (dispatch, password) => (
+    dispatch({
+        type: constants.CHANGE_REGISTER_PASSWORD,
+        password: password
+    })
+)
+
+export const changeRegisterPassword2 = (dispatch, password2) => (
+    dispatch({
+        type: constants.CHANGE_REGISTER_PASSWORD2,
+        password2: password2
+    })
+)
+
+export const changeRegisterRole = (dispatch,role) => {
+    dispatch({
+        type: constants.CHANGE_REGISTER_ROLE,
+        role: role
+    })
+}
 
 
 export const logOut = (dispatch) => {
@@ -57,7 +123,7 @@ export const logOut = (dispatch) => {
     })
 
     dispatch({
-        type: constants.RESET_LOGIN_DETAILS,
+        type: constants.RESET_LOGIN_CREDENTIALS,
     })
 }
 

@@ -7,11 +7,12 @@ import JobReducer from './JobReducer'
 import AdminJobListReducer from "./AdminJobListReducer";
 import AdminCompanyListReducer from "./AdminCompanyListReducer";
 import AdminUserListReducer from "./AdminUserListReducer";
-
+import RegisterReducer from './RegisterReducer'
 
 const RootReducer = combineReducers({
     JobsReducer,
     LoginReducer,
+    RegisterReducer,
     UserReducer,
     AlertReducer,
     AdminJobListReducer,

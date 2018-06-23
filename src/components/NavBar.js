@@ -14,11 +14,21 @@ class NavBar extends Component{
         if(this.props.userId !== null){
             return <button onClick={this.props.logOut}>LogOut</button>
         } else {
-            return <Link to={`/login`} className={'link-login nav-link'}>
+            return <Link to={`/login`} className={'wbdv-link nav-link'}>
                         Login
                         <span className={"sr-only"}>(current)</span>
                     </Link>
         }
+    }
+
+    renderRegister() {
+        if(this.props.userId == null){
+            return <Link to={`/register`} className={'wbdv-link nav-link'}>
+                Register
+                <span className={"sr-only"}>(current)</span>
+            </Link>
+        }
+        return null;
     }
 
     render(){
@@ -28,12 +38,9 @@ class NavBar extends Component{
                     <nav className={"navbar navbar-expand-md navbar-dark fixed-top bg-dark row"}>
                     <div className={"col-md-2"}>
                         <a className={"navbar-brand"} href={"/"}>
-                            {/*<span className={"container-fluid"}>*/}
-                                {/*<img className={"logo"} src={'https://thumbs.dreamstime.com/z/job-search-logo-21089305.jpg'}/>*/}
-                            {/*</span>*/}
-                            {/*<span>*/}
+                            <span>
                                 Job Search Portal
-                            {/*</span>*/}
+                            </span>
                         </a>
                     </div>
                     <div className={"col-md-6"}>
@@ -46,30 +53,30 @@ class NavBar extends Component{
                                        aria-label={"Search"}/>
                             </div>
                             <div className={"col-md-3"}>
-                                <button className={"btn btn-outline-success my-2 my-sm-0"}
+                                <button className={"btn btn-outline-success"}
                                         type={"button"}
                                         onClick={()=>this.props.searchJobsByKeyword(this.props.searchText)}>
+                                    <span className={"text-center"}>
                                     Find Jobs
+                                    </span>
                                 </button>
                             </div>
                         </form>
                     </div>
                     <div className={"col-md-4"}>
-                        <button className={"navbar-toggler collapsed"} type={"button"} data-toggle={"collapse"}
-                                data-target={"#navbarCollapse"} aria-controls={"navbarCollapse"} aria-expanded={"false"}
-                                aria-label={"Toggle navigation"}>
-                            <span className={"navbar-toggler-icon"}></span>
-                        </button>
-                        <div className={"navbar-collapse collapse"} id={"navbarCollapse"}>
-                            <ul className={"navbar-nav mr-auto"}>
-                                <li className={"nav-item active"}>
-                                    <Link to={`/`} className={'link-login nav-link'}>
+                        <div className={"navbar"} id={"navbarCollapse"}>
+                            <ul className={"navbar-nav"}>
+                                <li className={"nav-item"}>
+                                    <Link to={`/`} className={'wbdv-link nav-link'}>
                                         Home
                                         <span className={"sr-only"}>(current)</span>
                                     </Link>
                                 </li>
                                 <li className={"nav-item"}>
                                     {this.renderLogin()}
+                                </li>
+                                <li className={"nav-item"}>
+                                    {this.renderRegister()}
                                 </li>
                             </ul>
                         </div>

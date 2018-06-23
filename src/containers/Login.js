@@ -16,7 +16,7 @@ class Login extends Component {
 
         return (
             <div className="container-login container-fluid">
-                <div className={"card container-fluid wbdv-login-container"}>
+                <div className={"card container wbdv-login-container"}>
                     <form>
                         <span className={"row"}>
                             <div id="errorMessage" className="alert alert-danger" role="alert">sdsd</div>
@@ -62,9 +62,8 @@ class Login extends Component {
                                     <div className="col-6">
                                         <a href="#">Forgot Password?</a>
                                     </div>
-                                    <div className="col-6">
-                                        <a href="#" className="float-right">Sign up</a>
-                                    </div>
+                                    <span className="col-6">
+                                    </span>
                                 </div>
                             </div>
                         </div>
