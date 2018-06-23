@@ -17,7 +17,7 @@ class Job extends Component {
     }
 
     renderCompany() {
-        if (this.props.job.company !== undefined && this.props.job.company.length > 0) {
+        if (this.props.job.company !== undefined) {
             return (<div className="card">
                 <div className="card-body">
                     <h5 className={"card-title"}>Company</h5>
@@ -32,7 +32,10 @@ class Job extends Component {
 
     renderQueries() {
         if (this.props.queries !== undefined && this.props.queries.length > 0) {
-            return (<ul className={"list-group"}>
+            return (
+                <div className={"wbdv-"}>
+                <h4>Queries</h4>
+                <ul className={"list-group"}>
                 {this.props.queries.map(query => {
                     return (<li className={"list-group-item"} key={query.id}>
                             <div className={"wdbv-status-options"}>
@@ -53,7 +56,8 @@ class Job extends Component {
                         </li>
                     )
                 })}
-            </ul>)
+            </ul>
+                </div>)
         }
     }
 
