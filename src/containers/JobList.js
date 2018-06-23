@@ -45,38 +45,53 @@ class JobList extends Component {
         this.props.jobs.sort(compare)
         return (
             <div>
-                <div className={"card"}>
-                    <div className={"card-header"}>
-                        <div className={"row"}>
-                            <div className={"col-sm-9"}>
-                                <h2>Jobs Count: {this.props.jobs.length}</h2>
-                            </div>
-                            {/*<div className={"col-sm-2"}>*/}
-                                {/*<button type={"button"}*/}
-                                        {/*hidden={this.props.preview}*/}
-                                        {/*onClick={this.props.saveWidget}*/}
-                                        {/*className={"btn btn-success float-right"}>*/}
-                                    {/*Save*/}
-                                {/*</button>*/}
+                <table className="table table-hover">
+                    <thead className={"bg-light"}>
+                        <tr>
+                            <th>
+                                We have {this.props.jobs.length} jobs for you.
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderJobs()}
+                    </tbody>
+                </table>
+                {/*<div className={"card"}>*/}
+                    {/*<div className={"card-header"}>*/}
+                        {/*<div className={"row"}>*/}
+                            {/*<div className={"col-sm-9"}>*/}
+                                {/*<h2>Jobs Count: {this.props.jobs.length}</h2>*/}
                             {/*</div>*/}
-                            {/*<div className={"col-sm-1"}>*/}
-                                {/*<i hidden={!this.props.preview}*/}
-                                   {/*className={"fa fa-2x fa-toggle-on float-right"}*/}
-                                   {/*onClick={this.props.previewWidget}>*/}
-                                {/*</i>*/}
-                                {/*<i hidden={this.props.preview}*/}
-                                   {/*className={"fa fa-2x fa-toggle-off float-right"}*/}
-                                   {/*onClick={this.props.previewWidget}>*/}
-                                {/*</i>*/}
-                            {/*</div>*/}
-                        </div>
-                    </div>
-                    <div className={"card-body"}>
-                        <ul>
-                            {this.renderJobs() }
-                        </ul>
-                    </div>
-                </div>
+                            {/*/!*<div className={"col-sm-2"}>*!/*/}
+                                {/*/!*<button type={"button"}*!/*/}
+                                        {/*/!*hidden={this.props.preview}*!/*/}
+                                        {/*/!*onClick={this.props.saveWidget}*!/*/}
+                                        {/*/!*className={"btn btn-success float-right"}>*!/*/}
+                                    {/*/!*Save*!/*/}
+                                {/*/!*</button>*!/*/}
+                            {/*/!*</div>*!/*/}
+                            {/*/!*<div className={"col-sm-1"}>*!/*/}
+                                {/*/!*<i hidden={!this.props.preview}*!/*/}
+                                   {/*/!*className={"fa fa-2x fa-toggle-on float-right"}*!/*/}
+                                   {/*/!*onClick={this.props.previewWidget}>*!/*/}
+                                {/*/!*</i>*!/*/}
+                                {/*/!*<i hidden={this.props.preview}*!/*/}
+                                   {/*/!*className={"fa fa-2x fa-toggle-off float-right"}*!/*/}
+                                   {/*/!*onClick={this.props.previewWidget}>*!/*/}
+                                {/*/!*</i>*!/*/}
+                            {/*/!*</div>*!/*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                    {/*<div className={"card-body"}>*/}
+                        {/*<ul>*/}
+                            {/*{this.renderJobs() }*/}
+                        {/*</ul>*/}
+                    {/*</div>*/}
+                {/*</div>*/}
             </div>
         )
     }

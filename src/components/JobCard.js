@@ -4,25 +4,18 @@ import '../styles/JobCard.css'
 
 const Job = ({job}) => {
     return (
-        <div className="card job-card">
-            <img className="card-img-top"
-                 src="" alt="Card image"/>
-            <div className="card-body row">
-                <h6 className="card-title col-md-7">
+        <tr key={job.id}>
+            <td className={"row"}>
+                <img className="col-md-1 card-img-top"
+                     src={"https://www.shareicon.net/data/128x128/2015/12/26/693214_application_512x512.png"} alt="Card image"/>
+                <span className={"col-md-9"}>
                     {job.position}
-                </h6>
-                {/*<p className="card-text col-md-3">*/}
-                    {/*Posted Date : {job.postedDate && job.postedDate.split("T")[0]}*/}
-                {/*</p>*/}
+                </span>
                 <button className={"btn btn-outline-primary my-2 my-sm-0 col-md-2"} type={"submit"}>
                     Job Details...
                 </button>
-
-            </div>
-            {/*<div className="card-footer text-muted">*/}
-                {/*Last Updated : 2 days ago*/}
-            {/*</div>*/}
-        </div>
+            </td>
+        </tr>
     )
 }
 

@@ -14,17 +14,18 @@ class Home extends Component {
         return (
             <div>
                 <div className={"row"}>
-                    <img class="wbdv-home-page-image"
-                        src={"http://manpowerillinois.com/wp-content/uploads/2016/03/MP_UnderpageHeader_People-1500x300.jpg"}/>
+                    <img className="wbdv-home-page-image"
+                        // src={"http://www.eximotechnologies.com/images/inner-slider.jpg"}/>
+                        src={"http://www.eximotechnologies.com/images/inner-slider.jpg"}/>
                 </div>
                 <div className={"row wbdv-job-row"}>
-                    <div className={"col-md-2"}>
+                    <div className={"col-md-3"}>
 
                     </div>
-                    <div className={"col-md-8"}>
+                    <div className={"col-md-6"}>
                         <JobListContainer/>
                     </div>
-                    <div className={"col-md-2"}>
+                    <div className={"col-md-3"}>
 
                     </div>
                 </div>
