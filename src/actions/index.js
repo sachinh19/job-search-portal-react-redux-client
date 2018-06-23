@@ -277,7 +277,16 @@ export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
         headers: {
             'content-type': 'application/json'
         }
-    }).then(() => {getQueries(dispatch,jobId)})
+    }).then((response) => {
+        if (response.status === 200)
+            return response.json();
+        else
+            return null;
+    }).then((query) => {dispatch({
+        type: constants.UPDATE_QUERIES,
+        queryId: queryId,
+        query: query
+    })})
 }
 
 
