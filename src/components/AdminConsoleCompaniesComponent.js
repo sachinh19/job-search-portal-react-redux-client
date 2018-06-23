@@ -70,6 +70,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     getNewCompanies: () => actions.getNewCompanies(dispatch)
 })
 
-const AdminConsoleCompaniesContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleCompanies)
+const AdminConsoleCompaniesComponent = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleCompanies)
 
-export default AdminConsoleCompaniesContainer
+export default AdminConsoleCompaniesComponent

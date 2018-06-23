@@ -6,6 +6,9 @@
     border-radius: 5px;
     background-color: #efefef !important;
 }
+.wbdv-options:hover{
+    background-color: #28a745;
+}
 
 .wbdv-options-container{
     padding-top: 56px;
@@ -21,3 +24,5 @@
 .wbdv-options-item:hover{
     color: black;
 }
+
+

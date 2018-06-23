@@ -52,7 +52,6 @@ class JobList extends Component {
                                 We have {this.props.jobs.length} jobs for you.
                             </th>
                             <th>
-
                             </th>
                         </tr>
                     </thead>

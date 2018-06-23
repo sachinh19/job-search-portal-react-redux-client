@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {Route,Link} from 'react-router-dom'
 import * as actions from "../actions";
 import '../styles/AdminConsole.css'
-import AdminConsoleJobContainer from '../components/AdminConsoleJobContainer'
-import AdminConsoleCompaniesContainer from '../components/AdminConsoleCompaniesContainer'
-import AdminConsoleUsersContainer from '../components/AdminConsoleUserContainer'
+import AdminConsoleJobComponent from '../components/AdminConsoleJobComponent'
+import AdminConsoleCompaniesComponent from '../components/AdminConsoleCompaniesComponent'
+import AdminConsoleUsersContainer from '../components/AdminConsoleUserComponent'
 
 
 class AdminConsole extends Component {
@@ -33,9 +33,9 @@ class AdminConsole extends Component {
                     </div>
                     <div className="col-md-9">
                         <div className="wbdv-option-list-container">
-                            <Route path={"/console/jobs"} component={AdminConsoleJobContainer}/>
+                            <Route path={"/console/jobs"} component={AdminConsoleJobComponent}/>
                             <Route path={"/console/users"} component={AdminConsoleUsersContainer}/>
-                            <Route path={"/console/companies"} component={AdminConsoleCompaniesContainer}/>
+                            <Route path={"/console/companies"} component={AdminConsoleCompaniesComponent}/>
                         </div>
                     </div>
                 </div>
