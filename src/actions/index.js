@@ -498,6 +498,52 @@ export const addApplicant = (dispatch, jobId) => {
     }
 }
 
+export const changeProfileUsername = (dispatch, username) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_USERNAME,
+        username: username
+    })
+}
 
+export const changeProfilePassword = (dispatch, password) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_PASSWORD,
+        password: password
+    })
+}
+
+export const changeProfileFirstName = (dispatch, firstName) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_FIRST_NAME,
+        firstName: firstName
+    })
+}
+
+export const changeProfileLastName = (dispatch, lastName) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_LAST_NAME,
+        lastName: lastName
+    })
+}
+
+export const changeProfileEmail = (dispatch, email) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_EMAIL,
+        email: email
+    })
+}
+
+//     changeProfileAboutMe: (aboutMe) => actions.changeProfileAboutMe(dispatch, aboutMe),
+//     changeProfileExpDescription: (expDescription) => actions.changeProfileExpDescription(dispatch, expDescription),
+//     changeProfileRole: (role) => actions.changeProfileRole(dispatch,role),
+//     changeProfileCompanyName: (companyName) => actions.changeProfileCompanyName(dispatch,companyName),
+//     changeProfilePosition: (position) => actions.changeProfilePosition(dispatch, position),
+//     changeProfileTenure: (tenure) => actions.changeProfileTenure(dispatch, tenure),
+//     changeProfileInterestedPosition: (interestedPosition) => actions.changeProfileInterestedPosition(dispatch, interestedPosition),
+//     changeProfileTotalExperience: (totalExperience) => actions.changeProfileTotalExperience(dispatch, totalExperience),
+//     updateProfile: (username,password, firstName, lastName, email, aboutMe,
+//                     expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) =>
+//     actions.updateProfile(dispatch,username,password, firstName, lastName, email, aboutMe,
+//         expDescription, role, companyName, position, tenure, interestedPosition, totalExperience)
 
 

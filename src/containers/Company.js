@@ -56,7 +56,7 @@ class Company extends Component {
                     <h1>Company Details</h1><br/>
                     <div className="card">
                         <img className="card-img-top" src="https://picsum.photos/500/300?random"
-                             alt="Card image cap"></img>
+                             alt="Card cap"></img>
                         <div className="card-body">
                             <h5 className="card-title">{this.props.company.name}</h5>
                             <div className="card-text">

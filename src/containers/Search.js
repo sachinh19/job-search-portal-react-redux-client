@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import * as actions from "../actions";
 import JobListContainer from "../containers/JobList"
 import '../styles/Search.css'
 

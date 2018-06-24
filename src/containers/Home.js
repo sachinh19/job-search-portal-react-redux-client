@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import * as actions from "../actions";
 import JobListContainer from "../containers/JobList"
 import '../styles/Home.css'
 
@@ -15,7 +14,8 @@ class Home extends Component {
             <div>
                 <div className={"row"}>
                     <img className="wbdv-home-page-image"
-                         src={require('../images/HomePage.jpg')}/>
+                         src={require('../images/HomePage.jpg')}
+                         alt={"Home Page Banner"}/>
                 </div>
                 <div className={"row wbdv-job-row"}>
                     <div className={"col-md-2"}>
@@ -31,11 +31,11 @@ class Home extends Component {
     }
 }
 
-const stateToPropertyMapper = (state) => ({
-});
-
-export const dispatcherToPropsMapper = (dispatch) => ({
-});
+// const stateToPropertyMapper = (state) => ({
+// });
+//
+// export const dispatcherToPropsMapper = (dispatch) => ({
+// });
 
 
 const HomeContainer = connect()(Home)

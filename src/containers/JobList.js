@@ -54,7 +54,7 @@ class JobList extends Component {
                             </th>
                         </tr>
                     }
-                    {this.props.jobs.length == 0 &&
+                    {this.props.jobs.length === 0 &&
                         <tr>
                             <th colSpan={2}>
                                 We're sorry, there are no jobs available that match your criteria at the moment.

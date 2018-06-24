@@ -8,7 +8,7 @@ const Job = ({job}) => {
         <tr key={job.id}>
             <td className={"row"}>
                 <img className="col-md-1 card-img-top"
-                     src={"https://www.shareicon.net/data/128x128/2015/12/26/693214_application_512x512.png"} alt="Card image"/>
+                     src={"https://www.shareicon.net/data/128x128/2015/12/26/693214_application_512x512.png"} alt="Card"/>
                 <span className={"col-md-9"}>
                     {job.position}
                 </span>

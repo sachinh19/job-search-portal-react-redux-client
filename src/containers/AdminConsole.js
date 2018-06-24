@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Route,Link} from 'react-router-dom'
-import * as actions from "../actions";
 import '../styles/AdminConsole.css'
 import AdminConsoleJobComponent from '../components/AdminConsoleJobComponent'
 import AdminConsoleCompaniesComponent from '../components/AdminConsoleCompaniesComponent'
