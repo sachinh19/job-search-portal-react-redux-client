@@ -3,6 +3,7 @@ import * as actions from "../actions";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import '../styles/Navbar.css'
+import history from "../History";
 
 
 class NavBar extends Component{
@@ -12,7 +13,9 @@ class NavBar extends Component{
 
     renderLogin() {
         if(this.props.userId !== null){
-            return <span className={"wbdv-link nav-link"} onClick={this.props.logOut}>Log out</span>
+            return <span id={"logoutLink"}
+                         className={"wbdv-link nav-link"}
+                         onClick={this.props.logOut}>Logout</span>
         } else {
             return <Link to={`/login`} className={'wbdv-link nav-link'}>
                         Login
@@ -60,7 +63,10 @@ class NavBar extends Component{
                             <div className={"col-md-3"}>
                                 <button className={"btn btn-outline-success"}
                                         type={"button"}
-                                        onClick={()=>this.props.searchJobsByKeyword(this.props.searchText)}>
+                                        onClick={()=>{
+                                            this.props.searchJobsByKeyword(this.props.searchText)
+                                            history.push('/search');
+                                        }}>
                                     <span className={"text-center"}>
                                     Find Jobs
                                     </span>

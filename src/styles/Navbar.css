@@ -15,9 +15,14 @@
     color: white;
 }
 
+#logoutLink:hover {
+    color: red;
+}
+
 .wbdv-link:hover{
     color: white;
 }
+
 
 .logo{
     height:100px;
