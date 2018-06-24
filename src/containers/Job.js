@@ -34,18 +34,11 @@ class Job extends Component {
         if (this.props.queries !== undefined && this.props.queries.length > 0) {
             return (
                 <div className={"wbdv-queries"}>
-                    <br/><h4>Job Queries</h4><br/>
-                    <h6>Post your queries:</h6>
-
-                    <div className={"row wbdv-post-queries"}>
-                        <textarea className="form-control" rows="3" name="querytext"></textarea>
-                        <button type="button" className="btn btn-outline-primary wbdv-submit-btn">Submit</button>
-                    </div>
                     {this.props.queries.map(query => {
                         return (
                             <div className={"card"}>
 
-                                    <div className={" card-header row wdbv-status-options"}>
+                                    <div className={"card-header row wdbv-status-options"}>
                                         <label>
                                             <input type={"radio"} name={"statusTrue"} value="true"
                                                    checked={query.status}
@@ -86,6 +79,12 @@ class Job extends Component {
                     </h2>
                     <div dangerouslySetInnerHTML={{__html: description}}/>
                     <div className={"wbdv-queries-section"}>
+                        <br/><h4>Job Queries</h4><br/>
+                        <h6>Post your queries:</h6>
+                        <div className={"row wbdv-post-queries"}>
+                            <textarea className="form-control" rows="3" name="querytext"></textarea>
+                            <button type="button" className="btn btn-outline-primary wbdv-submit-btn">Submit</button>
+                        </div>
                         {this.renderQueries()}
                     </div>
                 </div>

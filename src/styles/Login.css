@@ -6,7 +6,7 @@
 }
 
 .wbdv-login-container {
-    width: 600px !important;
+    max-width: 600px !important;
     padding-top: 4%;
     margin-top:5%;
     background-color: rgba(245, 245, 245, 1);

@@ -14,8 +14,8 @@ class Footer extends Component{
             <footer id={"site-footer"} className={"row text-center"}>
                 <div className="col-md-4">
                     <div className={"row"}>
-                        <div className={"col-6"}>Contact Us</div>
-                        <div className={"col-6"}>About</div>
+                        <div className={"col-md-6"}>Contact Us</div>
+                        <div className={"col-md-6"}>About</div>
                     </div>
                 </div>
                 <div className="col-md-4">

@@ -32,7 +32,7 @@ class AdminConsoleUser extends Component {
         return (
             <div className="wbdv-all-users">
                 <h1>Users</h1><br/>
-                <div className="wbdv-users-list col-10 card">
+                <div className="wbdv-users-list col-md-10 card">
                     <table className="table table-hover">
                         <thead>
                         <th>Username</th>
