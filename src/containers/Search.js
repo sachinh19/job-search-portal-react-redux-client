@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
 import JobListContainer from "../containers/JobList"
-import '../styles/Home.css'
+import '../styles/Search.css'
 
-class Home extends Component {
+class Search extends Component {
 
     constructor(props) {
         super(props)
@@ -13,17 +13,9 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <div className={"row"}>
-                    <img className="wbdv-home-page-image"
-                         src={require('../images/HomePage.jpg')}/>
-                </div>
                 <div className={"row wbdv-job-row"}>
-                    <div className={"col-md-2"}>
-                    </div>
-                    <div className={"col-md-8"}>
+                    <div className={"col-md-12"}>
                         <JobListContainer/>
-                    </div>
-                    <div className={"col-md-2"}>
                     </div>
                 </div>
             </div>
@@ -38,6 +30,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
 });
 
 
-const HomeContainer = connect()(Home)
+const SearchContainer = connect(stateToPropertyMapper,dispatcherToPropsMapper)(Search)
 
-export default HomeContainer
+export default SearchContainer

@@ -47,13 +47,21 @@ class JobList extends Component {
             <div>
                 <table className="table table-hover">
                     <thead className={"bg-light"}>
+                    {this.props.jobs.length > 0 &&
                         <tr>
-                            <th>
-                                We have {this.props.jobs.length} jobs for you.
-                            </th>
-                            <th>
+                            <th colSpan={2}>
+                                We have {this.props.jobs.length} jobs listed for you.
                             </th>
                         </tr>
+                    }
+                    {this.props.jobs.length == 0 &&
+                        <tr>
+                            <th colSpan={2}>
+                                We're sorry, there are no jobs available that match your criteria at the moment.
+                            </th>
+                        </tr>
+                    }
+
                     </thead>
                     <tbody>
                         {this.renderJobs()}

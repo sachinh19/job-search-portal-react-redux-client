@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Routes.css'
 import {Route} from 'react-router-dom'
-
+import ProfileContainer from './components/Profile'
 import HomeContainer from './containers/Home'
 import LoginContainer from './containers/Login'
 import AdminConsoleContainer from './containers/AdminConsole'
@@ -11,6 +11,7 @@ import UserContainer from './containers/User'
 import NavBarContainer from './components/NavBar'
 import FooterContainer from './components/Footer'
 import RegisterContainer from "./containers/Register";
+import SearchContainer from './containers/Search'
 
 
 export default class Routes extends Component {
@@ -22,7 +23,8 @@ export default class Routes extends Component {
                     <Route exact path={"/"} component={HomeContainer}/>
                     <Route exact path={"/home"} component={HomeContainer}/>
                     <Route exact path={"/login"} component={LoginContainer}/>
-                    <Route exact path={"/profile"} component={RegisterContainer}/>
+                    <Route exact path={"/search"} component={SearchContainer}/>
+                    <Route exact path={"/profile"} component={ProfileContainer}/>
                     <Route exact path={"/register"} component={RegisterContainer}/>
                     <Route path={"/console"} component={AdminConsoleContainer}/>
                     <Route exact path ={"/job/:jobId"} component={JobContainer}/>

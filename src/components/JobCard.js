@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import '../styles/JobCard.css'
+import history from "../History";
 
 const Job = ({job}) => {
     return (
@@ -11,7 +12,11 @@ const Job = ({job}) => {
                 <span className={"col-md-9"}>
                     {job.position}
                 </span>
-                <button className={"btn btn-outline-primary my-2 my-sm-0 col-md-2"} type={"submit"}>
+                <button className={"btn btn-outline-primary my-2 my-sm-0 col-md-2"}
+                        type={"button"}
+                        onClick={()=>{
+                            history.push('/job/' + job.id);
+                        }}>
                     Job Details...
                 </button>
             </td>
