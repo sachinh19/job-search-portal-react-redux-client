@@ -63,6 +63,7 @@ class Profile extends Component {
                             <div className="col-sm-9">
                                 <input className="form-control"
                                        id="usernameFld"
+                                       readonly
                                        placeholder='Username'
                                        value={this.props.username}
                                        onChange={() => {this.props.changeProfileUsername(usernameFld.value)}}
@@ -140,7 +141,7 @@ class Profile extends Component {
                                                     this.props.role,
                                                     this.props.companyName)
                                             }}}>
-                                    Profile
+                                    Update Profile
                                 </button>
                             </div>
                         </div>

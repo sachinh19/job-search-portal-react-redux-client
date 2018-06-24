@@ -201,7 +201,7 @@ export const searchTextChanged = (dispatch,searchText) => {
 }
 
 export const searchJobsByKeyword = (dispatch,searchText) =>  {
-    if(searchText.includes(" "))
+    if(searchText && searchText!=='' && searchText.includes(" "))
         searchText = searchText.split(" ").join("++")
     fetch('http://localhost:8080/api/searchJob/' + searchText)
         .then((response) => {

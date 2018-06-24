@@ -11,7 +11,7 @@ class Footer extends Component{
 
     render(){
         return(
-            <footer id={"site-footer"} className={"fixed-bottom row text-center"}>
+            <footer id={"site-footer"} className={"row text-center"}>
                 <div className="col-md-4">
                     <div className={"row"}>
                         <div className={"col-6"}>Contact Us</div>
