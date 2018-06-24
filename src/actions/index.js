@@ -405,5 +405,42 @@ export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
     })})
 }
 
+export const getCompanyDetails = (dispatch,companyId) => {
+    fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId)).then((response) => {
+        if (response.status === 200)
+            return response.json();
+        else
+            return null;
+    }).then((company) => {dispatch({
+        type: constants.SET_COMPANY_DETAILS,
+        company: company
+    })})
+}
+
+export const getCompanyEmployees = (dispatch,companyId) => {
+    fetch(('http://localhost:8080/api/company/CID/employees').replace('CID', companyId)).then((response) => {
+        if (response.status === 200)
+            return response.json();
+        else
+            return null;
+    }).then((employees) => {dispatch({
+        type: constants.SET_COMPANY_EMPLOYEES_DETAILS,
+        employees: employees
+    })})
+}
+
+export const getCompanyJobs = (dispatch,companyId) => {
+    fetch(('http://localhost:8080/api/company/CID/jobs').replace('CID', companyId)).then((response) => {
+        if (response.status === 200)
+            return response.json();
+        else
+            return null;
+    }).then((jobs) => {dispatch({
+        type: constants.SET_COMPANY_JOB_DETAILS,
+        jobs: jobs
+    })})
+}
+
+
 
 
