@@ -12,7 +12,7 @@ class NavBar extends Component{
 
     renderLogin() {
         if(this.props.userId !== null){
-            return <button onClick={this.props.logOut}>LogOut</button>
+            return <span className={"wbdv-link nav-link"} onClick={this.props.logOut}>Log out</span>
         } else {
             return <Link to={`/login`} className={'wbdv-link nav-link'}>
                         Login

@@ -317,5 +317,34 @@ export const getJobDetails = (dispatch, jobId) => {
     )
 }
 
+export const getQueries = (dispatch, jobId) => {
+    fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId))
+        .then((response) => {
+            if (response.status === 200)
+                return response.json();
+            else
+                return null;
+        }).then(queries =>
+        dispatch({
+            type: constants.SET_QUERIES,
+            queries: queries,
+
+        })
+    )
+
+}
+
+export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
+    fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
+        method:'put',
+        body: JSON.stringify({
+            'status': newStatus
+        }),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(() => {getQueries(dispatch,jobId)})
+}
+
 
 
