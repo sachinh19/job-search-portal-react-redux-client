@@ -156,7 +156,8 @@ const stateToPropertyMapper = (state) => ({
     password: state.RegisterReducer.password,
     password2: state.RegisterReducer.password2,
     role: state.RegisterReducer.role,
-    companyName: state.RegisterReducer.companyName
+    companyName: state.RegisterReducer.companyName,
+    successMessageFld: state.RegisterReducer.successMessageFld
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({

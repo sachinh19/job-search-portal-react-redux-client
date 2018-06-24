@@ -78,7 +78,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                 } else {
                     localStorage.setItem('username', user.username);
                     localStorage.setItem('userRole', user.role);
-                    dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user});
+                    dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
                     history.push('/');
                 }
             })
@@ -109,14 +109,12 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                 } else {
                     localStorage.setItem('username', user.username);
                     localStorage.setItem('userRole', user.role);
-                    dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user});
+                    dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
                     history.push('/');
                 }
             })
         }
     })
-
-
 };
 
 export const changeUsername = (dispatch, username) => (
@@ -177,8 +175,9 @@ export const logOut = (dispatch) => {
         localStorage.removeItem('username');
         localStorage.removeItem('userRole');
         dispatch({
-            type: constants.RESET_LOGIN_CREDENTIALS,
+            type: constants.RESET_LOGIN_CREDENTIALS
         })
+        history.push("/");
     })
 
 }
@@ -533,17 +532,287 @@ export const changeProfileEmail = (dispatch, email) => {
     })
 }
 
-//     changeProfileAboutMe: (aboutMe) => actions.changeProfileAboutMe(dispatch, aboutMe),
-//     changeProfileExpDescription: (expDescription) => actions.changeProfileExpDescription(dispatch, expDescription),
-//     changeProfileRole: (role) => actions.changeProfileRole(dispatch,role),
-//     changeProfileCompanyName: (companyName) => actions.changeProfileCompanyName(dispatch,companyName),
-//     changeProfilePosition: (position) => actions.changeProfilePosition(dispatch, position),
-//     changeProfileTenure: (tenure) => actions.changeProfileTenure(dispatch, tenure),
-//     changeProfileInterestedPosition: (interestedPosition) => actions.changeProfileInterestedPosition(dispatch, interestedPosition),
-//     changeProfileTotalExperience: (totalExperience) => actions.changeProfileTotalExperience(dispatch, totalExperience),
-//     updateProfile: (username,password, firstName, lastName, email, aboutMe,
-//                     expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) =>
-//     actions.updateProfile(dispatch,username,password, firstName, lastName, email, aboutMe,
-//         expDescription, role, companyName, position, tenure, interestedPosition, totalExperience)
+export const changeProfileAboutMe = (dispatch, aboutMe) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_ABOUT_ME,
+        aboutMe: aboutMe
+    })
+}
 
+export const changeProfileExpDescription = (dispatch, expDescription) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_EXP_DESCRIPTION,
+        expDescription: expDescription
+    })
+}
+
+export const changeProfileRole = (dispatch, role) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_ROLE,
+        role: role
+    })
+}
+
+export const changeProfileCompanyName = (dispatch, companyName) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_COMPANY_NAME,
+        companyName: companyName
+    })
+}
+
+export const changeProfilePosition = (dispatch, position) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_POSITION,
+        position: position
+    })
+}
+
+export const changeProfileTenure = (dispatch, tenure) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_TENURE,
+        tenure: tenure
+    })
+}
+
+export const changeProfileInterestedPosition = (dispatch, interestedPosition) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_INTERESTED_POSITION,
+        interestedPosition: interestedPosition
+    })
+}
+
+export const changeProfileTotalExperience = (dispatch, totalExperience) => {
+    dispatch({
+        type: constants.CHANGE_PROFILE_TOTAL_EXPERIENCE,
+        totalExperience: totalExperience
+    })
+}
+
+export const updateProfile = (dispatch,username,password, firstName, lastName, email, aboutMe,
+        expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) => {
+
+
+    if (role === 'JobSeeker') {
+        fetch('http://localhost:8080/api/jobseeker', {
+            method: 'PUT',
+            credentials: 'include',
+            body: JSON.stringify({
+                'username': username,
+                'password': password,
+                'firstName': firstName,
+                'lastName': lastName,
+                'email': email,
+                'aboutMe': aboutMe,
+                'expDescription': expDescription,
+                'interestedPosition':interestedPosition,
+                'totalExperience': totalExperience
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(user => {
+            if (user !== null) {
+                localStorage.setItem('username', user.username);
+                localStorage.setItem('userRole', user.role);
+                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+            }
+        })
+    } else if (role === 'Employer') {
+        fetch('http://localhost:8080/api/employer', {
+            method: 'PUT',
+            credentials: 'include',
+            body: JSON.stringify({
+                'username': username,
+                'password': password,
+                'firstName': firstName,
+                'lastName': lastName,
+                'email': email,
+                'aboutMe': aboutMe,
+                'expDescription': expDescription,
+                'companyName': companyName,
+                'position': position,
+                'tenure': tenure
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(user => {
+            if (user !== null) {
+                localStorage.setItem('username', user.username);
+                localStorage.setItem('userRole', user.role);
+                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+            }
+        })
+    } else if (role === 'Moderator') {
+        fetch('http://localhost:8080/api/moderator', {
+            method: 'PUT',
+            credentials: 'include',
+            body: JSON.stringify({
+                'username': username,
+                'password': password,
+                'firstName': firstName,
+                'lastName': lastName,
+                'email': email,
+                'aboutMe': aboutMe,
+                'expDescription': expDescription
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(user => {
+            if (user !== null) {
+                localStorage.setItem('username', user.username);
+                localStorage.setItem('userRole', user.role);
+                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+            }
+        })
+    } else if (role === 'Admin') {
+        fetch('http://localhost:8080/api/admin', {
+            method: 'post',
+            credentials: 'include',
+            body: JSON.stringify({
+                'username': username,
+                'password': password,
+                'firstName': firstName,
+                'lastName': lastName,
+                'email': email,
+                'aboutMe': aboutMe,
+                'expDescription': expDescription
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(user => {
+            if (user !== null) {
+                localStorage.setItem('username', user.username);
+                localStorage.setItem('userRole', user.role);
+                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+            }
+        })
+    }
+};
+
+export const fetchUserProfile = (dispatch) => {
+    const username = localStorage.getItem("username");
+    var role;
+
+    fetch('http://localhost:8080/api/person/username/' + username,{
+        credentials: 'include'
+    })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                return null;
+            }
+        }).then(user => {
+            role = user.roleType;
+        }).then(() => {
+        switch (role) {
+            case "JobSeeker":
+                fetch('http://localhost:8080/api/jobseeker/username/' + username)
+                    .then(response => {
+                        if (response.status === 200) {
+                            return response.json()
+                        } else {
+                            return null;
+                        }
+                    }).then(user => {
+                    if (user !== null) {
+                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    } else {
+                        dispatch({
+                            type: constants.ERROR,
+                            message: "Unable to fetch user details"
+                        })
+                    }
+                })
+                break;
+            case "Employer":
+                fetch('http://localhost:8080/api/employer/username/' + username)
+                    .then(response => {
+                        if (response.status === 200) {
+                            return response.json()
+                        } else {
+                            return null;
+                        }
+                    }).then(user => {
+                    if (user !== null) {
+                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    } else {
+                        dispatch({
+                            type: constants.ERROR,
+                            message: "Unable to fetch user details"
+                        })
+                    }
+                })
+                break;
+            case "Admin":
+                fetch('http://localhost:8080/api/admin/username/' + username)
+                    .then(response => {
+                        if (response.status === 200) {
+                            return response.json()
+                        } else {
+                            return null;
+                        }
+                    }).then(user => {
+                    if (user !== null) {
+                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    } else {
+                        dispatch({
+                            type: constants.ERROR,
+                            message: "Unable to fetch user details"
+                        })
+                    }
+                })
+                break;
+            case "Moderator":
+                fetch('http://localhost:8080/api/moderator/username/' + username)
+                    .then(response => {
+                        if (response.status === 200) {
+                            return response.json()
+                        } else {
+                            return null;
+                        }
+                    }).then(user => {
+                    if (user !== null) {
+                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    } else {
+                        dispatch({
+                            type: constants.ERROR,
+                            message: "Unable to fetch user details"
+                        })
+                    }
+                })
+                break;
+            case null: break;
+            default:
+                alert("Invalid Role Type found in Local Storage - " + role);
+            }
+        })
+    }
 

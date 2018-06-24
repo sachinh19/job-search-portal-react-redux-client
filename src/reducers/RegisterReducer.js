@@ -1,6 +1,7 @@
 import * as constants from '../constants'
 
-const RegisterReducer = (state = {username:'', password: '', password2:'', role:'Employer', companyName:''}, action) => {
+const RegisterReducer = (state = {username:'', password: '',
+    password2:'', role:'Employer', companyName:'', successMessageFld: ''}, action) => {
 
     switch (action.type) {
 
@@ -10,7 +11,8 @@ const RegisterReducer = (state = {username:'', password: '', password2:'', role:
                 password:state.password,
                 password2:state.password2,
                 role: state.role,
-                companyName: state.companyName
+                companyName: state.companyName,
+                successMessageFld: state.successMessageFld
             };
         case constants.CHANGE_REGISTER_PASSWORD:
             return {
@@ -18,7 +20,8 @@ const RegisterReducer = (state = {username:'', password: '', password2:'', role:
                 password:action.password,
                 password2:state.password2,
                 role: state.role,
-                companyName: state.companyName
+                companyName: state.companyName,
+                successMessageFld: state.successMessageFld
             };
         case constants.CHANGE_REGISTER_PASSWORD2:
             return {
@@ -26,7 +29,8 @@ const RegisterReducer = (state = {username:'', password: '', password2:'', role:
                 password:state.password,
                 password2:action.password2,
                 role: state.role,
-                companyName: state.companyName
+                companyName: state.companyName,
+                successMessageFld: state.successMessageFld
             };
         case constants.CHANGE_REGISTER_ROLE:
             return {
@@ -34,7 +38,8 @@ const RegisterReducer = (state = {username:'', password: '', password2:'', role:
                 password:state.password,
                 password2:state.password2,
                 role: action.role,
-                companyName: state.companyName
+                companyName: state.companyName,
+                successMessageFld: state.successMessageFld
             };
         case constants.CHANGE_REGISTER_COMPANY_NAME:
             return {
@@ -42,7 +47,8 @@ const RegisterReducer = (state = {username:'', password: '', password2:'', role:
                 password:state.password,
                 password2:state.password2,
                 role: state.role,
-                companyName: action.companyName
+                companyName: action.companyName,
+                successMessageFld: state.successMessageFld
             };
         case constants.RESET_REGISTER_CREDENTIALS:
             return {
@@ -50,7 +56,8 @@ const RegisterReducer = (state = {username:'', password: '', password2:'', role:
                 password:'',
                 password2:'',
                 role:'Employer',
-                companyName:''
+                companyName:'',
+                successMessageFld: 'Registration Successful!'
             };
         default :
             return state

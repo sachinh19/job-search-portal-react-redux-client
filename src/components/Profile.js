@@ -13,6 +13,11 @@ class Profile extends Component {
         }
         this.validateFields = this.validateFields.bind(this);
     }
+
+    componentDidMount() {
+        this.props.fetchUserProfile();
+    }
+
     validateFields(password, role, companyName) {
 
         let returnVal = false;
@@ -43,7 +48,6 @@ class Profile extends Component {
         let tenureFld
         let interestedPositionFld
         let totalExperienceFld
-
         return (
             <div className="container-profile">
                 <div className={"card container wbdv-profile-container"}>
@@ -53,6 +57,11 @@ class Profile extends Component {
                             <div id="errorMessage" className="alert alert-danger" role="alert">{this.state.errorMessageFld}</div>
                         </span>
                         }
+                        {this.props.successMessageFld!=='' &&
+                            <span>
+                                <div id="errorMessage" className="alert alert-success" role="alert">{this.props.successMessageFld}</div>
+                            </span>
+                        }
                         <div className="form-group row">
                             <label htmlFor="usernameFld" className="col-sm-3 col-form-label">
                                 Username
@@ -60,7 +69,7 @@ class Profile extends Component {
                             <div className="col-sm-9">
                                 <input className="form-control"
                                        id="usernameFld"
-                                       readonly="readonly"
+                                       readOnly="readOnly"
                                        type={"text"}
                                        placeholder='Username'
                                        value={this.props.username}
@@ -145,6 +154,7 @@ class Profile extends Component {
                                        ref={node => aboutMeFld = node}/>
                             </div>
                         </div>
+                        {this.props.role==='JobSeeker' &&
                         <div className="form-group row">
                             <label htmlFor="expDescriptionFld" className="col-sm-3 col-form-label">
                                 Past Experience
@@ -160,7 +170,7 @@ class Profile extends Component {
                                            }}
                                            ref={node => expDescriptionFld = node}/>
                             </div>
-                        </div>
+                        </div>}
                         <div className="form-group row">
                             <label htmlFor="roleFld" className="col-sm-3 col-form-label">
                                 Role
@@ -241,17 +251,17 @@ class Profile extends Component {
 
                         {this.props.role==='JobSeeker' &&
                         <div className="form-group row">
-                            <label htmlFor="tenureFld" className="col-sm-3 col-form-label">
+                            <label htmlFor="totalExperience" className="col-sm-3 col-form-label">
                                 Total Experience
                             </label>
                             <div className="col-sm-9">
                                 <input className="form-control"
-                                       id="tenureFld"
+                                       id="totalExperience"
                                        type={"text"}
                                        placeholder='Total Experience'
                                        value={this.props.totalExperience}
                                        onChange={() => {this.props.changeProfileTotalExperience(totalExperienceFld.value)}}
-                                       ref={node => tenureFld = node} />
+                                       ref={node => totalExperienceFld = node} />
                             </div>
                         </div>}
                         <div className="form-group row">
@@ -306,7 +316,8 @@ const stateToPropertyMapper = (state) => ({
     position: state.ProfileReducer.position,
     tenure: state.ProfileReducer.tenure,
     interestedPosition: state.ProfileReducer.interestedPosition,
-    totalExperience: state.ProfileReducer.totalExperience
+    totalExperience: state.ProfileReducer.totalExperience,
+    successMessageFld: state.ProfileReducer.successMessageFld
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
@@ -326,7 +337,8 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     updateProfile: (username,password, firstName, lastName, email, aboutMe,
                     expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) =>
         actions.updateProfile(dispatch,username,password, firstName, lastName, email, aboutMe,
-            expDescription, role, companyName, position, tenure, interestedPosition, totalExperience)
+            expDescription, role, companyName, position, tenure, interestedPosition, totalExperience),
+    fetchUserProfile: () => actions.fetchUserProfile(dispatch)
 });
 
 const ProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Profile)
