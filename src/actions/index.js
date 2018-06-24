@@ -34,42 +34,83 @@ export const doLogin = (dispatch, username, password) => {
 
 export const doRegister = (dispatch, username, password,password2, role, companyName) => {
 
-    if(role === 'JobSeeker') {
-        fetch('http://localhost:8080/api/register/jobseeker', {
-            method: 'post',
-            body: JSON.stringify({
-                'username': username,
-                'password': password
-            }),
-            headers: {
-                'content-type': 'application/json'
+    fetch('http://localhost:8080/api/person/username/' + username)
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                return null;
             }
-        }).then(response => {
+        }).then(user => {
+           if(user!=null){
+               dispatch({type: constants.ERROR, message: 'This username is already taken!'});
+               return true;
+           }else {
+               return false;
+           }
+        }).then (userDup => {
+        if(!userDup && role === 'JobSeeker') {
+            fetch('http://localhost:8080/api/register/jobseeker', {
+                method: 'post',
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
                 if (response.status === 200) {
                     return response.json()
                 } else {
                     return null;
                 }
+            }).then(user => {
+                if (user === null) {
+                    dispatch({
+                        type: constants.ERROR,
+                        message: "Invalid Credentials"})
+                } else {
+                    localStorage.setItem('username', user.username);
+                    localStorage.setItem('id', user.id);
+                    dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
+                    history.push('/');
+                }
             })
-    } else if (role === 'Employer') {
-        fetch('http://localhost:8080/api/register/employer', {
-            method: 'post',
-            body: JSON.stringify({
-                'username': username,
-                'password': password,
-                'companyName': companyName
-            }),
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => {
+        } else if (!userDup && role === 'Employer') {
+            fetch('http://localhost:8080/api/register/employer', {
+                method: 'post',
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                    'companyName': companyName
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
                 if (response.status === 200) {
                     return response.json()
                 } else {
                     return null;
                 }
+
+            }).then(user => {
+                if (user === null) {
+                    dispatch({
+                        type: constants.ERROR,
+                        message: "Invalid Credentials"})
+                } else {
+                    localStorage.setItem('username', user.username);
+                    localStorage.setItem('id', user.id);
+                    dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
+                    history.push('/');
+                }
             })
-    }
+        }
+    })
+
+
 };
 
 export const changeUsername = (dispatch, username) => (
