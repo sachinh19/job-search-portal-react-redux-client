@@ -25,7 +25,7 @@ export const doLogin = (dispatch, username, password) => {
                 message: "Invalid Credentials"})
         } else {
             localStorage.setItem('username', user.username);
-            localStorage.setItem('id', user.id);
+            localStorage.setItem('userRole', user.roleType);
             dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
             history.push('/');
         }
@@ -72,7 +72,7 @@ export const doRegister = (dispatch, username, password,password2, role, company
                         message: "Invalid Credentials"})
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('id', user.id);
+                    localStorage.setItem('userRole', user.roleType);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user});
                     history.push('/');
                 }
@@ -102,7 +102,7 @@ export const doRegister = (dispatch, username, password,password2, role, company
                         message: "Invalid Credentials"})
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('id', user.id);
+                    localStorage.setItem('userRole', user.roleType);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user});
                     history.push('/');
                 }
@@ -166,7 +166,7 @@ export const changeCompanyName = (dispatch,companyName) => {
 export const logOut = (dispatch) => {
 
     localStorage.removeItem('username');
-    localStorage.removeItem('id');
+    localStorage.removeItem('userRole');
 
     dispatch({
         type: constants.USER_LOGOUT,

@@ -12,7 +12,7 @@ class NavBar extends Component{
     }
 
     renderLogin() {
-        if(this.props.userId !== null){
+        if(this.props.username !== null){
             return <span id={"logoutLink"}
                          className={"wbdv-link nav-link"}
                          onClick={this.props.logOut}>Logout</span>
@@ -25,7 +25,7 @@ class NavBar extends Component{
     }
 
     renderRegisterProfile() {
-        if(this.props.userId == null){
+        if(this.props.username == null){
             return <Link to={`/register`} className={'wbdv-link nav-link'}>
                 Register
                 <span className={"sr-only"}>(current)</span>
@@ -156,7 +156,7 @@ class NavBar extends Component{
 
 
 const stateToPropertyMapper = (state) => ({
-    userId:localStorage.getItem('id'),
+    username:localStorage.getItem('username'),
     searchText: state.JobsReducer.searchText
 })
 
