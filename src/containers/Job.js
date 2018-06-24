@@ -38,7 +38,7 @@ class Job extends Component {
                         return (
                             <div className={"card"}>
 
-                                    <div className={" card-header row wdbv-status-options"}>
+                                    <div className={"card-header row wdbv-status-options"}>
                                         <label>
                                             <input type={"radio"} name={"statusTrue"} value="true"
                                                    checked={query.status}

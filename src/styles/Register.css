@@ -5,9 +5,9 @@
 }
 
 .wbdv-register-container {
-    width: 600px !important;
+    max-width: 600px !important;
     padding-top: 4%;
-    margin-top:5%;
+    margin: 0 auto;
     background-color: rgba(245, 245, 245, 1);
     opacity:0.8;
     height: 100%;

@@ -80,10 +80,10 @@ class Login extends Component {
                                     Login
                                 </button>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-md-6">
                                         <a href="#">Forgot Password?</a>
                                     </div>
-                                    <span className="col-6">
+                                    <span className="col-md-6">
                                     </span>
                                 </div>
                             </div>
