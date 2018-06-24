@@ -21,15 +21,20 @@ class NavBar extends Component{
         }
     }
 
-    renderRegister() {
+    renderRegisterProfile() {
         if(this.props.userId == null){
             return <Link to={`/register`} className={'wbdv-link nav-link'}>
                 Register
                 <span className={"sr-only"}>(current)</span>
             </Link>
+        } else {
+            return <Link to={`/profile`} className={'wbdv-link nav-link'}>
+                Profile
+                <span className={"sr-only"}>(current)</span>
+            </Link>
         }
-        return null;
     }
+
 
     render(){
         let newSearchText
@@ -76,7 +81,7 @@ class NavBar extends Component{
                                     {this.renderLogin()}
                                 </li>
                                 <li className={"nav-item"}>
-                                    {this.renderRegister()}
+                                    {this.renderRegisterProfile()}
                                 </li>
                             </ul>
                         </div>

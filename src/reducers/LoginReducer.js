@@ -21,7 +21,6 @@ const LoginReducer = (state = {username:'', password: ''}, action) => {
                 username:'',
                 password:''
             };
-
         default :
             return state
     }

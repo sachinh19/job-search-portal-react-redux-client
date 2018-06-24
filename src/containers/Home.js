@@ -19,13 +19,11 @@ class Home extends Component {
                 </div>
                 <div className={"row wbdv-job-row"}>
                     <div className={"col-md-2"}>
-
                     </div>
                     <div className={"col-md-8"}>
                         <JobListContainer/>
                     </div>
                     <div className={"col-md-2"}>
-
                     </div>
                 </div>
             </div>

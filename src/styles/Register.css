@@ -16,11 +16,3 @@
 .wbdv-links {
     padding-bottom: 10px;
 }
-
-#errorMessage  {
-    display: none;
-}
-
-#successMessage {
-    display: none;
-}

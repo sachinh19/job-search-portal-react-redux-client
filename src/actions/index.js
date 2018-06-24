@@ -19,21 +19,22 @@ export const doLogin = (dispatch, username, password) => {
             return null;
         }
     }).then(user => {
-
         if (user === null) {
-            dispatch({type: constants.ERROR, message: "Invalid Credentials"})
+            dispatch({
+                type: constants.ERROR,
+                message: "Invalid Credentials"})
         } else {
             localStorage.setItem('username', user.username);
             localStorage.setItem('id', user.id);
-            dispatch({type: constants.USER_LOGIN, user: user});
+            dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
             history.push('/');
         }
     })
 };
 
-export const doRegister = (dispatch, username, password,password2, role) => {
+export const doRegister = (dispatch, username, password,password2, role, companyName) => {
 
-    if(role === 'jobseeker') {
+    if(role === 'JobSeeker') {
         fetch('http://localhost:8080/api/register/jobseeker', {
             method: 'post',
             body: JSON.stringify({
@@ -50,12 +51,13 @@ export const doRegister = (dispatch, username, password,password2, role) => {
                     return null;
                 }
             })
-    } else if (role === 'employer') {
+    } else if (role === 'Employer') {
         fetch('http://localhost:8080/api/register/employer', {
             method: 'post',
             body: JSON.stringify({
                 'username': username,
-                'password': password
+                'password': password,
+                'companyName': companyName
             }),
             headers: {
                 'content-type': 'application/json'
@@ -109,6 +111,13 @@ export const changeRegisterRole = (dispatch,role) => {
     dispatch({
         type: constants.CHANGE_REGISTER_ROLE,
         role: role
+    })
+}
+
+export const changeCompanyName = (dispatch,companyName) => {
+    dispatch({
+        type: constants.CHANGE_REGISTER_COMPANY_NAME,
+        companyName: companyName
     })
 }
 

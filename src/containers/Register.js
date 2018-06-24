@@ -8,6 +8,36 @@ class Register extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            errorMessageFld: ''
+        }
+        this.validateFields = this.validateFields.bind(this);
+    }
+    validateFields(username, password, password2, role, companyName) {
+        let returnVal = false;
+        this.setState(() => {
+            return {errorMessageFld: ''}
+        });
+        if(username === '' || password === '' || password2 === '' || role === '') {
+            this.setState(() => {
+                return {errorMessageFld: 'All fields are mandatory!'}
+            });
+        }
+        else if(role === 'Employer' && companyName === '') {
+            this.setState(() => {
+                return {
+                    errorMessageFld: 'Company field is mandatory for Employer!'
+                }});
+        }
+        else if(password!==password2){
+            this.setState(() => {
+                return {errorMessageFld: 'Passwords do not match!'}
+            });
+        }
+        else {
+            returnVal = true;
+        }
+        return returnVal;
     }
 
     render() {
@@ -15,17 +45,17 @@ class Register extends Component {
         let passwordFld
         let password2Fld
         let roleFld
+        let companyNameFld
 
         return (
             <div className="container-register">
                 <div className={"card container wbdv-register-container"}>
                     <form>
-                        <span className={"row"}>
-                            <div id="errorMessage" className="alert alert-danger" role="alert">sdsd</div>
+                        {this.state.errorMessageFld!=='' &&
+                        <span>
+                            <div id="errorMessage" className="alert alert-danger" role="alert">{this.state.errorMessageFld}</div>
                         </span>
-                        <span className={"row"}>
-                            <div id="successMessage" className="alert alert-success" role="alert">sd</div>
-                        </span>
+                        }
                         <div className="form-group row">
                             <label htmlFor="usernameFld" className="col-sm-3 col-form-label">
                                 Username
@@ -72,24 +102,45 @@ class Register extends Component {
                                         id="roleFld"
                                         value={this.props.role} onChange={() => {this.props.changeRegisterRole(roleFld.value)}}
                                         ref={node => roleFld = node}>
-                                    <option value={"employer"}>Employer</option>
-                                    <option value={"jobseeker"}>Job Seeker</option>
+                                    <option value={"Employer"}>Employer</option>
+                                    <option value={"JobSeeker"}>Job Seeker</option>
                                 </select>
                             </div>
                         </div>
+                        {this.props.role==='Employer' && <div className="form-group row">
+                            <label htmlFor="companyFld" className="col-sm-3 col-form-label">
+                                Company
+                            </label>
+                            <div className="col-sm-9">
+                                <input className="form-control"
+                                       id="companyFld"
+                                       placeholder='Company Name'
+                                       value={this.props.companyName}
+                                       onChange={() => {this.props.changeCompanyName(companyNameFld.value)}}
+                                       ref={node => companyNameFld = node} />
+                            </div>
+                        </div>}
                         <div className="form-group row">
                             <label className="col-sm-3 col-form-label"></label>
                             <div className="col-sm-9">
-                                <button id="loginUser"
+                                <button id="registerUser"
                                         className="btn btn-outline-success btn-block"
                                         type="button"
                                         onClick={()=>{
-                                            this.props.doRegister(
+                                            if(this.validateFields(
                                                 this.props.username,
                                                 this.props.password,
                                                 this.props.password2,
-                                                this.props.role)}}>
-                                    Register
+                                                this.props.role,
+                                                this.props.companyName))    {
+                                                    this.props.doRegister(
+                                                        this.props.username,
+                                                        this.props.password,
+                                                        this.props.password2,
+                                                        this.props.role,
+                                                        this.props.companyName)
+                                            }}}>
+                                        Register
                                 </button>
                             </div>
                         </div>
@@ -104,7 +155,8 @@ const stateToPropertyMapper = (state) => ({
     username: state.RegisterReducer.username,
     password: state.RegisterReducer.password,
     password2: state.RegisterReducer.password2,
-    role: state.RegisterReducer.role
+    role: state.RegisterReducer.role,
+    companyName: state.RegisterReducer.companyName
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
@@ -112,9 +164,10 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     changeRegisterPassword: (password) => actions.changeRegisterPassword(dispatch,password),
     changeRegisterPassword2: (password2) => actions.changeRegisterPassword2(dispatch,password2),
     changeRegisterRole: (role) => actions.changeRegisterRole(dispatch,role),
-    doRegister: (username,password, password2, role) => actions.doRegister(dispatch,username,password, password2, role)
+    changeCompanyName: (companyName) => actions.changeCompanyName(dispatch,companyName),
+    doRegister: (username,password, password2, role, companyName) =>
+        actions.doRegister(dispatch,username,password, password2, role, companyName)
 });
-
 
 const RegisterContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Register)
 

@@ -8,6 +8,26 @@ class Login extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            errorMessageFld: ''
+        }
+        this.validateFields = this.validateFields.bind(this);
+    }
+
+    validateFields(username, password)  {
+        let returnVal = false;
+        this.setState(() => {
+            return {errorMessageFld: ''}
+        });
+        if(username === '' || password === '') {
+            this.setState(() => {
+                return {errorMessageFld: 'All fields are mandatory!'}
+            });
+        }
+        else {
+            returnVal = true;
+        }
+        return returnVal;
     }
 
     render() {
@@ -18,12 +38,10 @@ class Login extends Component {
             <div className="container-login container-fluid">
                 <div className={"card container wbdv-login-container"}>
                     <form>
-                        <span className={"row"}>
-                            <div id="errorMessage" className="alert alert-danger" role="alert">sdsd</div>
-                        </span>
-                        <span className={"row"}>
-                            <div id="successMessage" className="alert alert-success" role="alert">sd</div>
-                        </span>
+                        {this.state.errorMessageFld!=='' &&
+                        <span>
+                            <div id="errorMessage" className="alert alert-danger" role="alert">{this.state.errorMessageFld}</div>
+                        </span>}
                         <div className="form-group row">
                             <label htmlFor="usernameFld" className="col-sm-3 col-form-label">
                                 Username
@@ -55,7 +73,10 @@ class Login extends Component {
                                 <button id="loginUser"
                                         className="btn btn-outline-success btn-block"
                                         type="button"
-                                        onClick={()=>{this.props.doLogin(this.props.username, this.props.password)}}>
+                                        onClick={()=>{
+                                            if(this.validateFields(this.props.username,this.props.password))
+                                                this.props.doLogin(this.props.username, this.props.password)
+                                        }}>
                                     Login
                                 </button>
                                 <div className="row">
