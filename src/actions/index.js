@@ -27,7 +27,7 @@ export const doLogin = (dispatch, username, password) => {
             })
         } else {
             localStorage.setItem('username', user.username);
-            localStorage.setItem('userRole', user.role);
+            localStorage.setItem('userRole', user.roleType);
             dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
             history.push('/');
         }
@@ -77,7 +77,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                     })
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.role);
+                    localStorage.setItem('userRole', user.roleType);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
                     history.push('/');
                 }
@@ -108,7 +108,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                     })
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.role);
+                    localStorage.setItem('userRole', user.roleType);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
                     history.push('/');
                 }
@@ -486,6 +486,11 @@ export const addApplicant = (dispatch, jobId) => {
                 return null;
         }).then(job => {
             if (job != null) {
+
+                dispatch({
+                    type: constants.SUCCESS,
+                    message : "Application Submitted"
+                })
             dispatch({
                 type: constants.SET_JOB_DETAILS,
                 job : job
@@ -619,7 +624,7 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })
@@ -651,7 +656,7 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })
@@ -680,13 +685,13 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })
     } else if (role === 'Admin') {
         fetch('http://localhost:8080/api/admin', {
-            method: 'post',
+            method: 'PUT',
             credentials: 'include',
             body: JSON.stringify({
                 'username': username,
@@ -709,7 +714,7 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })

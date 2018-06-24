@@ -37,7 +37,7 @@ class Company extends Component {
                         <tbody>
                         {this.props.jobs.map(job => {
 
-                            return <tr>
+                            return <tr key={job.id}>
                                 <td><Link to={`/job/${job.id}`}>{job.position}</Link></td>
                                 <td>{job.totalApplications}</td>
                             </tr>
