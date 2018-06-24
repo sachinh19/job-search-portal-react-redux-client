@@ -5,7 +5,7 @@ export const doLogin = (dispatch, username, password) => {
 
     fetch('http://localhost:8080/api/login', {
         method: 'post',
-        credentials:'same-origin',
+        credentials:'include',
         body: JSON.stringify({
             'username': username,
             'password': password
@@ -27,7 +27,7 @@ export const doLogin = (dispatch, username, password) => {
             })
         } else {
             localStorage.setItem('username', user.username);
-            localStorage.setItem('userRole', user.roleType);
+            localStorage.setItem('userRole', user.role);
             dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
             history.push('/');
         }
@@ -37,7 +37,7 @@ export const doLogin = (dispatch, username, password) => {
 export const doRegister = (dispatch, username, password, password2, role, companyName) => {
 
     fetch('http://localhost:8080/api/person/username/' + username,{
-        credentials: 'same-origin'
+        credentials: 'include'
     })
         .then(response => {
             if (response.status === 200) {
@@ -56,7 +56,6 @@ export const doRegister = (dispatch, username, password, password2, role, compan
         if (!userDup && role === 'JobSeeker') {
             fetch('http://localhost:8080/api/register/jobseeker', {
                 method: 'post',
-                credentials:'same-origin',
                 body: JSON.stringify({
                     'username': username,
                     'password': password
@@ -78,7 +77,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                     })
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.roleType);
+                    localStorage.setItem('userRole', user.role);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user});
                     history.push('/');
                 }
@@ -86,7 +85,6 @@ export const doRegister = (dispatch, username, password, password2, role, compan
         } else if (!userDup && role === 'Employer') {
             fetch('http://localhost:8080/api/register/employer', {
                 method: 'post',
-                credentials:'same-origin',
                 body: JSON.stringify({
                     'username': username,
                     'password': password,
@@ -110,7 +108,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                     })
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.roleType);
+                    localStorage.setItem('userRole', user.role);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user});
                     history.push('/');
                 }
@@ -174,7 +172,7 @@ export const changeCompanyName = (dispatch, companyName) => {
 export const logOut = (dispatch) => {
 
     fetch('http://localhost:8080/api/logout',{
-        credentials:'same-origin'
+        credentials:'include'
     }).then(() =>{
         localStorage.removeItem('username');
         localStorage.removeItem('userRole');
@@ -186,9 +184,7 @@ export const logOut = (dispatch) => {
 }
 
 export const findAllJobs = (dispatch) => {
-    fetch('http://localhost:8080/api/job',{
-        credentials:'same-origin'
-    })
+    fetch('http://localhost:8080/api/job')
         .then((response) => {
             if (response.status === 200)
                 return response.json();
@@ -213,9 +209,7 @@ export const searchTextChanged = (dispatch, searchText) => {
 export const searchJobsByKeyword = (dispatch,searchText) =>  {
     if(searchText && searchText!=='' && searchText.includes(" "))
         searchText = searchText.split(" ").join("++")
-    fetch(('http://localhost:8080/api/searchJob/' + searchText),{
-        credentials:'same-origin'
-    })
+    fetch(('http://localhost:8080/api/searchJob/' + searchText))
         .then((response) => {
             console.log(response)
             if (response.status === 200)
@@ -234,7 +228,7 @@ export const searchJobsByKeyword = (dispatch,searchText) =>  {
 export const getNewJobs = (dispatch) => {
 
     fetch('http://localhost:8080/api/getjobs',{
-        credentials:'same-origin'
+        credentials:'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -251,7 +245,7 @@ export const getNewJobs = (dispatch) => {
 
 export const getNewCompanies = (dispatch) => {
     fetch('http://localhost:8080/api/getcompanies',{
-        credentials:'same-origin'
+        credentials:'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -267,9 +261,7 @@ export const getNewCompanies = (dispatch) => {
 }
 
 export const updateJobList = (dispatch) => {
-    fetch('http://localhost:8080/api/job',{
-        credentials:'same-origin'
-    })
+    fetch('http://localhost:8080/api/job')
         .then((response) => {
             if (response.status === 200)
                 return response.json();
@@ -290,7 +282,7 @@ export const deleteJob = (dispatch, jobId) => {
     if (choice === true) {
         fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId), {
             method: 'delete',
-            credentials:'same-origin'
+            credentials:'include'
         }).then(dispatch({
             type: constants.REMOVE_JOB,
             jobId: jobId
@@ -304,7 +296,7 @@ export const deleteJob = (dispatch, jobId) => {
 
 export const updateUserList = (dispatch) => {
     fetch('http://localhost:8080/api/person',{
-        credentials:'same-origin'
+        credentials:'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -321,12 +313,12 @@ export const updateUserList = (dispatch) => {
 
 }
 
-export const deleteUser = (dispatch, userId) => {
+export const deletePerson = (dispatch, userId) => {
     var choice = window.confirm("Do you want to delete this user?")
     if (choice === true) {
         fetch(('http://localhost:8080/api/person/PID').replace('PID', userId), {
             method: 'delete',
-            credentials:'same-origin'
+            credentials:'include'
         }).then(dispatch({
             type: constants.REMOVE_USER,
             userId: userId
@@ -341,29 +333,27 @@ export const deleteUser = (dispatch, userId) => {
 
 export const updateCompanyList = (dispatch) => {
     fetch('http://localhost:8080/api/company',{
-        credentials:'same-origin'
+        credentials:'include'
+    }).then((response) => {
+        if (response.status === 200)
+            return response.json();
+        else
+            return null;
     })
-        .then((response) => {
-            if (response.status === 200)
-                return response.json();
-            else
-                return null;
+    .then(companies => {
+        dispatch({
+            type: constants.SHOW_COMPANYLIST,
+            companies: companies
         })
-        .then(companies => {
-            dispatch({
-                type: constants.SHOW_COMPANYLIST,
-                companies: companies
-            })
-        })
-
+    })
 }
 
 export const deleteCompany = (dispatch, companyId) => {
-    var choice = window.confirm("Do you want to delete this company?")
+    const choice = window.confirm("Do you want to delete this company?");
     if (choice === true) {
         fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId), {
             method: 'delete',
-            credentials:'same-origin'
+            credentials:'include'
         }).then(dispatch({
             type: constants.REMOVE_COMPANY,
             companyId: companyId
@@ -378,7 +368,7 @@ export const deleteCompany = (dispatch, companyId) => {
 
 export const getJobDetails = (dispatch, jobId) => {
     fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId),{
-        credentials:'same-origin'
+        credentials:'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -396,7 +386,7 @@ export const getJobDetails = (dispatch, jobId) => {
 
 export const getQueries = (dispatch, jobId) => {
     fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId),{
-        credentials:'same-origin'
+        credentials:'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -416,7 +406,7 @@ export const getQueries = (dispatch, jobId) => {
 export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
     fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
         method: 'put',
-        credentials:'same-origin',
+        credentials:'include',
         body: JSON.stringify({
             'status': newStatus
         }),
@@ -439,7 +429,7 @@ export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
 
 export const getCompanyDetails = (dispatch, companyId) => {
     fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId),{
-        credentials:'same-origin'
+        credentials:'include'
     }).then((response) => {
         if (response.status === 200)
             return response.json();
@@ -455,7 +445,7 @@ export const getCompanyDetails = (dispatch, companyId) => {
 
 export const getCompanyEmployees = (dispatch, companyId) => {
     fetch(('http://localhost:8080/api/company/CID/employees').replace('CID', companyId),{
-        credentials:'same-origin'
+        credentials:'include'
     }).then((response) => {
         if (response.status === 200)
             return response.json();
@@ -471,7 +461,7 @@ export const getCompanyEmployees = (dispatch, companyId) => {
 
 export const getCompanyJobs = (dispatch, companyId) => {
     fetch(('http://localhost:8080/api/company/CID/jobs').replace('CID', companyId),{
-        credentials:'same-origin'
+        credentials:'include'
     }).then((response) => {
         if (response.status === 200)
             return response.json();
@@ -489,7 +479,7 @@ export const addApplicant = (dispatch, jobId) => {
     if (localStorage.getItem("username")) {
         fetch(('http://localhost:8080/api/job/JID/addapplicant').replace('JID', jobId),{
             method:'put',
-            credentials:'same-origin'
+            credentials:'include'
         }).then((response) => {
             if (response.status === 200)
                 return response.json();

@@ -29,9 +29,14 @@ class AdminConsoleJob extends Component {
                 )}
             )
 
-            return jobList
+            return jobList;
         }else {
-            return(<h3>Sorry, no data found</h3>)
+            return(
+                <tr>
+                    <td>
+                        <h3>Sorry, no data found</h3>
+                    </td>
+                </tr>);
         }
     }
 

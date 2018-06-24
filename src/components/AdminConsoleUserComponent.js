@@ -17,7 +17,7 @@ class AdminConsoleUser extends Component {
                 return (
                     <tr key={user.id}>
                         <td><Link to={`/user/${user.id}`}>{user.username}</Link></td>
-                        <td>{user.roleType}</td>
+                        <td>{user.role}</td>
                         <td><button type="button" className="btn btn-danger" onClick={()=>{this.props.deleteUser(user.id)}}><i className="fa fa-trash"></i></button></td></tr>
                 )}
             )
@@ -56,7 +56,7 @@ const stateToPropertyMapper = (state) => ({
 
 export const dispatcherToPropsMapper = (dispatch) => ({
     updateUserList: () => actions.updateUserList(dispatch),
-    deleteUser: (userId) => actions.deleteUser(dispatch,userId)
+    deleteUser: (userId) => actions.deletePerson(dispatch,userId)
 })
 
 const AdminConsoleUserComponent = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleUser)
