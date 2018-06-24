@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux';
 import LoginReducer from './LoginReducer'
-import UserReducer from './UserReducer'
 import AlertReducer from './AlertReducer'
 import JobsReducer from './JobsReducer'
 import JobReducer from './JobReducer'
@@ -16,7 +15,6 @@ const RootReducer = combineReducers({
     JobsReducer,
     LoginReducer,
     RegisterReducer,
-    UserReducer,
     AlertReducer,
     AdminJobListReducer,
     AdminCompanyListReducer,
