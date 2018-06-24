@@ -28,3 +28,7 @@
     height:100px;
     width: auto;
 }
+.wbdv-right-element{
+    float: right;
+    text-align: right;
+}
