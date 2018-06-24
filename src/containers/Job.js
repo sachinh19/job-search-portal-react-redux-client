@@ -36,7 +36,7 @@ class Job extends Component {
                 <div className={"wbdv-queries"}>
                     {this.props.queries.map(query => {
                         return (
-                            <div className={"card"}>
+                            <div className={"card"} key={query.id}>
 
                                     <div className={"card-header row wdbv-status-options"}>
                                         <label>
@@ -74,7 +74,9 @@ class Job extends Component {
                 <div className={"col-md-6"}>
                     <h2>
                         {this.props.job.position}
-                        <button type="button" className="btn btn-primary wbdv-right-element">Apply Now</button>
+                        <button type="button" className="btn btn-primary wbdv-right-element" onClick={() => this.props.addApplicant(this.props.job.id)}>
+                            Apply Now
+                        </button>
                         <br/>
                     </h2>
                     <div dangerouslySetInnerHTML={{__html: description}}/>
@@ -104,7 +106,8 @@ const stateToPropertyMapper = (state) => ({
 export const dispatcherToPropsMapper = (dispatch) => ({
     getJobDetails: (jobId) => actions.getJobDetails(dispatch, jobId),
     getQueries: (jobId) => actions.getQueries(dispatch, jobId),
-    changeQueryStatus: (queryId, newStatus, jobId) => actions.changeQueryStatus(dispatch, queryId, newStatus, jobId)
+    changeQueryStatus: (queryId, newStatus, jobId) => actions.changeQueryStatus(dispatch, queryId, newStatus, jobId),
+    addApplicant: (jobId) => actions.addApplicant(dispatch,jobId)
 });
 
 const JobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Job)
