@@ -1191,21 +1191,22 @@ export const isAuthenticated = (dispatch, companyName) => {
             }
         })
     }
-}
+};
 
 export const createUser = (dispatch) => {
-    dispatch({
-        type: constants.SET_CREATE_USER_FLAG
-    })
-}
+    if (localStorage.getItem("userRole") === "Admin") {
+        dispatch({
+            type: constants.SET_CREATE_USER_FLAG
+        })
+    }
+};
 export const resetCreateFlag = (dispatch) => {
     dispatch({
         type: constants.RESET_CREATE_USER_FLAG
     })
-}
+};
 
-export const createNewUser = (dispatch,username, password, role, companyName) =>
-{
+export const createNewUser = (dispatch, username, password, role, companyName) => {
     fetch('http://localhost:8080/api/person/username/' + username, {
         credentials: 'include'
     })
@@ -1245,7 +1246,7 @@ export const createNewUser = (dispatch,username, password, role, companyName) =>
                         dispatch({
                             type: constants.ADD_NEW_USER,
                             user: user
-                        })
+                        });
                         dispatch({
                             type: constants.SUCCESS,
                             message: "User Successfully Created"
@@ -1268,11 +1269,12 @@ export const createNewUser = (dispatch,username, password, role, companyName) =>
                             return response.json()
                         } else {
                             return null;
-                        }}).then(user => {
+                        }
+                    }).then(user => {
                         dispatch({
                             type: constants.ADD_NEW_USER,
                             user: user
-                        })
+                        });
                         dispatch({
                             type: constants.SUCCESS,
                             message: "User Successfully Created"
@@ -1299,7 +1301,7 @@ export const createNewUser = (dispatch,username, password, role, companyName) =>
                         dispatch({
                             type: constants.ADD_NEW_USER,
                             user: user
-                        })
+                        });
                         dispatch({
                             type: constants.SUCCESS,
                             message: "User Successfully Created"
@@ -1326,7 +1328,7 @@ export const createNewUser = (dispatch,username, password, role, companyName) =>
                         dispatch({
                             type: constants.ADD_NEW_USER,
                             user: user
-                        })
+                        });
                         dispatch({
                             type: constants.SUCCESS,
                             message: "User Successfully Created"
@@ -1336,7 +1338,7 @@ export const createNewUser = (dispatch,username, password, role, companyName) =>
             }
         }
     })
-}
+};
 
 
 
