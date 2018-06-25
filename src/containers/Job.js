@@ -36,17 +36,17 @@ class Job extends Component {
                 <div className={"wbdv-queries"}>
                     {this.props.queries.map(query => {
                         return (
-                            <div className={"card"} key={query.id}>
+                            <div className={"card wbdv-query"} key={query.id}>
 
                                 <div className={"card-header row wdbv-status-options"}>
                                     <label>
-                                        <input type={"radio"} name={"statusTrue"} value="true"
+                                        <input type={"radio"} name={"Query"+query.id} value="true"
                                                checked={query.status}
                                                onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
                                         &nbsp; Resolved
                                     </label>&nbsp;&nbsp;
                                     <label>
-                                        <input type={"radio"} name={"statusFalse"} value="false"
+                                        <input type={"radio"} name={"Query"+query.id} value="false"
                                                checked={!query.status}
                                                onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
                                         &nbsp; Unresolved
