@@ -883,10 +883,18 @@ export const submitPost = (dispatch, post, jobId) => {
                 } else {
                     return null;
                 }
+            }).then((query) => {
+                dispatch({
+                    type: constants.ADD_QUERY,
+                    query: query
+                })
+                dispatch({
+                    type: constants.RESET_POST
+                })
             })
         } else {
             history.push('/login')
         }
-    }
 
+    }
 }
