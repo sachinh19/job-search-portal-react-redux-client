@@ -32,6 +32,12 @@ class Profile extends Component {
                                 <Link to={"/profile/update/" + localStorage.getItem("username")} className="wbdv-options-item">Manage Profile</Link>
                             </li>
                         </ul>
+                        <div className="container wbdv-follow-container">
+                            <button type="button" className="btn btn-primary btn-block"
+                                    onClick={() => {return}}>
+                                Follow
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-7">
@@ -41,12 +47,6 @@ class Profile extends Component {
                     </div>
                 </div>
                 <div className="col-md-2">
-                    <div className="container wbdv-follow-container">
-                        <button type="button" className="btn btn-primary btn-block"
-                                onClick={() => {return}}>
-                            Follow
-                        </button>
-                    </div>
                 </div>
             </div>
         )
