@@ -26,7 +26,8 @@ class NavBar extends Component{
 
     renderRegisterProfile() {
         if(this.props.username == null){
-            return <Link to={`/register`} className={'wbdv-link nav-link'}>
+            return
+            <Link to={`/register`} className={'wbdv-link nav-link'}>
                 Register
                 <span className={"sr-only"}>(current)</span>
             </Link>

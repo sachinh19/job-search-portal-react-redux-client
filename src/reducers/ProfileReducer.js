@@ -241,7 +241,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
                 aboutMe: state.aboutMe,
                 expDescription: state.expDescription,
                 interestedPosition: state.interestedPosition,
-                totalExperience: action.totalExperience,
+                totalExperience: state.totalExperience,
                 role: state.role,
                 companyName: state.companyName,
                 position: state.position,

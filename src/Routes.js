@@ -12,6 +12,7 @@ import NavBarContainer from './components/NavBar'
 import FooterContainer from './components/Footer'
 import RegisterContainer from "./containers/Register";
 import SearchContainer from './containers/Search'
+import CreateJobContainer from "./containers/CreateJob";
 
 
 export default class Routes extends Component {
@@ -26,6 +27,7 @@ export default class Routes extends Component {
                     <Route exact path={"/search"} component={SearchContainer}/>
                     <Route exact path={"/profile"} component={ProfileContainer}/>
                     <Route exact path={"/register"} component={RegisterContainer}/>
+                    <Route exact path ={"/job"} component={CreateJobContainer}/>
                     <Route path={"/console"} component={AdminConsoleContainer}/>
                     <Route exact path ={"/job/:jobId"} component={JobContainer}/>
                     <Route exact path ={"/company/:companyId"} component={CompanyContainer}/>

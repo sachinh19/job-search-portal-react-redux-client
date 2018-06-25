@@ -267,7 +267,7 @@ class Profile extends Component {
                         <div className="form-group row">
                             <label className="col-sm-3 col-form-label"></label>
                             <div className="col-sm-9">
-                                <button id="registerUser"
+                                <button id="updateUser"
                                         className="btn btn-outline-success btn-block"
                                         type="button"
                                         onClick={()=>{

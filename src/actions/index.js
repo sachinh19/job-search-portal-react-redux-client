@@ -27,7 +27,7 @@ export const doLogin = (dispatch, username, password) => {
             })
         } else {
             localStorage.setItem('username', user.username);
-            localStorage.setItem('userRole', user.role);
+            localStorage.setItem('userRole', user.roleType);
             dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
             history.push('/');
         }
@@ -77,7 +77,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                     })
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.role);
+                    localStorage.setItem('userRole', user.roleType);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
                     history.push('/');
                 }
@@ -108,7 +108,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                     })
                 } else {
                     localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.role);
+                    localStorage.setItem('userRole', user.roleType);
                     dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
                     history.push('/');
                 }
@@ -723,96 +723,202 @@ export const fetchUserProfile = (dispatch) => {
     fetch('http://localhost:8080/api/person/username/' + username,{
         credentials: 'include'
     })
-        .then(response => {
+    .then(response => {
+        if (response.status === 200) {
+            return response.json();
+        } else {
+            return null;
+        }
+    }).then(user => {
+        role = user.roleType;
+    }).then(() => {
+    switch (role) {
+        case "JobSeeker":
+            fetch('http://localhost:8080/api/jobseeker/username/' + username)
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else {
+                        return null;
+                    }
+                }).then(user => {
+                if (user !== null) {
+                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                } else {
+                    dispatch({
+                        type: constants.ERROR,
+                        message: "Unable to fetch user details"
+                    })
+                }
+            })
+            break;
+        case "Employer":
+            fetch('http://localhost:8080/api/employer/username/' + username)
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else {
+                        return null;
+                    }
+                }).then(user => {
+                if (user !== null) {
+                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                } else {
+                    dispatch({
+                        type: constants.ERROR,
+                        message: "Unable to fetch user details"
+                    })
+                }
+            })
+            break;
+        case "Admin":
+            fetch('http://localhost:8080/api/admin/username/' + username)
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else {
+                        return null;
+                    }
+                }).then(user => {
+                if (user !== null) {
+                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                } else {
+                    dispatch({
+                        type: constants.ERROR,
+                        message: "Unable to fetch user details"
+                    })
+                }
+            })
+            break;
+        case "Moderator":
+            fetch('http://localhost:8080/api/moderator/username/' + username)
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else {
+                        return null;
+                    }
+                }).then(user => {
+                if (user !== null) {
+                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                } else {
+                    dispatch({
+                        type: constants.ERROR,
+                        message: "Unable to fetch user details"
+                    })
+                }
+            })
+            break;
+        case null: break;
+        default:
+            alert("Invalid Role Type found in Local Storage - " + role);
+        }
+    })
+}
+
+export const createJob = (dispatch) => {
+    fetch('http://localhost:8080/api/job', {
+        method: 'POST',
+        body: JSON.stringify({
+            'position': 'Default Position',
+            'description': '<html><h5>New Job Description</h5></html>',
+            'keywords': '',
+            'jobType': {
+                'name' : 'Full-time'
+            }
+        }),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => {
+        if (response.status === 200) {
+            return response.json()
+        } else {
+            return null;
+        }
+    }).then(job => {
+        if (job !== null) {
+            localStorage.addItem("jobId", job.id);
+            dispatch({type: constants.CREATE_JOB, job:job});
+            history.push('/');
+        }
+    });
+}
+
+
+export const saveJob = (dispatch, jobId, position, description, keywords, jobType) => {
+    fetch('http://localhost:8080/api/job', {
+        method: 'PUT',
+        body: JSON.stringify({
+            'jobId': jobId,
+            'position': position,
+            'description': description,
+            'keywords': keywords,
+            'jobType': {
+                'name' : 'Full-time'
+            }
+        }),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => {
+        if (response.status === 200) {
+            return response.json()
+        } else {
+            return null;
+        }
+    }).then(job => {
+        if (job !== null) {
+            dispatch({type: constants.SAVE_JOB, successMessageFld: 'Job Save Successful!'});
+        }
+    })
+}
+
+export const changeJobDescription = (dispatch, description) => {
+    dispatch({
+        type: constants.CHANGE_JOB_DESCRIPTION,
+        description: description
+    })
+}
+export const changeJobPosition = (dispatch, position) => {
+    dispatch({
+        type: constants.CHANGE_JOB_POSITION,
+        position: position
+    })
+}
+export const changeJobKeywords = (dispatch, keywords) => {
+    dispatch({
+        type: constants.CHANGE_JOB_KEYWORDS,
+        keywords: keywords
+    })
+}
+export const changeProfileJobType = (dispatch, jobType) => {
+    dispatch({
+        type: constants.CHANGE_JOB_TYPE,
+        jobType: jobType
+    })
+}
+
+export const fetchJobDetails = (dispatch, jobId) => {
+    alert("jobId" + jobId)
+    if(localStorage.getItem("jobId")){
+        alert(localStorage.getItem("jobId"))
+    }
+    fetch('http://localhost:8080/api/job/' + jobId,{
+        credentials: 'include'
+    }).then(response => {
             if (response.status === 200) {
                 return response.json();
             } else {
                 return null;
             }
-        }).then(user => {
-            role = user.roleType;
-        }).then(() => {
-        switch (role) {
-            case "JobSeeker":
-                fetch('http://localhost:8080/api/jobseeker/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case "Employer":
-                fetch('http://localhost:8080/api/employer/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case "Admin":
-                fetch('http://localhost:8080/api/admin/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case "Moderator":
-                fetch('http://localhost:8080/api/moderator/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user:user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case null: break;
-            default:
-                alert("Invalid Role Type found in Local Storage - " + role);
-            }
-        })
-    }
-
+    }).then(job => {
+        if (job !== null) {
+            dispatch({type: constants.FETCH_JOB_DETAILS, job:job});
+        } else {
+            dispatch({
+                type: constants.ERROR,
+                message: "Unable to fetch job details"
+            })
+        }
+    })}
