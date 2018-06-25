@@ -266,6 +266,55 @@ export const getNewCompanies = (dispatch) => {
     })
 }
 
+export const getJobsForUser = (dispatch) => {
+    fetch('http://localhost:8080/api/person/company/job', {
+        credentials: 'include'
+    }).then((response) => {
+            if (response.status === 200)
+                return response.json();
+            else
+                return null;
+        })
+        .then(jobs => {
+            dispatch({
+                type: constants.GET_JOBS_FOR_USER,
+                jobs: jobs
+            })
+        })
+}
+
+export const getPersonJobs = (dispatch) => {
+    if(localStorage.getItem("userRole") === 'Employer') {
+        fetch('http://localhost:8080/api/employer/job', {
+            credentials: 'include'
+        }).then((response) => {
+            if (response.status === 200)
+                return response.json();
+            else
+                return null;
+        }).then(personJobs => {
+            dispatch({
+                type: constants.GET_JOBS_FOR_PERSON,
+                personJobs: personJobs
+            })
+        })
+    } else {
+        fetch('http://localhost:8080/api/person/job', {
+            credentials: 'include'
+        }).then((response) => {
+            if (response.status === 200)
+                return response.json();
+            else
+                return null;
+        }).then(personJobs => {
+            dispatch({
+                type: constants.GET_JOBS_FOR_PERSON,
+                personJobs: personJobs
+            })
+        })
+    }
+}
+
 export const updateJobList = (dispatch) => {
     fetch('http://localhost:8080/api/job')
         .then((response) => {

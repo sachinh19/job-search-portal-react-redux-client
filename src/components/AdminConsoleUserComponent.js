@@ -17,7 +17,7 @@ class AdminConsoleUser extends Component {
                 return (
                     <tr key={user.id}>
                         <td><Link to={`/user/${user.id}`}>{user.username}</Link></td>
-                        <td>{user.role}</td>
+                        <td>{user.roleType}</td>
                         <td><button type="button" className="btn btn-danger" onClick={()=>{this.props.deleteUser(user.id)}}><i className="fa fa-trash"></i></button></td></tr>
                 )}
             )
@@ -43,7 +43,6 @@ class AdminConsoleUser extends Component {
                         {this.renderUsers()}
                         </tbody>
                     </table>
-
                 </div>
             </div>
         )

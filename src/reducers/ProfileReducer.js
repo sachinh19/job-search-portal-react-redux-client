@@ -2,9 +2,49 @@ import * as constants from '../constants'
 
 const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:'', lastName:'', email:'',
     aboutMe:'', expDescription:'', role:'Employer', companyName: '', position: '', tenure: '',
-    interestedPosition:'', totalExperience: '', successMessageFld: ''}, action) => {
+    interestedPosition:'', totalExperience: '', successMessageFld: '', jobs:[], personJobs:[]}, action) => {
 
     switch (action.type) {
+        case constants.GET_JOBS_FOR_PERSON:
+            return {
+                userId: state.userId,
+                username: state.username,
+                password: state.password,
+                firstName: state.firstName,
+                lastName: state.lastName,
+                email: state.email,
+                aboutMe: state.aboutMe,
+                expDescription: state.expDescription,
+                interestedPosition: state.interestedPosition,
+                totalExperience: state.totalExperience,
+                role: state.role,
+                companyName: state.companyName,
+                position: state.position,
+                tenure: state.tenure,
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: action.personJobs
+            }
+        case constants.GET_JOBS_FOR_USER:
+            return {
+                userId: state.userId,
+                username: state.username,
+                password: state.password,
+                firstName: state.firstName,
+                lastName: state.lastName,
+                email: state.email,
+                aboutMe: state.aboutMe,
+                expDescription: state.expDescription,
+                interestedPosition: state.interestedPosition,
+                totalExperience: state.totalExperience,
+                role: state.role,
+                companyName: state.companyName,
+                position: state.position,
+                tenure: state.tenure,
+                successMessageFld:'',
+                jobs: action.jobs,
+                personJobs: state.personJobs
+            }
         case constants.CHANGE_PROFILE_USERNAME:
             return {
                 userId: state.userId,
@@ -21,7 +61,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_PASSWORD:
             return {
@@ -39,7 +81,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_FIRST_NAME:
             return {
@@ -57,7 +101,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_LAST_NAME:
             return {
@@ -75,7 +121,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_EMAIL:
             return {
@@ -93,7 +141,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_ABOUT_ME:
             return {
@@ -111,7 +161,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_EXP_DESCRIPTION:
             return {
@@ -129,7 +181,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_INTERESTED_POSITION:
             return {
@@ -147,7 +201,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_TOTAL_EXPERIENCE:
             return {
@@ -165,7 +221,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
 
         case constants.CHANGE_PROFILE_ROLE:
@@ -188,7 +246,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_COMPANY_NAME:
             return {
@@ -206,7 +266,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: action.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_POSITION:
             return {
@@ -224,7 +286,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: action.position,
                 tenure: state.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.CHANGE_PROFILE_TENURE:
             return {
@@ -242,7 +306,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: action.tenure,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.UPDATE_PROFILE:
             return {
@@ -260,7 +326,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: state.companyName,
                 position: state.position,
                 tenure: state.tenure,
-                successMessageFld:action.successMessageFld
+                successMessageFld:action.successMessageFld,
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
         case constants.FETCH_USER_PROFILE:
             let usernameFld = ''
@@ -332,7 +400,9 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 companyName: companyNameFld,
                 position: positionFld,
                 tenure: tenureFld,
-                successMessageFld:''
+                successMessageFld:'',
+                jobs: state.jobs,
+                personJobs: state.personJobs
             }
 
 
