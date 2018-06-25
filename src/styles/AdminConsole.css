@@ -24,5 +24,20 @@
 .wbdv-options-item:hover{
     color: black;
 }
-
-
+.wdbv-create-user-btn{
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 0 !important;
+}
+.wbdv-create-user-form{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #efefef !important;
+}
+.wbdv-right-element{
+    float: right !important;
+}
+.wbdv-btn{
+    margin-left: 5px;
+}

@@ -5,7 +5,7 @@
     float: right;
 }
 .wdbv-status-options{
-    display: inline-block;
+    display: inline-block !important;
 }
 .wbdv-post-queries{
     margin-bottom: 30px;
@@ -15,5 +15,11 @@
     margin-top: 20px;
 }
 .wbdv-query{
+    margin-bottom: 10px;
+}
+.wbdv-query-btn{
+    margin-right: 5px;
+}
+.wbdv-applyBtn{
     margin-bottom: 10px;
 }
