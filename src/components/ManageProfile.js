@@ -15,7 +15,7 @@ class ManageProfile extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchUserProfile();
+        this.props.fetchUserProfile(this.props.match.params.username);
     }
 
     validateFields(password, role, companyName) {
@@ -351,7 +351,7 @@ export const dispatcherToPropsMapper = (dispatch) => ({
         actions.updateProfile(dispatch,username,password, firstName, lastName, email, aboutMe,
             expDescription, role, companyName, position, tenure, interestedPosition, totalExperience),
     deleteProfile: (userId) => actions.deleteProfile(dispatch,userId),
-    fetchUserProfile: () => actions.fetchUserProfile(dispatch)
+    fetchUserProfile: (username) => actions.fetchUserProfile(dispatch, username)
 });
 
 const ManageProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(ManageProfile)

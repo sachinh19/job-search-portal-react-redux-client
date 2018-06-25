@@ -801,111 +801,110 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
     }
 };
 
-export const fetchUserProfile = (dispatch) => {
-    const username = localStorage.getItem("username");
+export const fetchUserProfile = (dispatch,username) => {
     var role;
+    if (username) {
+        fetch('http://localhost:8080/api/person/username/' + username, {
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            }).then(user => {
+            role = user.roleType;
+        }).then(() => {
+            switch (role) {
+                case "JobSeeker":
+                    fetch('http://localhost:8080/api/jobseeker/username/' + username)
+                        .then(response => {
+                            if (response.status === 200) {
+                                return response.json()
+                            } else {
+                                return null;
+                            }
+                        }).then(user => {
+                        if (user !== null) {
+                            dispatch({type: constants.FETCH_USER_PROFILE, user: user});
+                        } else {
+                            dispatch({
+                                type: constants.ERROR,
+                                message: "Unable to fetch user details"
+                            })
+                        }
+                    })
+                    break;
+                case "Employer":
+                    fetch('http://localhost:8080/api/employer/username/' + username)
+                        .then(response => {
+                            if (response.status === 200) {
+                                return response.json()
+                            } else {
+                                return null;
+                            }
+                        }).then(user => {
+                        if (user !== null) {
+                            dispatch({type: constants.FETCH_USER_PROFILE, user: user});
+                        } else {
+                            dispatch({
+                                type: constants.ERROR,
+                                message: "Unable to fetch user details"
+                            })
+                        }
+                    })
+                    break;
+                case "Admin":
+                    fetch('http://localhost:8080/api/admin/username/' + username)
+                        .then(response => {
+                            if (response.status === 200) {
+                                return response.json()
+                            } else {
+                                return null;
+                            }
+                        }).then(user => {
+                        if (user !== null) {
+                            dispatch({type: constants.FETCH_USER_PROFILE, user: user});
+                        } else {
+                            dispatch({
+                                type: constants.ERROR,
+                                message: "Unable to fetch user details"
+                            })
+                        }
+                    })
+                    break;
+                case "Moderator":
+                    fetch('http://localhost:8080/api/moderator/username/' + username)
+                        .then(response => {
+                            if (response.status === 200) {
+                                return response.json()
+                            } else {
+                                return null;
+                            }
+                        }).then(user => {
+                        if (user !== null) {
+                            dispatch({type: constants.FETCH_USER_PROFILE, user: user});
+                        } else {
+                            dispatch({
+                                type: constants.ERROR,
+                                message: "Unable to fetch user details"
+                            })
+                        }
+                    })
+                    break;
+                case null:
+                    break;
+                default:
+                    dispatch({
+                        type: constants.ERROR,
+                        message: "Invalid Role Type found in Local Storage - " + role
+                    })
 
-    fetch('http://localhost:8080/api/person/username/' + username, {
-        credentials: 'include'
-    })
-        .then(response => {
-            if (response.status === 200) {
-                return response.json();
-            } else {
-                return null;
             }
-        }).then(user => {
-        role = user.roleType;
-    }).then(() => {
-        switch (role) {
-            case "JobSeeker":
-                fetch('http://localhost:8080/api/jobseeker/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user: user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case "Employer":
-                fetch('http://localhost:8080/api/employer/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user: user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case "Admin":
-                fetch('http://localhost:8080/api/admin/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user: user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case "Moderator":
-                fetch('http://localhost:8080/api/moderator/username/' + username)
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json()
-                        } else {
-                            return null;
-                        }
-                    }).then(user => {
-                    if (user !== null) {
-                        dispatch({type: constants.FETCH_USER_PROFILE, user: user});
-                    } else {
-                        dispatch({
-                            type: constants.ERROR,
-                            message: "Unable to fetch user details"
-                        })
-                    }
-                })
-                break;
-            case null:
-                break;
-            default:
-                dispatch({
-                    type: constants.ERROR,
-                    message: "Invalid Role Type found in Local Storage - " + role
-                })
-
-        }
-    })
+        })
+    }
 }
-
 export const getApplicationStatus = (dispatch, jobId) => {
     if (jobId) {
         fetch(('http://localhost:8080/api/job/JID/status').replace('JID', jobId), {
