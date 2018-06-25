@@ -26,8 +26,7 @@ class NavBar extends Component{
 
     renderRegisterProfile() {
         if(this.props.username == null){
-            return
-            <Link to={`/register`} className={'wbdv-link nav-link'}>
+            return <Link to={`/register`} className={'wbdv-link nav-link'}>
                 Register
                 <span className={"sr-only"}>(current)</span>
             </Link>
@@ -41,6 +40,10 @@ class NavBar extends Component{
 
     render(){
         let newSearchText
+        let userRole = ''
+        if(localStorage.getItem("username")) {
+            userRole = localStorage.getItem("userRole")?localStorage.getItem("userRole"):''
+        }
         return(
             <header className={"container-fluid"}>
                 <nav className={"navbar navbar-expand-md navbar-dark fixed-top bg-dark row"}>
@@ -83,17 +86,33 @@ class NavBar extends Component{
                                         <span className={"sr-only"}>(current)</span>
                                     </Link>
                                 </li>
+                                {userRole &&
+                                userRole === 'Moderator' &&
                                 <li className={"nav-item"}>
-                                    {this.renderLogin()}
-                                </li>
-                                <li className={"nav-item"}>
-                                    {this.renderRegisterProfile()}
-                                </li>
-                            </ul>
+                                    <Link to={`/moderatorConsole`} className={'wbdv-link nav-link'}>
+                                        Moderator-Console
+                                        <span className={"sr-only"}>(current)</span>
+                                    </Link>
+                                </li>}
+                                {userRole &&
+                                userRole === 'Admin' &&
+                                    <li className={"nav-item"}>
+                                        <Link to={`/console`} className={'wbdv-link nav-link'}>
+                                            Admin-Console
+                                            <span className={"sr-only"}>(current)</span>
+                                        </Link>
+                                    </li>}
+                                    <li className={"nav-item"}>
+                                        {this.renderLogin()}
+                                    </li>
+                                    <li className={"nav-item"}>
+                                        {this.renderRegisterProfile()}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </nav>
-            </header>
+                    </nav>
+                </header>
         )
     }
 

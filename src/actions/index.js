@@ -1007,6 +1007,7 @@ export const saveJob = (dispatch, jobId, position, description, keywords, jobTyp
         }
     }).then(() => {
         history.push('/job/' + localStorage.getItem("jobId"));
+        localStorage.removeItem("jobId");
     })
 }
 
@@ -1056,4 +1057,28 @@ export const fetchJobDetails = (dispatch, jobId) => {
                 message: "Unable to fetch job details"
             })
         }
-    })}
+    })
+}
+
+export const deleteProfile = (dispatch, userId, role) => {
+    var choice = window.confirm("Do you want to delete your profile?")
+    if (choice === true) {
+        fetch(('http://localhost:8080/api/person/'+ userId), {
+            method: 'delete',
+            credentials: 'include'
+        }).then(
+            dispatch({
+            type: constants.DELETE_PROFILE,
+            userId: userId
+        })).then(() =>
+            dispatch({
+                type: constants.SUCCESS,
+                message: "Profile Deleted Successfully"
+            })
+        ).then(() => logOut(dispatch))
+    }
+}
+
+
+
+

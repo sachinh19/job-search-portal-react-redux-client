@@ -1,12 +1,13 @@
 import * as constants from '../constants'
 
-const ProfileReducer = (state = {username:'', password: '', firstName:'', lastName:'', email:'',
+const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:'', lastName:'', email:'',
     aboutMe:'', expDescription:'', role:'Employer', companyName: '', position: '', tenure: '',
     interestedPosition:'', totalExperience: '', successMessageFld: ''}, action) => {
 
     switch (action.type) {
         case constants.CHANGE_PROFILE_USERNAME:
             return {
+                userId: state.userId,
                 username: action.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -24,6 +25,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_PASSWORD:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: action.password,
                 firstName: state.firstName,
@@ -41,6 +43,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_FIRST_NAME:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: action.firstName,
@@ -58,6 +61,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_LAST_NAME:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -75,6 +79,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_EMAIL:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -92,6 +97,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_ABOUT_ME:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -109,6 +115,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_EXP_DESCRIPTION:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -126,6 +133,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_INTERESTED_POSITION:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -143,6 +151,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_TOTAL_EXPERIENCE:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -161,6 +170,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
 
         case constants.CHANGE_PROFILE_ROLE:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -182,6 +192,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_COMPANY_NAME:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -199,6 +210,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_POSITION:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -216,6 +228,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.CHANGE_PROFILE_TENURE:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -233,6 +246,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
             }
         case constants.UPDATE_PROFILE:
             return {
+                userId: state.userId,
                 username: state.username,
                 password: state.password,
                 firstName: state.firstName,
@@ -304,6 +318,7 @@ const ProfileReducer = (state = {username:'', password: '', firstName:'', lastNa
 
 
             return {
+                userId: action.user.id,
                 username: usernameFld,
                 password: passwordFld,
                 firstName: firstNameFld,

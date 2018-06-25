@@ -294,6 +294,17 @@ class Profile extends Component {
                                 </button>
                             </div>
                         </div>
+                        <div className="form-group row">
+                            <label className="col-sm-3 col-form-label"></label>
+                            <div className="col-sm-9">
+                                <button id=""
+                                        className="btn btn-outline-danger btn-block"
+                                        type="button"
+                                        onClick={()=>{this.props.deleteProfile(this.props.userId)}}>
+                                    Delete Profile
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -304,6 +315,7 @@ class Profile extends Component {
 
 
 const stateToPropertyMapper = (state) => ({
+    userId: state.ProfileReducer.userId,
     username: state.ProfileReducer.username,
     password: state.ProfileReducer.password,
     firstName: state.ProfileReducer.firstName,
@@ -338,6 +350,7 @@ export const dispatcherToPropsMapper = (dispatch) => ({
                     expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) =>
         actions.updateProfile(dispatch,username,password, firstName, lastName, email, aboutMe,
             expDescription, role, companyName, position, tenure, interestedPosition, totalExperience),
+    deleteProfile: (userId) => actions.deleteProfile(dispatch,userId),
     fetchUserProfile: () => actions.fetchUserProfile(dispatch)
 });
 
