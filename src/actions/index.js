@@ -680,132 +680,133 @@ export const changeProfileTotalExperience = (dispatch, totalExperience) => {
 export const updateProfile = (dispatch, username, password, firstName, lastName, email, aboutMe,
                               expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) => {
 
-
-    if (role === 'JobSeeker') {
-        fetch('http://localhost:8080/api/jobseeker', {
-            method: 'PUT',
-            credentials: 'include',
-            body: JSON.stringify({
-                'username': username,
-                'password': password,
-                'firstName': firstName,
-                'lastName': lastName,
-                'email': email,
-                'aboutMe': aboutMe,
-                'expDescription': expDescription,
-                'interestedPosition': interestedPosition,
-                'totalExperience': totalExperience
-            }),
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                return response.json()
-            } else {
-                return null;
-            }
-        }).then(user => {
-            if (user !== null) {
-                localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.roleType);
-                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
-            }
-        })
-    } else if (role === 'Employer') {
-        fetch('http://localhost:8080/api/employer', {
-            method: 'PUT',
-            credentials: 'include',
-            body: JSON.stringify({
-                'username': username,
-                'password': password,
-                'firstName': firstName,
-                'lastName': lastName,
-                'email': email,
-                'aboutMe': aboutMe,
-                'expDescription': expDescription,
-                'companyName': companyName,
-                'position': position,
-                'tenure': tenure
-            }),
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                return response.json()
-            } else {
-                return null;
-            }
-        }).then(user => {
-            if (user !== null) {
-                localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.roleType);
-                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
-            }
-        })
-    } else if (role === 'Moderator') {
-        fetch('http://localhost:8080/api/moderator', {
-            method: 'PUT',
-            credentials: 'include',
-            body: JSON.stringify({
-                'username': username,
-                'password': password,
-                'firstName': firstName,
-                'lastName': lastName,
-                'email': email,
-                'aboutMe': aboutMe,
-                'expDescription': expDescription
-            }),
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                return response.json()
-            } else {
-                return null;
-            }
-        }).then(user => {
-            if (user !== null) {
-                localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.roleType);
-                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
-            }
-        })
-    } else if (role === 'Admin') {
-        fetch('http://localhost:8080/api/admin', {
-            method: 'PUT',
-            credentials: 'include',
-            body: JSON.stringify({
-                'username': username,
-                'password': password,
-                'firstName': firstName,
-                'lastName': lastName,
-                'email': email,
-                'aboutMe': aboutMe,
-                'expDescription': expDescription
-            }),
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                return response.json()
-            } else {
-                return null;
-            }
-        }).then(user => {
-            if (user !== null) {
-                localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.roleType);
-                dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
-            }
-        })
+    if (localStorage.getItem("userRole") === "Admin" || localStorage.getItem("username") === username) {
+        if (role === 'JobSeeker') {
+            fetch(('http://localhost:8080/api/jobseeker/USERNAME').replace('USERNAME',username), {
+                method: 'PUT',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                    'firstName': firstName,
+                    'lastName': lastName,
+                    'email': email,
+                    'aboutMe': aboutMe,
+                    'expDescription': expDescription,
+                    'interestedPosition': interestedPosition,
+                    'totalExperience': totalExperience
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(user => {
+                if (user !== null) {
+                    localStorage.setItem('username', user.username);
+                    localStorage.setItem('userRole', user.roleType);
+                    dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+                }
+            })
+        } else if (role === 'Employer') {
+            fetch(('http://localhost:8080/api/employer/USERNAME').replace('USERNAME',username), {
+                method: 'PUT',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                    'firstName': firstName,
+                    'lastName': lastName,
+                    'email': email,
+                    'aboutMe': aboutMe,
+                    'expDescription': expDescription,
+                    'companyName': companyName,
+                    'position': position,
+                    'tenure': tenure
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(user => {
+                if (user !== null) {
+                    localStorage.setItem('username', user.username);
+                    localStorage.setItem('userRole', user.roleType);
+                    dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+                }
+            })
+        } else if (role === 'Moderator') {
+            fetch(('http://localhost:8080/api/moderator/USERNAME').replace('USERNAME',username), {
+                method: 'PUT',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                    'firstName': firstName,
+                    'lastName': lastName,
+                    'email': email,
+                    'aboutMe': aboutMe,
+                    'expDescription': expDescription
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(user => {
+                if (user !== null) {
+                    localStorage.setItem('username', user.username);
+                    localStorage.setItem('userRole', user.roleType);
+                    dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+                }
+            })
+        } else if (role === 'Admin') {
+            fetch(('http://localhost:8080/api/admin/USERNAME').replace('USERNAME',username), {
+                method: 'PUT',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                    'firstName': firstName,
+                    'lastName': lastName,
+                    'email': email,
+                    'aboutMe': aboutMe,
+                    'expDescription': expDescription
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(user => {
+                if (user !== null) {
+                    localStorage.setItem('username', user.username);
+                    localStorage.setItem('userRole', user.roleType);
+                    dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
+                }
+            })
+        }
     }
 };
 
-export const fetchUserProfile = (dispatch,username) => {
+export const fetchUserProfile = (dispatch, username) => {
     var role;
     if (username) {
         fetch('http://localhost:8080/api/person/username/' + username, {
@@ -1392,5 +1393,6 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
     })
 };
 
-
-
+export const editUser = (dispatch, username) => {
+    history.push('/profile/update/' + username)
+}
