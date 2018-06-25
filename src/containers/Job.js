@@ -30,25 +30,8 @@ class Job extends Component {
         }
     }
 
-    renderQueryUpdateOption(queryId) {
-    if (localStorage.getItem("username") !== undefined && localStorage.getItem("role")){
-        if(localStorage.getItem("role")==="Admin" || localStorage.getItem("role")==="Moderator"){
-            return(<div className={"wbdv-update-query"}>
-                <button type="button" className="btn btn-success wbdv-right-element"
-                        onClick={() => {}}>
-                    <i className={"fa fa-edit"}></i>
-                </button>
-                <button type="button" className="btn btn-danger wbdv-right-element"
-                        onClick={() => {}}>
-                    <i className={"fa fa-trash"}></i>
-                </button>
-            </div>)
-        }
-      this.props.getUpdateAuthentication(queryId)
-    }
-    }
-
     renderQueries() {
+        let updatedPostFld = ''
         if (this.props.queries !== undefined && this.props.queries.length > 0) {
             return (
                 <div className={"wbdv-queries"}>
@@ -58,23 +41,40 @@ class Job extends Component {
 
                                 <div className={"card-header row wdbv-status-options"}>
                                     <label>
-                                        <input type={"radio"} name={"Query"+query.id} value="true"
+                                        <input type={"radio"} name={"Query" + query.id} value="true"
                                                checked={query.status}
                                                onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
                                         &nbsp; Resolved
                                     </label>&nbsp;&nbsp;
                                     <label>
-                                        <input type={"radio"} name={"Query"+query.id} value="false"
+                                        <input type={"radio"} name={"Query" + query.id} value="false"
                                                checked={!query.status}
                                                onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
                                         &nbsp; Unresolved
                                     </label>
-                                    <div className={"row wbdv-query-update-option"}>
-                                        {this.renderQueryUpdateOption(query.id)}
+                                    <div className={"wbdv-query-update-option"} hidden={!query.isAuthenticated}>
+                                            <button type="button" className="btn btn-success wbdv-right-element wbdv-query-btn"
+                                                    onClick={() => {this.props.updateQueryCall(query.id, query.post)}}>
+                                                <i className={"fa fa-edit"}></i>
+                                            </button>
+                                            <button type="button" className="btn btn-danger wbdv-right-element wbdv-query-btn"
+                                                    onClick={() => {this.props.deleteQuery(query.id)}}>
+                                                <i className={"fa fa-trash"}></i>
+                                            </button>
                                     </div>
                                 </div>
                                 <div className={"card-body"}>
                                     <br/>
+                                    <div hidden={query.isPreview}>
+                                        <textarea className="form-control" rows="3" name="updatedQueryText"
+                                                  value={this.props.updatedPost}
+                                                  onChange={() => {
+                                                      this.props.changeUpdatePost("sdsfsdfdsfsdfsdf" + updatedPostFld.value)}}
+                                                  ref={node => updatedPostFld = node}/>
+                                        <button onClick={() => {this.props.updatePost(this.props.updatedPost, this.props.id)}} type="button" className="btn btn-outline-primary wbdv-submit-btn">
+                                            Save Changes
+                                        </button>
+                                    </div>
                                     <p className="card-text">
                                         {query.post}
                                     </p>
@@ -94,7 +94,6 @@ class Job extends Component {
                 Apply Now
             </button>)
         }
-
         if (this.props.currentUser !== undefined) {
 
             this.props.getApplicationStatus(this.props.job.id)
@@ -103,9 +102,8 @@ class Job extends Component {
 
                 return (<button type="button" className="btn btn-primary wbdv-right-element"
                                 onClick={() => {
-                                    alert("You have already applied for this position")
-                                }}>
-                    Already Applied
+                                    alert("You have already applied for this position")}}>
+                    Applied
                 </button>)
             } else {
                 return (<button type="button" className="btn btn-primary wbdv-right-element"
@@ -140,7 +138,9 @@ class Job extends Component {
                                       onChange={() => this.props.changePost(postFld.value)}>
 
                             </textarea>
-                            <button onClick={() => {this.props.submitPost(this.props.post, this.props.job.id)}} type="button" className="btn btn-outline-primary wbdv-submit-btn">
+                            <button onClick={() => {
+                                this.props.submitPost(this.props.post, this.props.job.id)
+                            }} type="button" className="btn btn-outline-primary wbdv-submit-btn">
                                 Submit
                             </button>
                         </div>
@@ -160,7 +160,9 @@ const stateToPropertyMapper = (state) => ({
     queries: state.QueriesReducer.queries,
     currentUser: localStorage.getItem("username"),
     hasApplied: state.JobReducer.hasApplied,
-    post: state.JobReducer.post
+    post: state.JobReducer.post,
+    id: state.EditQueryReducer.id,
+    updatedPost: state.EditQueryReducer.updatedPost
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
@@ -170,7 +172,11 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     addApplicant: (jobId) => actions.addApplicant(dispatch, jobId),
     getApplicationStatus: (jobId) => actions.getApplicationStatus(dispatch, jobId),
     changePost: (post) => actions.changePost(dispatch, post),
-    submitPost: (post,jobId) => actions.submitPost(dispatch,post,jobId)
+    submitPost: (post, jobId) => actions.submitPost(dispatch, post, jobId),
+    updatePost: (post, queryId) => actions.updatePost(dispatch, post, queryId),
+    deleteQuery: (queryId) => actions.deleteQuery(dispatch, queryId),
+    updateQueryCall: (queryId, post) => actions.updateQueryCall(dispatch, queryId, post),
+    changeUpdatePost: (updatedPost) => actions.changeUpdatePost(dispatch,updatedPost)
 });
 
 const JobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Job)

@@ -11,6 +11,7 @@ import QueriesReducer from './QueriesReducer';
 import CompanyReducer from './CompanyReducer';
 import ProfileReducer from './ProfileReducer';
 import CreateJobReducer from './CreateJobReducer';
+import EditQueryReducer from './EditQueryReducer';
 
 const RootReducer = combineReducers({
     JobsReducer,
@@ -24,7 +25,9 @@ const RootReducer = combineReducers({
     QueriesReducer,
     CompanyReducer,
     ProfileReducer,
-    CreateJobReducer
+    CreateJobReducer,
+    ProfileReducer,
+    EditQueryReducer
 })
 
 export default RootReducer;

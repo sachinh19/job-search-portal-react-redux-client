@@ -217,6 +217,7 @@ export const searchJobsByKeyword = (dispatch, searchText) => {
     else {
         fetch(('http://localhost:8080/api/searchJob/' + searchText))
             .then((response) => {
+                console.log(response)
                 if (response.status === 200)
                     return response.json();
                 else
@@ -400,12 +401,26 @@ export const getQueries = (dispatch, jobId) => {
                     return response.json();
                 else
                     return null;
-            }).then(queries =>
-            dispatch({
-                type: constants.SET_QUERIES,
-                queries: queries,
+            }).then(queries => {
+                queries = queries.map(query => {
+                    query['isPreview'] = true;
+                    query['isAuthenticated'] = false;
+                    if (localStorage.getItem("role") !== undefined &&
+                        localStorage.getItem("username") !== undefined) {
+                        if (localStorage.getItem("role") === "Admin" || localStorage.getItem("role") === "Moderator") {
+                            query['isAuthenticated'] = true;
+                        } else if (query.postedBy.username === localStorage.getItem("username")) {
+                            query['isAuthenticated'] = true;
+                        }
+                    }
+                    return query;
+                })
+                return dispatch({
+                    type: constants.SET_QUERIES,
+                    queries: queries,
 
-            })
+                })
+            }
         )
     }
 
@@ -507,7 +522,10 @@ export const addApplicant = (dispatch, jobId) => {
                     job: job
                 })
             } else {
-                alert("Application Not submitted")
+                dispatch({
+                    type: constants.ERROR,
+                    message: "Application Not submitted"
+                })
             }
         })
     } else {
@@ -829,8 +847,12 @@ export const fetchUserProfile = (dispatch) => {
             break;
         case null:
                 break;
-        default:
-            alert("Invalid Role Type found in Local Storage - " + role);
+            default:
+                dispatch({
+                    type: constants.ERROR,
+                    message: "Invalid Role Type found in Local Storage - " + role
+                })
+
         }
     })
 }
@@ -962,6 +984,8 @@ export const submitPost = (dispatch, post, jobId) => {
                     return null;
                 }
             }).then((query) => {
+                query.isPreview = true;
+                query.isAuthenticated = true;
                 dispatch({
                     type: constants.ADD_QUERY,
                     query: query
@@ -1081,4 +1105,74 @@ export const deleteProfile = (dispatch, userId, role) => {
 
 
 
+
+
+export const changeUpdatePost = (dispatch, updatedPost) => {
+    dispatch({
+        type: constants.UPDATE_QUERIES_VALUE,
+        post: updatedPost
+    })
+}
+
+export const updatePost = (dispatch, post, queryId) => {
+    if (queryId) {
+        fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
+            method: 'put',
+            credentials: 'include',
+            body: JSON.stringify({
+                'post': post
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then((response) => {
+            if (response.status === 200)
+                return response.json();
+            else
+                return null;
+        }).then((query) => {
+            query.isPreview = true
+            dispatch({
+                type: constants.UPDATE_QUERIES,
+                queryId: queryId,
+                query: query
+            })
+            dispatch({
+                type: constants.RESET_QUERY_VALUES
+            })
+            dispatch({
+                type: constants.SUCCESS,
+               message: "Query Updated Successfully"
+            })
+        })
+    }
+}
+
+export const deleteQuery = (dispatch, queryId) => {
+    if (queryId) {
+        fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
+            method: 'delete',
+            credentials: 'include'
+        }).then(() => {
+            dispatch({
+                type: constants.REMOVE_QUERY,
+                queryId: queryId
+            })
+        })
+    }
+}
+
+export const updateQueryCall = (dispatch, queryId, post) => {
+    if (queryId) {
+        dispatch({
+            type:constants.SHOW_QUERY_EDIT_MODE,
+            queryId: queryId
+        })
+        dispatch({
+            type:constants.SET_QUERY_VALUES,
+            queryId: queryId,
+            post: post
+        })
+    }
+}
 
