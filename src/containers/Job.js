@@ -89,7 +89,7 @@ class Job extends Component {
 
     renderApplyButton() {
         if (this.props.currentUser === undefined) {
-            return (<button type="button" className="btn btn-primary wbdv-right-element"
+            return (<button type="button" className="btn btn-primary btn-block wbdv-applyBtn"
                             onClick={() => this.props.addApplicant(this.props.job.id)}>
                 Apply Now
             </button>)
@@ -100,13 +100,13 @@ class Job extends Component {
 
             if (this.props.hasApplied) {
 
-                return (<button type="button" className="btn btn-primary wbdv-right-element"
+                return (<button type="button" className="btn btn-primary wbdv-applyBtn"
                                 onClick={() => {
                                     alert("You have already applied for this position")}}>
-                    Applied
+                    <i className={"fa fa-check"}></i> Applied
                 </button>)
             } else {
-                return (<button type="button" className="btn btn-primary wbdv-right-element"
+                return (<button type="button" className="btn btn-primary btn-block wbdv-applyBtn"
                                 onClick={() => this.props.addApplicant(this.props.job.id)}>
                     Apply Now
                 </button>)
@@ -124,7 +124,6 @@ class Job extends Component {
                 <div className={"col-md-6"}>
                     <h2>
                         {this.props.job.position}
-                        {this.renderApplyButton()}
                         <br/>
                     </h2>
                     <div dangerouslySetInnerHTML={{__html: description}}/>
@@ -148,6 +147,7 @@ class Job extends Component {
                     </div>
                 </div>
                 <div className={"col-md-4 wbdv-company-link"}>
+                    {this.renderApplyButton()}<br/>
                     {this.renderCompany()}
                 </div>
             </div>
