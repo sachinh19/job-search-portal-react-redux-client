@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
-import '../styles/Job.css'
-import {Link} from 'react-router-dom'
+import '../styles/Job.css';
+import {Link} from 'react-router-dom';
+import history from '../History';
 
 
 class Job extends Component {
@@ -53,14 +54,20 @@ class Job extends Component {
                                         &nbsp; Unresolved
                                     </label>
                                     <div className={"wbdv-query-update-option"} hidden={!query.isAuthenticated}>
-                                            <button type="button" className="btn btn-success wbdv-right-element wbdv-query-btn"
-                                                    onClick={() => {this.props.updateQueryCall(query.id, query.post)}}>
-                                                <i className={"fa fa-edit"}></i>
-                                            </button>
-                                            <button type="button" className="btn btn-danger wbdv-right-element wbdv-query-btn"
-                                                    onClick={() => {this.props.deleteQuery(query.id)}}>
-                                                <i className={"fa fa-trash"}></i>
-                                            </button>
+                                        <button type="button"
+                                                className="btn btn-success wbdv-right-element wbdv-query-btn"
+                                                onClick={() => {
+                                                    this.props.updateQueryCall(query.id, query.post)
+                                                }}>
+                                            <i className={"fa fa-edit"}></i>
+                                        </button>
+                                        <button type="button"
+                                                className="btn btn-danger wbdv-right-element wbdv-query-btn"
+                                                onClick={() => {
+                                                    this.props.deleteQuery(query.id)
+                                                }}>
+                                            <i className={"fa fa-trash"}></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div className={"card-body"}>
@@ -69,9 +76,12 @@ class Job extends Component {
                                         <textarea className="form-control" rows="3" name="updatedQueryText"
                                                   value={this.props.updatedPost}
                                                   onChange={(event) => {
-                                                      this.props.changeUpdatePost(event.target.value)}}
+                                                      this.props.changeUpdatePost(event.target.value)
+                                                  }}
                                                   ref={node => updatedPostFld = node}/>
-                                        <button onClick={() => {this.props.updatePost(this.props.updatedPost, this.props.id)}} type="button" className="btn btn-outline-primary wbdv-submit-btn">
+                                        <button onClick={() => {
+                                            this.props.updatePost(this.props.updatedPost, this.props.id)
+                                        }} type="button" className="btn btn-outline-primary wbdv-submit-btn">
                                             Save Changes
                                         </button>
                                     </div>
@@ -84,6 +94,15 @@ class Job extends Component {
                     })}
                 </div>
             )
+        }
+    }
+
+
+    navigateToEditJobPage() {
+
+        if (this.props.job) {
+            localStorage.setItem("jobId", this.props.job.id)
+            history.push('/job')
         }
     }
 
@@ -102,7 +121,8 @@ class Job extends Component {
 
                 return (<button type="button" className="btn btn-primary wbdv-applyBtn"
                                 onClick={() => {
-                                    alert("You have already applied for this position")}}>
+                                    alert("You have already applied for this position")
+                                }}>
                     <i className={"fa fa-check"}></i> Applied
                 </button>)
             } else {
@@ -111,6 +131,27 @@ class Job extends Component {
                     Apply Now
                 </button>)
             }
+        }
+
+    }
+
+    renderEditOption() {
+        if (localStorage.getItem("userRole") === "Admin" || localStorage.getItem("userRole") === "Moderator") {
+            return (<div className={"wbdv-edit-job"}>
+                <button type="button" className="btn btn-info wbdv-edit-jobBtn"
+                        onClick={() => {this.navigateToEditJobPage()}}>
+                    <i className={"fa fa-edit"}></i> Edit Job Details
+                </button>
+            </div>)
+        } else if (localStorage.getItem("userRole") === "Employer" && this.props.job.company !== undefined) {
+
+            this.props.isAuthenticated(this.props.job.company.name)
+            return (<div className={"wbdv-edit-job"} hidden={!this.props.authenticatedUser}>
+                <button type="button" className="btn btn-info btn-block wbdv-edit-jobBtn"
+                        onClick={() => {this.navigateToEditJobPage()}}>
+                    <i className={"fa fa-edit"}></i> Edit Job Details
+                </button>
+            </div>)
         }
 
     }
@@ -147,8 +188,10 @@ class Job extends Component {
                     </div>
                 </div>
                 <div className={"col-md-4 wbdv-company-link"}>
-                    {this.renderApplyButton()}<br/>
+                    {this.renderApplyButton()}
+                    {this.renderEditOption()}<br/>
                     {this.renderCompany()}
+
                 </div>
             </div>
         )
@@ -162,7 +205,8 @@ const stateToPropertyMapper = (state) => ({
     hasApplied: state.JobReducer.hasApplied,
     post: state.JobReducer.post,
     id: state.EditQueryReducer.id,
-    updatedPost: state.EditQueryReducer.updatedPost
+    updatedPost: state.EditQueryReducer.updatedPost,
+    authenticatedUser: state.JobReducer.authenticatedUser
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
@@ -176,7 +220,8 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     updatePost: (post, queryId) => actions.updatePost(dispatch, post, queryId),
     deleteQuery: (queryId) => actions.deleteQuery(dispatch, queryId),
     updateQueryCall: (queryId, post) => actions.updateQueryCall(dispatch, queryId, post),
-    changeUpdatePost: (updatedPost) => actions.changeUpdatePost(dispatch,updatedPost)
+    changeUpdatePost: (updatedPost) => actions.changeUpdatePost(dispatch, updatedPost),
+    isAuthenticated: (companyName) => actions.isAuthenticated(dispatch, companyName)
 });
 
 const JobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Job)

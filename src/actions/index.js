@@ -405,9 +405,9 @@ export const getQueries = (dispatch, jobId) => {
                 queries = queries.map(query => {
                     query['isPreview'] = true;
                     query['isAuthenticated'] = false;
-                    if (localStorage.getItem("role") !== undefined &&
+                    if (localStorage.getItem("userRole") !== undefined &&
                         localStorage.getItem("username") !== undefined) {
-                        if (localStorage.getItem("role") === "Admin" || localStorage.getItem("role") === "Moderator") {
+                        if (localStorage.getItem("userRole") === "Admin" || localStorage.getItem("userRole") === "Moderator") {
                             query['isAuthenticated'] = true;
                         } else if (query.postedBy.username === localStorage.getItem("username")) {
                             query['isAuthenticated'] = true;
@@ -1172,6 +1172,26 @@ export const updateQueryCall = (dispatch, queryId, post) => {
             type:constants.SET_QUERY_VALUES,
             queryId: queryId,
             post: post
+        })
+    }
+}
+
+export const isAuthenticated = (dispatch, companyName) => {
+    if (companyName) {
+        fetch('http://localhost:8080/api/person/currentuser',{
+            credentials:'include'
+        }).then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(user => {
+            if (user.companyName === companyName) {
+                dispatch({
+                    type: constants.SET_AUTHENTICATION_FLAG
+                })
+            }
         })
     }
 }

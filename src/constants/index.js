@@ -56,4 +56,4 @@ export const SET_POST = 'SET_POST';
 export const ADD_QUERY = 'ADD_QUERY';
 export const RESET_POST = 'RESET_POST';
 export const DELETE_PROFILE = 'DELETE_PROFILE';
-
+export const SET_AUTHENTICATION_FLAG = 'SET_AUTHENTICATION_FLAG';
