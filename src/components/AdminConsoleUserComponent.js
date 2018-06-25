@@ -16,7 +16,7 @@ class AdminConsoleUser extends Component {
             userList = this.props.users.map(user => {
                     return (
                         <tr key={user.id}>
-                            <td><Link to={`/user/${user.id}`}>{user.username}</Link></td>
+                            <td><Link to={`/profile/${user.username}/view`}>{user.username}</Link></td>
                             <td>{user.roleType}</td>
                             <td>
                                 <button type="button" className="btn btn-danger" onClick={() => {
