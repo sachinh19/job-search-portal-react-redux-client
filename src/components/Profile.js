@@ -42,8 +42,8 @@ class Profile extends Component {
                 </div>
                 <div className="col-md-7">
                     <div className="container wbdv-option-list-container align-content-center">
-                        <Route path={"/profile/view/" + localStorage.getItem("username")} component={ViewProfileContainer}/>
-                        <Route path={"/profile/update/" + localStorage.getItem("username")} component={ManageProfileContainer}/>
+                        <Route path={"/profile/view/:username"} component={ViewProfileContainer}/>
+                        <Route path={"/profile/update/:username"} component={ManageProfileContainer}/>
                     </div>
                 </div>
                 <div className="col-md-2">

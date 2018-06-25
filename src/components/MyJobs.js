@@ -16,7 +16,6 @@ class MyJobs extends Component {
         let jobList = null;
         if (this.props.jobs != null && this.props.jobs.length >0) {
             jobList = this.props.jobs.map(job=>{
-                console.log(job)
                 return (
                     <tr key={job.id}>
                         <td>
