@@ -30,6 +30,24 @@ class Job extends Component {
         }
     }
 
+    renderQueryUpdateOption(queryId) {
+    if (localStorage.getItem("username") !== undefined && localStorage.getItem("role")){
+        if(localStorage.getItem("role")==="Admin" || localStorage.getItem("role")==="Moderator"){
+            return(<div className={"wbdv-update-query"}>
+                <button type="button" className="btn btn-success wbdv-right-element"
+                        onClick={() => {}}>
+                    <i className={"fa fa-edit"}></i>
+                </button>
+                <button type="button" className="btn btn-danger wbdv-right-element"
+                        onClick={() => {}}>
+                    <i className={"fa fa-trash"}></i>
+                </button>
+            </div>)
+        }
+      this.props.getUpdateAuthentication(queryId)
+    }
+    }
+
     renderQueries() {
         if (this.props.queries !== undefined && this.props.queries.length > 0) {
             return (
@@ -51,6 +69,9 @@ class Job extends Component {
                                                onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
                                         &nbsp; Unresolved
                                     </label>
+                                    <div className={"row wbdv-query-update-option"}>
+                                        {this.renderQueryUpdateOption(query.id)}
+                                    </div>
                                 </div>
                                 <div className={"card-body"}>
                                     <br/>
