@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
-import '../styles/UpdateProfile.css'
+import '../styles/Profile.css'
 import history from "../History";
 
 class CreateJob extends Component {
