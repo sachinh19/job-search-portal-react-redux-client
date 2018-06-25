@@ -1395,4 +1395,4 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
 
 export const editUser = (dispatch, username) => {
     history.push('/profile/update/' + username)
-}
+};

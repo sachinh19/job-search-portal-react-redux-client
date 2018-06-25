@@ -35,19 +35,22 @@ class ManageProfile extends Component {
     }
 
     render() {
-        let usernameFld
-        let passwordFld
-        let firstNameFld
-        let lastNameFld
-        let emailFld
-        let aboutMeFld
-        let expDescriptionFld
-        let roleFld
-        let companyNameFld
-        let positionFld
-        let tenureFld
-        let interestedPositionFld
-        let totalExperienceFld
+        let usernameFld;
+        let passwordFld;
+        let firstNameFld;
+        let lastNameFld;
+        let emailFld;
+        let aboutMeFld;
+        let expDescriptionFld;
+        let roleFld;
+        let companyNameFld;
+        let positionFld;
+        let tenureFld;
+        let interestedPositionFld;
+        let totalExperienceFld;
+
+        if (localStorage.getItem("username") === this.props.match.params.username ||
+            localStorage.getItem("userRole") === "Admin") {
         return (
             <div className="container-profile">
                 <div className={"card container wbdv-profile-container"}>
@@ -308,7 +311,9 @@ class ManageProfile extends Component {
                     </form>
                 </div>
             </div>
-        )
+        )} else {
+            return(<div><h1>Access Forbidden</h1></div>)
+        }
     }
 }
 
