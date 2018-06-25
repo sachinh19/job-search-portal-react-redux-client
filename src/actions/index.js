@@ -5,7 +5,7 @@ export const doLogin = (dispatch, username, password) => {
 
     fetch('http://localhost:8080/api/login', {
         method: 'post',
-        credentials:'include',
+        credentials: 'include',
         body: JSON.stringify({
             'username': username,
             'password': password
@@ -36,7 +36,7 @@ export const doLogin = (dispatch, username, password) => {
 
 export const doRegister = (dispatch, username, password, password2, role, companyName) => {
 
-    fetch('http://localhost:8080/api/person/username/' + username,{
+    fetch('http://localhost:8080/api/person/username/' + username, {
         credentials: 'include'
     })
         .then(response => {
@@ -76,10 +76,12 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                         message: "Invalid Credentials"
                     })
                 } else {
-                    localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.roleType);
-                    dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
-                    history.push('/');
+                    doLogin(dispatch, user.username, user.password)
+                    dispatch({
+                        type: constants.RESET_REGISTER_CREDENTIALS,
+                        user: user,
+                        successMessageFld: 'Registration Successful!'
+                    });
                 }
             })
         } else if (!userDup && role === 'Employer') {
@@ -107,10 +109,12 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                         message: "Invalid Credentials"
                     })
                 } else {
-                    localStorage.setItem('username', user.username);
-                    localStorage.setItem('userRole', user.roleType);
-                    dispatch({type: constants.RESET_REGISTER_CREDENTIALS, user: user, successMessageFld: 'Registration Successful!'});
-                    history.push('/');
+                    doLogin(dispatch, user.username, user.password)
+                    dispatch({
+                        type: constants.RESET_REGISTER_CREDENTIALS,
+                        user: user,
+                        successMessageFld: 'Registration Successful!'
+                    });
                 }
             })
         }
@@ -169,9 +173,9 @@ export const changeCompanyName = (dispatch, companyName) => {
 
 export const logOut = (dispatch) => {
 
-    fetch('http://localhost:8080/api/logout',{
-        credentials:'include'
-    }).then(() =>{
+    fetch('http://localhost:8080/api/logout', {
+        credentials: 'include'
+    }).then(() => {
         localStorage.removeItem('username');
         localStorage.removeItem('userRole');
         dispatch({
@@ -205,29 +209,34 @@ export const searchTextChanged = (dispatch, searchText) => {
     })
 }
 
-export const searchJobsByKeyword = (dispatch,searchText) =>  {
-    if(searchText && searchText!=='' && searchText.includes(" "))
+export const searchJobsByKeyword = (dispatch, searchText) => {
+    if (searchText && searchText !== '' && searchText.includes(" "))
         searchText = searchText.split(" ").join("++")
-    fetch(('http://localhost:8080/api/searchJob/' + searchText))
-        .then((response) => {
-            console.log(response)
-            if (response.status === 200)
-                return response.json();
-            else
-                return null;
-        })
-        .then(jobs => {
-            dispatch({
-                type: constants.SEARCHED_JOBS_CHANGED,
-                jobs: jobs
+    if (searchText === '')
+        findAllJobs(dispatch);
+    else {
+        fetch(('http://localhost:8080/api/searchJob/' + searchText))
+            .then((response) => {
+                console.log(response)
+                if (response.status === 200)
+                    return response.json();
+                else
+                    return null;
             })
-        })
+            .then(jobs => {
+                dispatch({
+                    type: constants.SEARCHED_JOBS_CHANGED,
+                    jobs: jobs
+                })
+            })
+    }
+
 }
 
 export const getNewJobs = (dispatch) => {
 
-    fetch('http://localhost:8080/api/getjobs',{
-        credentials:'include'
+    fetch('http://localhost:8080/api/getjobs', {
+        credentials: 'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -243,8 +252,8 @@ export const getNewJobs = (dispatch) => {
 }
 
 export const getNewCompanies = (dispatch) => {
-    fetch('http://localhost:8080/api/getcompanies',{
-        credentials:'include'
+    fetch('http://localhost:8080/api/getcompanies', {
+        credentials: 'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -281,7 +290,7 @@ export const deleteJob = (dispatch, jobId) => {
     if (choice === true) {
         fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId), {
             method: 'delete',
-            credentials:'include'
+            credentials: 'include'
         }).then(dispatch({
             type: constants.REMOVE_JOB,
             jobId: jobId
@@ -294,8 +303,8 @@ export const deleteJob = (dispatch, jobId) => {
 }
 
 export const updateUserList = (dispatch) => {
-    fetch('http://localhost:8080/api/person',{
-        credentials:'include'
+    fetch('http://localhost:8080/api/person', {
+        credentials: 'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -317,7 +326,7 @@ export const deletePerson = (dispatch, userId) => {
     if (choice === true) {
         fetch(('http://localhost:8080/api/person/PID').replace('PID', userId), {
             method: 'delete',
-            credentials:'include'
+            credentials: 'include'
         }).then(dispatch({
             type: constants.REMOVE_USER,
             userId: userId
@@ -331,20 +340,20 @@ export const deletePerson = (dispatch, userId) => {
 
 
 export const updateCompanyList = (dispatch) => {
-    fetch('http://localhost:8080/api/company',{
-        credentials:'include'
+    fetch('http://localhost:8080/api/company', {
+        credentials: 'include'
     }).then((response) => {
         if (response.status === 200)
             return response.json();
         else
             return null;
     })
-    .then(companies => {
-        dispatch({
-            type: constants.SHOW_COMPANYLIST,
-            companies: companies
+        .then(companies => {
+            dispatch({
+                type: constants.SHOW_COMPANYLIST,
+                companies: companies
+            })
         })
-    })
 }
 
 export const deleteCompany = (dispatch, companyId) => {
@@ -352,7 +361,7 @@ export const deleteCompany = (dispatch, companyId) => {
     if (choice === true) {
         fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId), {
             method: 'delete',
-            credentials:'include'
+            credentials: 'include'
         }).then(dispatch({
             type: constants.REMOVE_COMPANY,
             companyId: companyId
@@ -366,8 +375,8 @@ export const deleteCompany = (dispatch, companyId) => {
 
 
 export const getJobDetails = (dispatch, jobId) => {
-    fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId),{
-        credentials:'include'
+    fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId), {
+        credentials: 'include'
     })
         .then((response) => {
             if (response.status === 200)
@@ -384,28 +393,30 @@ export const getJobDetails = (dispatch, jobId) => {
 }
 
 export const getQueries = (dispatch, jobId) => {
-    fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId),{
-        credentials:'include'
-    })
-        .then((response) => {
-            if (response.status === 200)
-                return response.json();
-            else
-                return null;
-        }).then(queries =>
-        dispatch({
-            type: constants.SET_QUERIES,
-            queries: queries,
-
+    if (jobId) {
+        fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId), {
+            credentials: 'include'
         })
-    )
+            .then((response) => {
+                if (response.status === 200)
+                    return response.json();
+                else
+                    return null;
+            }).then(queries =>
+            dispatch({
+                type: constants.SET_QUERIES,
+                queries: queries,
+
+            })
+        )
+    }
 
 }
 
 export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
     fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
         method: 'put',
-        credentials:'include',
+        credentials: 'include',
         body: JSON.stringify({
             'status': newStatus
         }),
@@ -427,24 +438,26 @@ export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
 }
 
 export const getCompanyDetails = (dispatch, companyId) => {
-    fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId),{
-        credentials:'include'
-    }).then((response) => {
-        if (response.status === 200)
-            return response.json();
-        else
-            return null;
-    }).then((company) => {
-        dispatch({
-            type: constants.SET_COMPANY_DETAILS,
-            company: company
+    if (companyId) {
+        fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId), {
+            credentials: 'include'
+        }).then((response) => {
+            if (response.status === 200)
+                return response.json();
+            else
+                return null;
+        }).then((company) => {
+            dispatch({
+                type: constants.SET_COMPANY_DETAILS,
+                company: company
+            })
         })
-    })
+    }
 }
 
 export const getCompanyEmployees = (dispatch, companyId) => {
-    fetch(('http://localhost:8080/api/company/CID/employees').replace('CID', companyId),{
-        credentials:'include'
+    fetch(('http://localhost:8080/api/company/CID/employees').replace('CID', companyId), {
+        credentials: 'include'
     }).then((response) => {
         if (response.status === 200)
             return response.json();
@@ -459,8 +472,8 @@ export const getCompanyEmployees = (dispatch, companyId) => {
 }
 
 export const getCompanyJobs = (dispatch, companyId) => {
-    fetch(('http://localhost:8080/api/company/CID/jobs').replace('CID', companyId),{
-        credentials:'include'
+    fetch(('http://localhost:8080/api/company/CID/jobs').replace('CID', companyId), {
+        credentials: 'include'
     }).then((response) => {
         if (response.status === 200)
             return response.json();
@@ -476,9 +489,9 @@ export const getCompanyJobs = (dispatch, companyId) => {
 
 export const addApplicant = (dispatch, jobId) => {
     if (localStorage.getItem("username")) {
-        fetch(('http://localhost:8080/api/job/JID/addapplicant').replace('JID', jobId),{
-            method:'put',
-            credentials:'include'
+        fetch(('http://localhost:8080/api/job/JID/addapplicant').replace('JID', jobId), {
+            method: 'put',
+            credentials: 'include'
         }).then((response) => {
             if (response.status === 200)
                 return response.json();
@@ -486,11 +499,18 @@ export const addApplicant = (dispatch, jobId) => {
                 return null;
         }).then(job => {
             if (job != null) {
-            dispatch({
-                type: constants.SET_JOB_DETAILS,
-                job : job
-            })
-            } else {alert("its null")}
+
+                dispatch({
+                    type: constants.SUCCESS,
+                    message: "Application Submitted"
+                })
+                dispatch({
+                    type: constants.SET_JOB_DETAILS,
+                    job: job
+                })
+            } else {
+                alert("Application Not submitted")
+            }
         })
     } else {
         history.push('/login')
@@ -588,8 +608,8 @@ export const changeProfileTotalExperience = (dispatch, totalExperience) => {
     })
 }
 
-export const updateProfile = (dispatch,username,password, firstName, lastName, email, aboutMe,
-        expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) => {
+export const updateProfile = (dispatch, username, password, firstName, lastName, email, aboutMe,
+                              expDescription, role, companyName, position, tenure, interestedPosition, totalExperience) => {
 
 
     if (role === 'JobSeeker') {
@@ -604,7 +624,7 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
                 'email': email,
                 'aboutMe': aboutMe,
                 'expDescription': expDescription,
-                'interestedPosition':interestedPosition,
+                'interestedPosition': interestedPosition,
                 'totalExperience': totalExperience
             }),
             headers: {
@@ -619,7 +639,7 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })
@@ -651,7 +671,7 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })
@@ -680,13 +700,13 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })
     } else if (role === 'Admin') {
         fetch('http://localhost:8080/api/admin', {
-            method: 'post',
+            method: 'PUT',
             credentials: 'include',
             body: JSON.stringify({
                 'username': username,
@@ -709,7 +729,7 @@ export const updateProfile = (dispatch,username,password, firstName, lastName, e
         }).then(user => {
             if (user !== null) {
                 localStorage.setItem('username', user.username);
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('userRole', user.roleType);
                 dispatch({type: constants.UPDATE_PROFILE, successMessageFld: 'Profile Update Successful!'});
             }
         })
@@ -720,7 +740,7 @@ export const fetchUserProfile = (dispatch) => {
     const username = localStorage.getItem("username");
     var role;
 
-    fetch('http://localhost:8080/api/person/username/' + username,{
+    fetch('http://localhost:8080/api/person/username/' + username, {
         credentials: 'include'
     })
     .then(response => {
@@ -743,7 +763,7 @@ export const fetchUserProfile = (dispatch) => {
                     }
                 }).then(user => {
                 if (user !== null) {
-                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    dispatch({type: constants.FETCH_USER_PROFILE, user: user});
                 } else {
                     dispatch({
                         type: constants.ERROR,
@@ -762,7 +782,7 @@ export const fetchUserProfile = (dispatch) => {
                     }
                 }).then(user => {
                 if (user !== null) {
-                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    dispatch({type: constants.FETCH_USER_PROFILE, user: user});
                 } else {
                     dispatch({
                         type: constants.ERROR,
@@ -781,7 +801,7 @@ export const fetchUserProfile = (dispatch) => {
                     }
                 }).then(user => {
                 if (user !== null) {
-                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    dispatch({type: constants.FETCH_USER_PROFILE, user: user});
                 } else {
                     dispatch({
                         type: constants.ERROR,
@@ -800,7 +820,7 @@ export const fetchUserProfile = (dispatch) => {
                     }
                 }).then(user => {
                 if (user !== null) {
-                    dispatch({type: constants.FETCH_USER_PROFILE, user:user});
+                    dispatch({type: constants.FETCH_USER_PROFILE, user: user});
                 } else {
                     dispatch({
                         type: constants.ERROR,
@@ -809,11 +829,31 @@ export const fetchUserProfile = (dispatch) => {
                 }
             })
             break;
-        case null: break;
+        case null:
+                break;
         default:
             alert("Invalid Role Type found in Local Storage - " + role);
         }
     })
+}
+
+export const getApplicationStatus = (dispatch, jobId) => {
+    if (jobId) {
+        fetch(('http://localhost:8080/api/job/JID/status').replace('JID', jobId), {
+            credentials: 'include'
+        }).then(response => {
+            if (response.status === 200) {
+                return true
+            } else {
+                return false;
+            }
+        }).then(result => {
+            dispatch({
+                type: constants.SET_JOB_APPLY_STATUS,
+                status: result
+            })
+        })
+    }
 }
 
 export const createJob = (dispatch) => {

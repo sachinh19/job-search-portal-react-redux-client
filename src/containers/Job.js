@@ -38,21 +38,21 @@ class Job extends Component {
                         return (
                             <div className={"card"} key={query.id}>
 
-                                    <div className={"card-header row wdbv-status-options"}>
-                                        <label>
-                                            <input type={"radio"} name={"statusTrue"} value="true"
-                                                   checked={query.status}
-                                                   onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
-                                            &nbsp; Resolved
-                                        </label>&nbsp;&nbsp;
-                                        <label>
-                                            <input type={"radio"} name={"statusFalse"} value="false"
-                                                   checked={!query.status}
-                                                   onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
-                                            &nbsp; Unresolved
-                                        </label>
-                                    </div>
-                                        <div className={"card-body"}>
+                                <div className={"card-header row wdbv-status-options"}>
+                                    <label>
+                                        <input type={"radio"} name={"statusTrue"} value="true"
+                                               checked={query.status}
+                                               onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
+                                        &nbsp; Resolved
+                                    </label>&nbsp;&nbsp;
+                                    <label>
+                                        <input type={"radio"} name={"statusFalse"} value="false"
+                                               checked={!query.status}
+                                               onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
+                                        &nbsp; Unresolved
+                                    </label>
+                                </div>
+                                <div className={"card-body"}>
                                     <br/>
                                     <p className="card-text">
                                         {query.post}
@@ -66,6 +66,34 @@ class Job extends Component {
         }
     }
 
+    renderApplyButton() {
+        if (this.props.currentUser === undefined) {
+            return (<button type="button" className="btn btn-primary wbdv-right-element"
+                            onClick={() => this.props.addApplicant(this.props.job.id)}>
+                Apply Now
+            </button>)
+        }
+
+        if (this.props.currentUser !== undefined) {
+
+            this.props.getApplicationStatus(this.props.job.id)
+
+            if (this.props.hasApplied) {
+
+                return (<button type="button" className="btn btn-primary wbdv-right-element"
+                                onClick={() => {alert("You have already applied for this position")}}>
+                    Already Applied
+                </button>)
+            } else {
+                return (<button type="button" className="btn btn-primary wbdv-right-element"
+                                onClick={() => this.props.addApplicant(this.props.job.id)}>
+                    Apply Now
+                </button>)
+            }
+        }
+
+    }
+
     render() {
         let description = this.props.job.description
         return (
@@ -74,9 +102,7 @@ class Job extends Component {
                 <div className={"col-md-6"}>
                     <h2>
                         {this.props.job.position}
-                        <button type="button" className="btn btn-primary wbdv-right-element" onClick={() => this.props.addApplicant(this.props.job.id)}>
-                            Apply Now
-                        </button>
+                        {this.renderApplyButton()}
                         <br/>
                     </h2>
                     <div dangerouslySetInnerHTML={{__html: description}}/>
@@ -85,7 +111,7 @@ class Job extends Component {
                         <h6>Post your queries:</h6>
                         <div className={"row wbdv-post-queries"}>
                             <textarea className="form-control" rows="3" name="querytext"></textarea>
-                            <button type="button" className="btn btn-outline-primary wbdv-submit-btn">Submit</button>
+                            <button onClick={()=>{}} type="button" className="btn btn-outline-primary wbdv-submit-btn">Submit</button>
                         </div>
                         {this.renderQueries()}
                     </div>
@@ -100,14 +126,17 @@ class Job extends Component {
 
 const stateToPropertyMapper = (state) => ({
     job: state.JobReducer.job,
-    queries: state.QueriesReducer.queries
+    queries: state.QueriesReducer.queries,
+    currentUser: localStorage.getItem("username"),
+    hasApplied: state.JobReducer.hasApplied
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
     getJobDetails: (jobId) => actions.getJobDetails(dispatch, jobId),
     getQueries: (jobId) => actions.getQueries(dispatch, jobId),
     changeQueryStatus: (queryId, newStatus, jobId) => actions.changeQueryStatus(dispatch, queryId, newStatus, jobId),
-    addApplicant: (jobId) => actions.addApplicant(dispatch,jobId)
+    addApplicant: (jobId) => actions.addApplicant(dispatch, jobId),
+    getApplicationStatus: (jobId) => actions.getApplicationStatus(dispatch, jobId)
 });
 
 const JobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Job)

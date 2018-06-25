@@ -1,6 +1,6 @@
 import * as constants from '../constants'
 
-const AlertReducer = (state = null, action) => {
+const AlertReducer = (state = {}, action) => {
 
     switch (action.type) {
         case constants.SUCCESS:

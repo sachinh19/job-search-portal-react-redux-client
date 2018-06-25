@@ -17,7 +17,6 @@ const CompanyReducer = (state = {company: '', jobs: [], employees: []}, action) 
             }
 
         case constants.SET_COMPANY_JOB_DETAILS:
-            console.log("hhhh"+action.jobs);
             return {
                 company: state.company,
                 employees: state.employees,
