@@ -68,8 +68,8 @@ class Job extends Component {
                                     <div hidden={query.isPreview}>
                                         <textarea className="form-control" rows="3" name="updatedQueryText"
                                                   value={this.props.updatedPost}
-                                                  onChange={() => {
-                                                      this.props.changeUpdatePost("sdsfsdfdsfsdfsdf" + updatedPostFld.value)}}
+                                                  onChange={(event) => {
+                                                      this.props.changeUpdatePost(event.target.value)}}
                                                   ref={node => updatedPostFld = node}/>
                                         <button onClick={() => {this.props.updatePost(this.props.updatedPost, this.props.id)}} type="button" className="btn btn-outline-primary wbdv-submit-btn">
                                             Save Changes
