@@ -856,3 +856,37 @@ export const getApplicationStatus = (dispatch, jobId) => {
     }
 }
 
+export const changePost = (dispatch, post) => {
+    if (post) {
+        dispatch({
+            type: constants.SET_POST,
+            post: post
+        })
+    }
+}
+
+export const submitPost = (dispatch, post, jobId) => {
+    if (jobId) {
+        if (localStorage.getItem("username")) {
+            fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId), {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'post': post
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            })
+        } else {
+            history.push('/login')
+        }
+    }
+
+}
