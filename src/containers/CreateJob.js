@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
 import '../styles/Profile.css'
+import history from "../History";
 
 class CreateJob extends Component {
 
@@ -103,7 +104,7 @@ class CreateJob extends Component {
                             <div className="col-sm-9">
                                 <select className="form-control wbdv-job-fld"
                                         id="jobTypeFld"
-                                        value={this.props.jobType}
+                                        value={this.props.jobType.name}
                                         onChange={() => {this.props.changeProfileJobType(jobTypeFld.value)}}
                                         ref={node => jobTypeFld = node}>
                                     <option value={"Full-time"} default>Full Time</option>
@@ -122,7 +123,7 @@ class CreateJob extends Component {
                                                 this.props.position,
                                                 this.props.description,
                                                 this.props.keywords,
-                                                this.props.jobType))    {
+                                                this.props.jobType))   {
                                                 this.props.saveJob(
                                                     this.props.jobId,
                                                     this.props.position,

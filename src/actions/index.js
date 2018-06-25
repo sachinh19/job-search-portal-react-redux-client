@@ -855,32 +855,83 @@ export const getApplicationStatus = (dispatch, jobId) => {
 }
 
 export const createJob = (dispatch) => {
-    fetch('http://localhost:8080/api/job/userdefined', {
-        method: 'POST',
-        body: JSON.stringify({
+    let username = localStorage.getItem("username")
+    if (username && username !== null && username !== '') {
+        let role = localStorage.getItem("userRole")
+        let url = "http://localhost:8080/api/employer/username/" + username;
+        let job = {
             'position': 'Default Position',
-            'description': '<html><h5>New Job Description</h5></html>',
+            'description': '<p><h5>New Job Description</h5></p>',
             'keywords': '',
             'jobType': {
-                'name' : 'Full-time'
+                'name': 'Full-time'
+            },
+            'company': {
+                'name': 'defaultCompany'
             }
-        }),
-        headers: {
-            'content-type': 'application/json'
         }
-    }).then(response => {
-        if (response.status === 200) {
-            return response.json()
+        if (role === "Employer") {
+            fetch(url).then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            }).then(user => {
+                let userCompany = user.companyName
+
+                return fetch('http://localhost:8080/api/job/userdefined', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'position': 'Default Position',
+                        'description': '<p><h5>New Job Description</h5></p>',
+                        'keywords': '',
+                        'jobType': {
+                            'name': 'Full-time'
+                        },
+                        'company': {
+                            'name':userCompany
+                        }
+                    }),
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                })
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(job => {
+                if (job !== null) {
+                    localStorage.setItem("jobId", job.id);
+                    dispatch({type: constants.CREATE_JOB, job: job})
+                    history.push("/job")
+                }
+            });
         } else {
-            return null;
+            fetch('http://localhost:8080/api/job/userdefined', {
+                method: 'POST',
+                body: JSON.stringify(job),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(job => {
+                if (job !== null) {
+                    localStorage.setItem("jobId", job.id);
+                    dispatch({type: constants.CREATE_JOB, job: job})
+                    history.push("/job")
+                }
+            })
         }
-    }).then(job => {
-        if (job !== null) {
-            localStorage.setItem("jobId", job.id);
-            dispatch({type: constants.CREATE_JOB, job:job})
-            history.push("/job")
-        }
-    });
+    }
 }
 
 export const changePost = (dispatch, post) => {
@@ -952,8 +1003,10 @@ export const saveJob = (dispatch, jobId, position, description, keywords, jobTyp
         }
     }).then(job => {
         if (job !== null) {
-            dispatch({type: constants.SAVE_JOB, successMessageFld: 'Job Save Successful!'});
+            dispatch({type: constants.SAVE_JOB, job:job, successMessageFld: 'Job Save Successful!'});
         }
+    }).then(() => {
+        history.push('/job/' + localStorage.getItem("jobId"));
     })
 }
 
