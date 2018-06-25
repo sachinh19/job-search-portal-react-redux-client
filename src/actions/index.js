@@ -212,10 +212,9 @@ export const searchTextChanged = (dispatch, searchText) => {
 export const searchJobsByKeyword = (dispatch, searchText) => {
     if (searchText && searchText !== '' && searchText.includes(" "))
         searchText = searchText.split(" ").join("++")
-    if (searchText === '')  {
-        findAllJobs(dispatch)
-            .then(() => history.push('/search'));
-    } else {
+    if (searchText === '')
+        findAllJobs(dispatch);
+    else {
         fetch(('http://localhost:8080/api/searchJob/' + searchText))
             .then((response) => {
                 if (response.status === 200)
@@ -884,6 +883,48 @@ export const createJob = (dispatch) => {
     });
 }
 
+export const changePost = (dispatch, post) => {
+    if (post) {
+        dispatch({
+            type: constants.SET_POST,
+            post: post
+        })
+    }
+}
+
+export const submitPost = (dispatch, post, jobId) => {
+    if (jobId) {
+        if (localStorage.getItem("username")) {
+            fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId), {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'post': post
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then((query) => {
+                dispatch({
+                    type: constants.ADD_QUERY,
+                    query: query
+                })
+                dispatch({
+                    type: constants.RESET_POST
+                })
+            })
+        } else {
+            history.push('/login')
+        }
+
+    }
+}
 
 export const saveJob = (dispatch, jobId, position, description, keywords, jobType) => {
     if(!jobId && localStorage.getItem("jobId")){

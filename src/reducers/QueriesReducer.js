@@ -15,6 +15,10 @@ const QueriesReducer = (state = {queries: []}, action) => {
                     } else return query
                 })
             }
+        case constants.ADD_QUERY:
+            return {
+                queries: [...state.queries, action.query]
+            }
         default :
             return state;
     }

@@ -36,17 +36,17 @@ class Job extends Component {
                 <div className={"wbdv-queries"}>
                     {this.props.queries.map(query => {
                         return (
-                            <div className={"card"} key={query.id}>
+                            <div className={"card wbdv-query"} key={query.id}>
 
                                 <div className={"card-header row wdbv-status-options"}>
                                     <label>
-                                        <input type={"radio"} name={"statusTrue"} value="true"
+                                        <input type={"radio"} name={"Query"+query.id} value="true"
                                                checked={query.status}
                                                onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
                                         &nbsp; Resolved
                                     </label>&nbsp;&nbsp;
                                     <label>
-                                        <input type={"radio"} name={"statusFalse"} value="false"
+                                        <input type={"radio"} name={"Query"+query.id} value="false"
                                                checked={!query.status}
                                                onChange={() => this.props.changeQueryStatus(query.id, !query.status, this.props.job.id)}/>
                                         &nbsp; Unresolved
@@ -81,7 +81,9 @@ class Job extends Component {
             if (this.props.hasApplied) {
 
                 return (<button type="button" className="btn btn-primary wbdv-right-element"
-                                onClick={() => {alert("You have already applied for this position")}}>
+                                onClick={() => {
+                                    alert("You have already applied for this position")
+                                }}>
                     Already Applied
                 </button>)
             } else {
@@ -96,6 +98,7 @@ class Job extends Component {
 
     render() {
         let description = this.props.job.description
+        let postFld
         return (
             <div className={"row wbdv-job-details"}>
                 <div className={"col-md-2"}></div>
@@ -110,8 +113,15 @@ class Job extends Component {
                         <br/><h4>Job Queries</h4><br/>
                         <h6>Post your queries:</h6>
                         <div className={"row wbdv-post-queries"}>
-                            <textarea className="form-control" rows="3" name="querytext"></textarea>
-                            <button onClick={()=>{}} type="button" className="btn btn-outline-primary wbdv-submit-btn">Submit</button>
+                            <textarea className="form-control" rows="3" name="querytext"
+                                      value={this.props.post}
+                                      ref={node => postFld = node}
+                                      onChange={() => this.props.changePost(postFld.value)}>
+
+                            </textarea>
+                            <button onClick={() => {this.props.submitPost(this.props.post, this.props.job.id)}} type="button" className="btn btn-outline-primary wbdv-submit-btn">
+                                Submit
+                            </button>
                         </div>
                         {this.renderQueries()}
                     </div>
@@ -128,7 +138,8 @@ const stateToPropertyMapper = (state) => ({
     job: state.JobReducer.job,
     queries: state.QueriesReducer.queries,
     currentUser: localStorage.getItem("username"),
-    hasApplied: state.JobReducer.hasApplied
+    hasApplied: state.JobReducer.hasApplied,
+    post: state.JobReducer.post
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
@@ -136,7 +147,9 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     getQueries: (jobId) => actions.getQueries(dispatch, jobId),
     changeQueryStatus: (queryId, newStatus, jobId) => actions.changeQueryStatus(dispatch, queryId, newStatus, jobId),
     addApplicant: (jobId) => actions.addApplicant(dispatch, jobId),
-    getApplicationStatus: (jobId) => actions.getApplicationStatus(dispatch, jobId)
+    getApplicationStatus: (jobId) => actions.getApplicationStatus(dispatch, jobId),
+    changePost: (post) => actions.changePost(dispatch, post),
+    submitPost: (post,jobId) => actions.submitPost(dispatch,post,jobId)
 });
 
 const JobContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Job)
