@@ -22,6 +22,9 @@ class AdminConsoleUser extends Component {
                                 <button type="button" className="btn btn-danger" onClick={() => {
                                     this.props.deleteUser(user.id)
                                 }}><i className="fa fa-trash"/></button>
+                                <button type="button" className="btn btn-success" onClick={() => {
+                                    this.props.editUser(user.username)
+                                }}><i className="fa fa-edit"/></button>
                             </td>
                         </tr>
                     )
@@ -172,7 +175,8 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     changeRegisterUsername: (username) => actions.changeRegisterUsername(dispatch, username),
     changeRegisterPassword: (password) => actions.changeRegisterPassword(dispatch, password),
     changeCompanyName: (companyName) => actions.changeCompanyName(dispatch, companyName),
-    createNewUser: (username, password, role, companyName) => actions.createNewUser(dispatch, username, password, role, companyName)
+    createNewUser: (username, password, role, companyName) => actions.createNewUser(dispatch, username, password, role, companyName),
+    editUser: (username) => actions.editUser(dispatch,username)
 })
 
 const AdminConsoleUserComponent = connect(stateToPropertyMapper, dispatcherToPropsMapper)(AdminConsoleUser)
