@@ -16,6 +16,7 @@ class MyJobs extends Component {
         let jobList = null;
         if (this.props.jobs != null && this.props.jobs.length >0) {
             jobList = this.props.jobs.map(job=>{
+                console.log(job)
                 return (
                     <tr key={job.id}>
                         <td>
@@ -41,15 +42,11 @@ class MyJobs extends Component {
         let jobList = null;
         if (this.props.personJobs != null && this.props.personJobs.length >0) {
             jobList = this.props.personJobs.map(job=>{
-                return (
-                    <tr key={job.id}>
+                return (<tr key={job.id}>
                         <td>
                             <Link to={`/job/${job.id}`}>{job.position}</Link>
                         </td>
-                    </tr>
-                )}
-            )
-
+                    </tr>)})
             return jobList;
         }else {
             return(

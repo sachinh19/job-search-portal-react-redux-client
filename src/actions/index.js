@@ -268,7 +268,7 @@ export const getNewCompanies = (dispatch) => {
 }
 
 export const getJobsForUser = (dispatch) => {
-    fetch('http://localhost:8080/api/person/company/job', {
+    fetch('http://localhost:8080/api/person/job', {
         credentials: 'include'
     }).then((response) => {
             if (response.status === 200)
@@ -300,7 +300,7 @@ export const getPersonJobs = (dispatch) => {
             })
         })
     } else {
-        fetch('http://localhost:8080/api/person/job', {
+        fetch('http://localhost:8080/api/person/company/job', {
             credentials: 'include'
         }).then((response) => {
             if (response.status === 200)
