@@ -3,6 +3,7 @@ import {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions";
 import JobCard from "../components/JobCard"
+import history from "../History";
 
 function compare(a,b) {
     if (a.id < b.id)
@@ -20,7 +21,8 @@ class JobList extends Component {
     }
 
     componentDidMount(){
-        this.props.findAllJobs();
+        if(!this.props.jobs || this.props.jobs.length === 0)
+            this.props.findAllJobs();
     }
 
 
@@ -43,20 +45,38 @@ class JobList extends Component {
 
     render (){
         this.props.jobs.sort(compare)
+        let role = localStorage.getItem("userRole");
         return (
             <div>
                 <table className="table table-hover">
                     <thead className={"bg-light"}>
                     {this.props.jobs.length > 0 &&
                         <tr>
-                            <th colSpan={2}>
-                                We have {this.props.jobs.length} jobs listed for you.
+                            <th>
+                                <div className={"row"}>
+                                    <div className={"col-md-9"}>
+                                        We have {this.props.jobs.length} jobs listed for you.
+                                    </div>
+                                    <div className={"col-md-3"}>
+                                        {role &&
+                                        role!==null &&
+                                        role!=='' &&
+                                        (role==='Employer' || role==='Admin' || role==='Moderator') &&
+                                            <button className={"btn btn-outline-success"}
+                                                type={"button"}
+                                                onClick={()=>{
+                                                    this.props.createJob()
+                                                }}>
+                                            Create New Job
+                                        </button>}
+                                    </div>
+                                </div>
                             </th>
                         </tr>
                     }
                     {this.props.jobs.length === 0 &&
                         <tr>
-                            <th colSpan={2}>
+                            <th>
                                 We're sorry, there are no jobs available that match your criteria at the moment.
                             </th>
                         </tr>
@@ -110,6 +130,7 @@ const stateToPropsMapper = (state) => ({
 })
 
 const dispatchToPropsMatcher = dispatch => ({
+    createJob: () => actions.createJob(dispatch),
     findAllJobs: () => actions.findAllJobs(dispatch)
 })
 

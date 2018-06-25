@@ -1,15 +1,16 @@
 import {combineReducers} from 'redux';
-import LoginReducer from './LoginReducer'
-import AlertReducer from './AlertReducer'
-import JobsReducer from './JobsReducer'
-import JobReducer from './JobReducer'
+import LoginReducer from './LoginReducer';
+import AlertReducer from './AlertReducer';
+import JobsReducer from './JobsReducer';
+import JobReducer from './JobReducer';
 import AdminJobListReducer from "./AdminJobListReducer";
 import AdminCompanyListReducer from "./AdminCompanyListReducer";
 import AdminUserListReducer from "./AdminUserListReducer";
-import RegisterReducer from './RegisterReducer'
-import QueriesReducer from "./QueriesReducer"
-import CompanyReducer from "./CompanyReducer"
-import ProfileReducer from './ProfileReducer'
+import RegisterReducer from './RegisterReducer';
+import QueriesReducer from './QueriesReducer';
+import CompanyReducer from './CompanyReducer';
+import ProfileReducer from './ProfileReducer';
+import CreateJobReducer from './CreateJobReducer';
 
 const RootReducer = combineReducers({
     JobsReducer,
@@ -22,7 +23,8 @@ const RootReducer = combineReducers({
     JobReducer,
     QueriesReducer,
     CompanyReducer,
-    ProfileReducer
+    ProfileReducer,
+    CreateJobReducer
 })
 
 export default RootReducer;

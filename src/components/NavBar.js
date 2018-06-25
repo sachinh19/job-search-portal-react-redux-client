@@ -40,6 +40,10 @@ class NavBar extends Component{
 
     render(){
         let newSearchText
+        let userRole = ''
+        if(localStorage.getItem("username")) {
+            userRole = localStorage.getItem("userRole")?localStorage.getItem("userRole"):''
+        }
         return(
             <header className={"container-fluid"}>
                 <nav className={"navbar navbar-expand-md navbar-dark fixed-top bg-dark row"}>
@@ -63,8 +67,8 @@ class NavBar extends Component{
                                 <button className={"btn btn-outline-success"}
                                         type={"button"}
                                         onClick={()=>{
+                                            history.push('/search')
                                             this.props.searchJobsByKeyword(this.props.searchText)
-                                            history.push('/search');
                                         }}>
                                     <span className={"text-center"}>
                                     Find Jobs
@@ -82,17 +86,33 @@ class NavBar extends Component{
                                         <span className={"sr-only"}>(current)</span>
                                     </Link>
                                 </li>
+                                {userRole &&
+                                userRole === 'Moderator' &&
                                 <li className={"nav-item"}>
-                                    {this.renderLogin()}
-                                </li>
-                                <li className={"nav-item"}>
-                                    {this.renderRegisterProfile()}
-                                </li>
-                            </ul>
+                                    <Link to={`/moderatorConsole`} className={'wbdv-link nav-link'}>
+                                        Moderator-Console
+                                        <span className={"sr-only"}>(current)</span>
+                                    </Link>
+                                </li>}
+                                {userRole &&
+                                userRole === 'Admin' &&
+                                    <li className={"nav-item"}>
+                                        <Link to={`/console`} className={'wbdv-link nav-link'}>
+                                            Admin-Console
+                                            <span className={"sr-only"}>(current)</span>
+                                        </Link>
+                                    </li>}
+                                    <li className={"nav-item"}>
+                                        {this.renderLogin()}
+                                    </li>
+                                    <li className={"nav-item"}>
+                                        {this.renderRegisterProfile()}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </nav>
-            </header>
+                    </nav>
+                </header>
         )
     }
 
