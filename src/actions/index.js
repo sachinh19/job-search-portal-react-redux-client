@@ -212,12 +212,12 @@ export const searchTextChanged = (dispatch, searchText) => {
 export const searchJobsByKeyword = (dispatch, searchText) => {
     if (searchText && searchText !== '' && searchText.includes(" "))
         searchText = searchText.split(" ").join("++")
-    if (searchText === '')
-        findAllJobs(dispatch);
-    else {
+    if (searchText === '')  {
+        findAllJobs(dispatch)
+            .then(() => history.push('/search'));
+    } else {
         fetch(('http://localhost:8080/api/searchJob/' + searchText))
             .then((response) => {
-                console.log(response)
                 if (response.status === 200)
                     return response.json();
                 else
@@ -227,10 +227,9 @@ export const searchJobsByKeyword = (dispatch, searchText) => {
                 dispatch({
                     type: constants.SEARCHED_JOBS_CHANGED,
                     jobs: jobs
-                })
+                });
             })
     }
-
 }
 
 export const getNewJobs = (dispatch) => {
@@ -857,7 +856,7 @@ export const getApplicationStatus = (dispatch, jobId) => {
 }
 
 export const createJob = (dispatch) => {
-    fetch('http://localhost:8080/api/job', {
+    fetch('http://localhost:8080/api/job/userdefined', {
         method: 'POST',
         body: JSON.stringify({
             'position': 'Default Position',
@@ -878,16 +877,19 @@ export const createJob = (dispatch) => {
         }
     }).then(job => {
         if (job !== null) {
-            localStorage.addItem("jobId", job.id);
-            dispatch({type: constants.CREATE_JOB, job:job});
-            history.push('/');
+            localStorage.setItem("jobId", job.id);
+            dispatch({type: constants.CREATE_JOB, job:job})
+            history.push("/job")
         }
     });
 }
 
 
 export const saveJob = (dispatch, jobId, position, description, keywords, jobType) => {
-    fetch('http://localhost:8080/api/job', {
+    if(!jobId && localStorage.getItem("jobId")){
+        jobId = localStorage.getItem("jobId");
+    }
+    fetch('http://localhost:8080/api/job/' + jobId, {
         method: 'PUT',
         body: JSON.stringify({
             'jobId': jobId,
@@ -940,11 +942,10 @@ export const changeProfileJobType = (dispatch, jobType) => {
 }
 
 export const fetchJobDetails = (dispatch, jobId) => {
-    alert("jobId" + jobId)
-    if(localStorage.getItem("jobId")){
-        alert(localStorage.getItem("jobId"))
+    if(!jobId && localStorage.getItem("jobId")){
+        jobId = localStorage.getItem("jobId");
     }
-    fetch('http://localhost:8080/api/job/' + jobId,{
+    fetch('http://localhost:8080/api/job/' + jobId, {
         credentials: 'include'
     }).then(response => {
             if (response.status === 200) {

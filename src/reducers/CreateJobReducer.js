@@ -19,7 +19,7 @@ const CreateJobReducer = (state = {jobId:1, position:'', description:'<html><h5>
                 description: action.description,
                 keywords: state.keywords,
                 jobType: state.jobType,
-                successMessageFld : '',
+                successMessageFld : ''
             }
         case constants.CHANGE_JOB_KEYWORDS:
             return {
@@ -55,7 +55,16 @@ const CreateJobReducer = (state = {jobId:1, position:'', description:'<html><h5>
                 description: state.description,
                 keywords: state.keywords,
                 jobType: state.jobType,
-                successMessageFld: action.message
+                successMessageFld: action.successMessageFld
+            }
+        case constants.FETCH_JOB_DETAILS:
+            return {
+                jobId: action.job.jobId,
+                position: action.job.position,
+                description: action.job.description,
+                keywords: action.job.keywords,
+                jobType: action.job.jobType,
+                successMessageFld: ''
             }
         default :
             return state;

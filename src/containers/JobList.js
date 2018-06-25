@@ -21,7 +21,8 @@ class JobList extends Component {
     }
 
     componentDidMount(){
-        this.props.findAllJobs();
+        if(!this.props.jobs || this.props.jobs.length === 0)
+            this.props.findAllJobs();
     }
 
 
@@ -64,8 +65,7 @@ class JobList extends Component {
                                             <button className={"btn btn-outline-success"}
                                                 type={"button"}
                                                 onClick={()=>{
-                                                    this.props.createJob();
-                                                    history.push('/job');
+                                                    this.props.createJob()
                                                 }}>
                                             Create New Job
                                         </button>}

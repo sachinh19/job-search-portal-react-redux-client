@@ -14,14 +14,16 @@ class CreateJob extends Component {
     }
 
     componentDidMount() {
-        // this.props.fetchJobDetails(this.props.jobId);
+        if(localStorage.getItem("jobId")!==null) {
+            this.props.fetchJobDetails(localStorage.getItem("jobId"));
+        }
     }
 
     validateFields(position, description, keywords, jobType) {
 
         let returnVal = false;
         this.setState(() => {return {errorMessageFld: ''}});
-        if(position === '' && description === '' && keywords === '') {
+        if(position === '' || description === '' || keywords === '') {
             this.setState(() => {return {errorMessageFld: 'All fields are required!'}});
         } else {
             returnVal = true;
@@ -139,8 +141,6 @@ class CreateJob extends Component {
     }
 }
 
-
-
 const stateToPropertyMapper = (state) => ({
     position: state.CreateJobReducer.position,
     description: state.CreateJobReducer.description,
@@ -151,11 +151,11 @@ const stateToPropertyMapper = (state) => ({
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({
-    fetchJobDetails: () => actions.fetchJobDetails(dispatch),
+    fetchJobDetails: (jobId) => actions.fetchJobDetails(dispatch,jobId),
     changeJobDescription: (description) => actions.changeJobDescription(dispatch, description),
     changeJobPosition: (position) => actions.changeJobPosition(dispatch, position),
     changeJobKeywords: (keywords) => actions.changeJobKeywords(dispatch, keywords),
-    changeProfileJobType: (jobType) => actions.changeProfileJobType(dispatch, jobType),
+    changeProfileJobType: (jobType) => actions.changeProfileJobType(dispatch, {name: jobType}),
     saveJob: (position, description, keywords, jobType) => actions.saveJob(dispatch, position, description, keywords, jobType)
 });
 

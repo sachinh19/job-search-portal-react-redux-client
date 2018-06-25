@@ -64,8 +64,8 @@ class NavBar extends Component{
                                 <button className={"btn btn-outline-success"}
                                         type={"button"}
                                         onClick={()=>{
+                                            history.push('/search')
                                             this.props.searchJobsByKeyword(this.props.searchText)
-                                            history.push('/search');
                                         }}>
                                     <span className={"text-center"}>
                                     Find Jobs
