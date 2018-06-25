@@ -32,21 +32,22 @@ class Profile extends Component {
                                 <Link to={"/profile/update/" + localStorage.getItem("username")} className="wbdv-options-item">Manage Profile</Link>
                             </li>
                         </ul>
+                        {localStorage.getItem("username")!== this.state.username &&
                         <div className="container wbdv-follow-container">
                             <button type="button" className="btn btn-primary btn-block"
                                     onClick={() => {return}}>
                                 Follow
                             </button>
-                        </div>
+                        </div>}
                     </div>
                 </div>
-                <div className="col-md-7">
+                <div className="col-md-8">
                     <div className="container wbdv-option-list-container align-content-center">
                         <Route path={"/profile/view/:username"} component={ViewProfileContainer}/>
                         <Route path={"/profile/update/:username"} component={ManageProfileContainer}/>
                     </div>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-1">
                 </div>
             </div>
         )

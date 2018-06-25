@@ -6,9 +6,9 @@ import {Link} from 'react-router-dom'
 class MyJobs extends Component {
     constructor(props) {
         super(props)
-        this.props.getJobsForUser();
-        if(localStorage.getItem("userRole") !== 'JobSeeker')
-            this.props.getPersonJobs();
+        this.props.getJobsForUser(this.props.match.params.username);
+        if(this.props.match.params.username && this.props.match.params.username !== 'JobSeeker')
+            this.props.getPersonJobs(this.props.match.params.username);
     }
 
     renderJobs() {
@@ -98,10 +98,8 @@ const stateToPropertyMapper = (state) => ({
 })
 
 export const dispatcherToPropsMapper = (dispatch) => ({
-    getJobsForUser: () => actions.getJobsForUser(dispatch),
-    getPersonJobs: () => actions.getPersonJobs(dispatch)
-    // deleteJob: (jobId) => actions.deleteJob(dispatch,jobId),
-    // getNewJobs: () => actions.getNewJobs(dispatch)
+    getJobsForUser: (username) => actions.getJobsForUser(dispatch, username),
+    getPersonJobs: (username) => actions.getPersonJobs(dispatch, username)
 })
 
 const MyJobsContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(MyJobs)
