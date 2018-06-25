@@ -31,7 +31,7 @@ class NavBar extends Component{
                 <span className={"sr-only"}>(current)</span>
             </Link>
         } else {
-            return <Link to={"/profile/view/" + localStorage.getItem("username")} className={'wbdv-link nav-link'}>
+            return <Link to={"/profile/" + localStorage.getItem("username") + "/view"} className={'wbdv-link nav-link'}>
                 Profile
                 <span className={"sr-only"}>(current)</span>
             </Link>

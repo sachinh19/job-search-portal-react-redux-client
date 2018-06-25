@@ -808,7 +808,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
 
 export const fetchUserProfile = (dispatch, username) => {
     var role;
-    if (username) {
+    if (username && username!=='' && username!==null) {
         fetch('http://localhost:8080/api/person/username/' + username, {
             credentials: 'include'
         })

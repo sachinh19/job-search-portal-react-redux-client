@@ -72,9 +72,9 @@ class MyJobs extends Component {
                         </tbody>
                     </table>
                 </div>
-                {(localStorage.getItem("userRole") === 'Employer' ||
-                    localStorage.getItem("userRole") === 'Admin' ||
-                    localStorage.getItem("userRole") === 'Moderator') &&
+                {(this.props.username === 'Employer' ||
+                    this.props.username === 'Admin' ||
+                    this.props.username === 'Moderator') &&
                     <div>
                     <div className={"row"}>
                         <h1>Jobs Posted</h1>
@@ -94,7 +94,8 @@ class MyJobs extends Component {
 
 const stateToPropertyMapper = (state) => ({
     jobs: state.ProfileReducer.jobs,
-    personJobs : state.ProfileReducer.personJobs
+    personJobs : state.ProfileReducer.personJobs,
+    username: state.ProfileReducer.username
 })
 
 export const dispatcherToPropsMapper = (dispatch) => ({

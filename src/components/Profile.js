@@ -13,9 +13,7 @@ class Profile extends Component {
         super(props)
     }
 
-    componentDidMount() {
-        this.props.fetchUserProfile();
-    }
+    componentDidMount() {}
 
     render() {
         let url = "https://picsum.photos/300/300?" + localStorage.getItem("username")
@@ -26,10 +24,10 @@ class Profile extends Component {
                         <img className="card-img-top" src={url} alt="Card cap"/>
                         <ul className="list-group">
                             <li className="list-group-item wbdv-options">
-                                <Link to={"/profile/view/" + localStorage.getItem("username")} className="wbdv-options-item active">My Jobs</Link>
+                                <Link to={"/profile/"  + this.props.match.params.username+ "/view"} className="wbdv-options-item active">My Jobs</Link>
                             </li>
                             <li className="list-group-item wbdv-options">
-                                <Link to={"/profile/update/" + localStorage.getItem("username")} className="wbdv-options-item">Manage Profile</Link>
+                                <Link to={"/profile/" + this.props.match.params.username + "/update"} className="wbdv-options-item">Manage Profile</Link>
                             </li>
                         </ul>
 
@@ -43,8 +41,8 @@ class Profile extends Component {
                 </div>
                 <div className="col-md-8">
                     <div className="container wbdv-option-list-container align-content-center">
-                        <Route path={"/profile/view/:username"} component={ViewProfileContainer}/>
-                        <Route path={"/profile/update/:username"} component={ManageProfileContainer}/>
+                        <Route path={"/profile/:username/view"} component={ViewProfileContainer}/>
+                        <Route path={"/profile/:username/update"} component={ManageProfileContainer}/>
                     </div>
                 </div>
                 <div className="col-md-1">
@@ -54,13 +52,9 @@ class Profile extends Component {
     }
 }
 
-
-
-const stateToPropertyMapper = (state) => ({
-});
+const stateToPropertyMapper = (state) => ({});
 
 export const dispatcherToPropsMapper = (dispatch) => ({
-    fetchUserProfile: () => actions.fetchUserProfile(dispatch)
 });
 
 const ProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Profile)
