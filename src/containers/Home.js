@@ -30,10 +30,10 @@ class Home extends Component {
             return userList
         } else {
             return (<tr>
-                    <td>
-                        <h3>Sorry, no user data found</h3>
-                    </td>
-                </tr>)
+                <td>
+                    <h3>Sorry, no user data found</h3>
+                </td>
+            </tr>)
         }
     }
 
@@ -75,46 +75,43 @@ class Home extends Component {
                          alt={"Home Page Banner"}/>
                 </div>
                 <div className={"row wbdv-job-row"}>
-                    <div className={"col-md-6"}>
-                        <h4><i>Top Ten Most Applied Jobs</i></h4>
-                        <table className="table table-hover">
-                            <thead className={"thead-dark"}>
-                                <tr>
-                                    <th>Jobs</th>
-                                    <th>No. of Applicants</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderJobs()}
-                            </tbody>
-                        </table>
+                    <div className={"col-md-2"}>
                     </div>
-                    <div className={"col-md-6"}>
-                        <h4><i>Most Recently Joined Job Seekers</i></h4>
-                        <table className="table table-hover">
-                            <thead className={"thead-dark"}>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Joined On</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderUsers()}
-                            </tbody>
-                        </table>
+                    <div className={"col-md-8"}>
+                        <JobListContainer/>
                     </div>
-                </div>
-                <div className={"row wbdv-job-row"}>
-                    <div className={"col-md-6"}>
-                    </div>
-                    <div className={"col-md-6"}>
+                    <div className={"col-md-2"}>
                     </div>
                 </div>
                 <div className={"row wbdv-job-row"}>
                     <div className={"col-md-2"}>
                     </div>
                     <div className={"col-md-8"}>
-                        <JobListContainer/>
+                        <h4><i>Top Ten Most Applied Jobs</i></h4>
+                        <table className="table table-hover">
+                            <thead className={"thead-dark"}>
+                            <tr>
+                                <th>Jobs</th>
+                                <th>No. of Applicants</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {this.renderJobs()}
+                            </tbody>
+                        </table>
+                        <br/>
+                        <h4><i>Most Recently Joined Job Seekers</i></h4>
+                        <table className="table table-hover">
+                            <thead className={"thead-dark"}>
+                            <tr>
+                                <th>Username</th>
+                                <th>Joined On</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {this.renderUsers()}
+                            </tbody>
+                        </table>
                     </div>
                     <div className={"col-md-2"}>
                     </div>

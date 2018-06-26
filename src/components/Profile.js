@@ -18,13 +18,24 @@ class Profile extends Component {
 
     renderFollowButton() {
         if (localStorage.getItem("username") !== this.props.match.params.username) {
-            return (
-                <button type="button" className="btn btn-primary btn-block"
-                        onClick={() => {
-                            return
-                        }}>
-                    Follow
-                </button>)
+            this.props.isFollowing(this.props.match.params.username)
+            if (!this.props.isFollowingUser) {
+                return (
+                    <button type="button" className="btn btn-primary btn-block"
+                            onClick={() => {
+                                this.props.followUser(this.props.match.params.username);
+                            }}>
+                        Follow
+                    </button>)
+            } else {
+                return (
+                    <button type="button" className="btn btn-primary btn-block"
+                            onClick={() => {
+                                this.props.unfollowUser(this.props.match.params.username);
+                            }}>
+                        Unfollow
+                    </button>)
+            }
         }
     }
 
@@ -72,9 +83,16 @@ class Profile extends Component {
     }
 }
 
-const stateToPropertyMapper = (state) => ({});
+const stateToPropertyMapper = (state) => ({
+    isFollowingUser: state.ProfileReducer.isFollowingUser
+});
 
-export const dispatcherToPropsMapper = (dispatch) => ({});
+export const dispatcherToPropsMapper = (dispatch) => ({
+    followUser: (followUsername) => actions.followUser(dispatch, followUsername),
+    unfollowUser: (unfollowUsername) => actions.unfollowUser(dispatch, unfollowUsername),
+    isFollowing: (username) => actions.isFollowing(dispatch,username)
+
+});
 
 const ProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Profile)
 
