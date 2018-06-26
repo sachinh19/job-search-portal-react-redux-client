@@ -312,7 +312,7 @@ class ManageProfile extends Component {
                 </div>
             </div>
         )} else {
-            return(<div><h1>Access Forbidden</h1></div>)
+            return(<div><h1 className={"wbdv-access-forbidden"}><i>Access Forbidden</i></h1></div>)
         }
     }
 }

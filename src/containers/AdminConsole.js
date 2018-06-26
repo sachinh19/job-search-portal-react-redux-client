@@ -41,7 +41,7 @@ class AdminConsole extends Component {
                 </div>
         )
     } else {
-            return(<div><h1 className={"wbdv-access-forbidden"}>Access Forbidden</h1></div>)
+            return(<div><h1 className={"wbdv-access-forbidden"}><i>Access Forbidden</i></h1></div>)
         }}
 }
 
