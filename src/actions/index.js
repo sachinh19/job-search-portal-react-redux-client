@@ -1460,6 +1460,7 @@ function compareApplicants(a,b) {
     return 0;
 }
 export const followUser = (dispatch, followUsername) => {
+    if (localStorage.getItem("username")) {
 fetch(('http://localhost:8080/api/follow'),{
     method: 'PUT',
     credentials: 'include',
@@ -1485,11 +1486,14 @@ fetch(('http://localhost:8080/api/follow'),{
             message: "Sorry !!! Some error occurred"
         })
     }
-})
+})} else {
+        history.push("/login")
+    }
 };
 
 
 export const unfollowUser = (dispatch, unfollowUsername) => {
+    if (localStorage.getItem("username")) {
     fetch(('http://localhost:8080/api/unfollow'),{
         method: 'PUT',
         credentials: 'include',
@@ -1515,7 +1519,9 @@ export const unfollowUser = (dispatch, unfollowUsername) => {
                 message: "Sorry !!! Some error occurred"
             })
         }
-    })
+    })} else {
+        history.push("/login")
+    }
 };
 
 export const isFollowing = (dispatch, username) => {
