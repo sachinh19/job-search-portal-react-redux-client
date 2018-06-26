@@ -49,10 +49,16 @@ class AdminConsoleCompanies extends Component {
                 </button>
             </div>
             <br/>
-            <div className="wbdv-companies-list col-10 card">
+            <div className="wbdv-companies-list col-10">
                 <table className="table table-hover">
+                    <thead className={"thead-dark"}>
+                        <tr>
+                            <th>Company</th>
+                            <th></th>
+                        </tr>
+                    </thead>
                     <tbody>
-                    {this.renderCompanies()}
+                        {this.renderCompanies()}
                     </tbody>
                 </table>
             </div>

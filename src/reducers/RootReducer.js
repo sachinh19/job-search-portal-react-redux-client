@@ -12,6 +12,7 @@ import CompanyReducer from './CompanyReducer';
 import ProfileReducer from './ProfileReducer';
 import CreateJobReducer from './CreateJobReducer';
 import EditQueryReducer from './EditQueryReducer';
+import HomeReducer from './HomeReducer';
 
 const RootReducer = combineReducers({
     JobsReducer,
@@ -27,7 +28,8 @@ const RootReducer = combineReducers({
     ProfileReducer,
     CreateJobReducer,
     ProfileReducer,
-    EditQueryReducer
-})
+    EditQueryReducer,
+    HomeReducer
+});
 
 export default RootReducer;

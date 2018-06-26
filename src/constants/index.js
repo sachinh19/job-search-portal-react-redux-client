@@ -62,4 +62,5 @@ export const RESET_CREATE_USER_FLAG = 'RESET_CREATE_USER_FLAG';
 export const ADD_NEW_USER = 'ADD_NEW_USER';
 export const GET_JOBS_FOR_PERSON = 'GET_JOBS_FOR_PERSON';
 export const GET_JOBS_FOR_USER = 'GET_JOBS_FOR_USER';
-
+export const TOP_TEN_USERS = 'TOP_TEN_USERS';
+export const TOP_TEN_JOBS = 'TOP_TEN_JOBS';

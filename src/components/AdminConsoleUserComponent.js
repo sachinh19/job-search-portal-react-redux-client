@@ -139,14 +139,15 @@ class AdminConsoleUser extends Component {
                         </button>
                     </div>
                 </div>
-                <div className="wbdv-users-list col-md-10 card">
+                <div className="wbdv-users-list col-md-10">
                     <table className="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>User Type</th>
-                            <th></th>
-                        </tr>
+                        <thead className={"thead-dark"}>
+                            <tr>
+                                <th>Username</th>
+                                <th>User Type</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
                         {this.renderUsers()}

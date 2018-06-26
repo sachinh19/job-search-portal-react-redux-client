@@ -1393,6 +1393,69 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
     })
 };
 
+export const getTenMostRecentlyJoinedUsers = (dispatch) => {
+    fetch("http://localhost:8080/api/person")
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(users => {
+            let filteredUsers = [];
+            if(users && users.length > 0) {
+                users = users.filter(user => user.roleType === "JobSeeker")
+                users.sort(compareDates);
+                filteredUsers = users.slice(0,10);
+            }
+            return filteredUsers;
+        }).then(topTenUsers => {
+            dispatch({type: constants.TOP_TEN_USERS, topTenUsers: topTenUsers})
+        });
+}
+
+export const getTenMostAppliedJobs = (dispatch) => {
+    fetch("http://localhost:8080/api/job")
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(jobs => {
+            let filteredJobs = [];
+            if(jobs && jobs.length > 0) {
+                jobs.sort(compareApplicants)
+                filteredJobs = jobs.slice(0,10)
+            }
+            return filteredJobs;
+        }).then(topTenJobs => {
+            dispatch({type: constants.TOP_TEN_JOBS, topTenJobs: topTenJobs})
+        });
+}
+
+
 export const editUser = (dispatch, username) => {
-    history.push('/profile/update/' + username)
+    history.push('/profile/' + username + '/update')
 };
+
+
+function compareDates(a,b) {
+    let date_a = a.created.split(" ")[0];
+    let date_b = b.created.split(" ")[0];
+
+    if (date_a > date_b)
+        return -1;
+    if (date_a < date_b)
+        return 1;
+    return 0;
+}
+
+function compareApplicants(a,b) {
+
+    if (a.totalApplications > b.totalApplications)
+        return -1;
+    if (a.totalApplications < b.totalApplications)
+        return 1;
+    return 0;
+}

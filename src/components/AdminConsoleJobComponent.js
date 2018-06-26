@@ -55,10 +55,16 @@ class AdminConsoleJob extends Component {
                     </button>
                 </div>
                 <br/>
-                <div className="wbdv-jobs-list col-md-10 card">
+                <div className="wbdv-jobs-list col-md-10">
                     <table className="table table-hover">
+                        <thead className={"thead-dark"}>
+                            <tr>
+                                <th>Job</th>
+                                <th></th>
+                            </tr>
+                        </thead>
                         <tbody>
-                        {this.renderJobs()}
+                            {this.renderJobs()}
                         </tbody>
                     </table>
 
