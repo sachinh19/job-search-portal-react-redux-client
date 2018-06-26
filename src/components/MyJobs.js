@@ -30,7 +30,7 @@ class MyJobs extends Component {
             return(
                 <tr>
                     <td>
-                        <h3>You have not applied to any jobs, Apply Now!</h3>
+                        <h3>No jobs applied</h3>
                     </td>
                 </tr>
             );
@@ -51,7 +51,7 @@ class MyJobs extends Component {
             return(
                 <tr>
                     <td>
-                        <h3>There are no job listings for your company, Create One now!</h3>
+                        <h3>No job listings available</h3>
                     </td>
                 </tr>);
         }

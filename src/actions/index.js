@@ -1459,3 +1459,90 @@ function compareApplicants(a,b) {
         return 1;
     return 0;
 }
+export const followUser = (dispatch, followUsername) => {
+fetch(('http://localhost:8080/api/follow'),{
+    method: 'PUT',
+    credentials: 'include',
+    body: JSON.stringify({
+        'username': followUsername
+    }),
+    headers: {
+        'content-type': 'application/json'
+    }
+}).then(response => {
+    if (response.status === 200) {
+        dispatch({
+            type: constants.SUCCESS,
+            message: "You started following "+followUsername
+        });
+        dispatch({
+            type: constants.SET_ISFOLLOWING,
+            status: true
+        })
+    } else {
+        dispatch({
+            type: constants.ERROR,
+            message: "Sorry !!! Some error occurred"
+        })
+    }
+})
+};
+
+
+export const unfollowUser = (dispatch, unfollowUsername) => {
+    fetch(('http://localhost:8080/api/unfollow'),{
+        method: 'PUT',
+        credentials: 'include',
+        body: JSON.stringify({
+            'username': unfollowUsername
+        }),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => {
+        if (response.status === 200) {
+            dispatch({
+                type: constants.SUCCESS,
+                message: "You unfollowed "+unfollowUsername
+            });
+            dispatch({
+                type: constants.SET_ISFOLLOWING,
+                status: false
+            })
+        } else {
+            dispatch({
+                type: constants.ERROR,
+                message: "Sorry !!! Some error occurred"
+            })
+        }
+    })
+};
+
+export const isFollowing = (dispatch, username) => {
+    fetch(('http://localhost:8080/api/isfollowing/'+username),{
+        credentials: 'include'
+    }).then(response => {
+        if (response.status === 200) {
+           return response.json();
+        } else {
+            return null;
+        }
+    }).then(followingList => {
+
+        let followingStatus = false;
+
+        if (followingList != null) {
+
+            followingList.map(following => {
+                if (following.username === username) {
+                    followingStatus = true;
+                }
+            })
+
+        }
+            dispatch({
+                type: constants.SET_ISFOLLOWING,
+                status: followingStatus
+            })
+    })
+};

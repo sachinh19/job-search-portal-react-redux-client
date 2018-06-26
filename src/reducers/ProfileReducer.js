@@ -2,7 +2,7 @@ import * as constants from '../constants'
 
 const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:'', lastName:'', email:'',
     aboutMe:'', expDescription:'', role:'Employer', companyName: '', position: '', tenure: '',
-    interestedPosition:'', totalExperience: '', successMessageFld: '', jobs:[], personJobs:[]}, action) => {
+    interestedPosition:'', totalExperience: '', successMessageFld: '', jobs:[], personJobs:[], isFollowingUser:false}, action) => {
 
     switch (action.type) {
         case constants.GET_JOBS_FOR_PERSON:
@@ -23,7 +23,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: action.personJobs
+                personJobs: action.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.GET_JOBS_FOR_USER:
             return {
@@ -43,7 +44,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: action.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_USERNAME:
             return {
@@ -63,7 +65,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_PASSWORD:
             return {
@@ -83,7 +86,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_FIRST_NAME:
             return {
@@ -103,7 +107,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_LAST_NAME:
             return {
@@ -123,7 +128,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_EMAIL:
             return {
@@ -143,7 +149,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_ABOUT_ME:
             return {
@@ -163,7 +170,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_EXP_DESCRIPTION:
             return {
@@ -183,7 +191,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_INTERESTED_POSITION:
             return {
@@ -203,7 +212,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_TOTAL_EXPERIENCE:
             return {
@@ -223,7 +233,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
 
         case constants.CHANGE_PROFILE_ROLE:
@@ -248,7 +259,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_COMPANY_NAME:
             return {
@@ -268,7 +280,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_POSITION:
             return {
@@ -288,7 +301,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.CHANGE_PROFILE_TENURE:
             return {
@@ -308,7 +322,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: action.tenure,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.UPDATE_PROFILE:
             return {
@@ -328,7 +343,8 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: state.tenure,
                 successMessageFld:action.successMessageFld,
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
             }
         case constants.FETCH_USER_PROFILE:
             let usernameFld = ''
@@ -402,7 +418,30 @@ const ProfileReducer = (state = {userId:1, username:'', password: '', firstName:
                 tenure: tenureFld,
                 successMessageFld:'',
                 jobs: state.jobs,
-                personJobs: state.personJobs
+                personJobs: state.personJobs,
+                isFollowingUser: state.isFollowingUser
+            }
+
+        case constants.SET_ISFOLLOWING :
+            return {
+                userId: state.userId,
+                username: state.username,
+                password: state.password,
+                firstName: state.firstName,
+                lastName: state.lastName,
+                email: state.email,
+                aboutMe: state.aboutMe,
+                expDescription: state.expDescription,
+                interestedPosition: state.interestedPosition,
+                totalExperience: state.totalExperience,
+                role: state.role,
+                companyName: state.companyName,
+                position: state.position,
+                tenure: state.tenure,
+                successMessageFld:state.successMessageFld,
+                jobs: state.jobs,
+                personJobs: state.personJobs,
+                isFollowingUser: action.status
             }
 
 
