@@ -41,6 +41,8 @@ class Job extends Component {
                             <div className={"card wbdv-query"} key={query.id}>
 
                                 <div className={"card-header row wdbv-status-options"}>
+                                        <b>Posted By : </b>
+                                        <Link to={`/profile/${query.postedBy.username}/view`} className={"wbdv-postedBy"}>{query.postedBy.username}</Link>
                                     <label>
                                         <input type={"radio"} name={"Query" + query.id} value="true"
                                                checked={query.status}
