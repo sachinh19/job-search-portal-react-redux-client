@@ -21,7 +21,7 @@ class Home extends Component {
                     return (
                         <tr key={user.id}>
                             <td><Link to={`/profile/${user.username}/view`}>{user.username}</Link></td>
-                            <td>{user.roleType}</td>
+                            <td>{user.created.split(" ")[0]}</td>
                         </tr>
                     )
                 }
@@ -76,7 +76,7 @@ class Home extends Component {
                 </div>
                 <div className={"row wbdv-job-row"}>
                     <div className={"col-md-6"}>
-                        <h4><i>Top Ten Jobs</i></h4>
+                        <h4><i>Top Ten Most Applied Jobs</i></h4>
                         <table className="table table-hover">
                             <thead className={"thead-dark"}>
                                 <tr>
@@ -90,12 +90,12 @@ class Home extends Component {
                         </table>
                     </div>
                     <div className={"col-md-6"}>
-                        <h4><i>Most Recently Joined JobSeekers</i></h4>
+                        <h4><i>Most Recently Joined Job Seekers</i></h4>
                         <table className="table table-hover">
                             <thead className={"thead-dark"}>
                                 <tr>
                                     <th>Username</th>
-                                    <th>User Type</th>
+                                    <th>Joined On</th>
                                 </tr>
                             </thead>
                             <tbody>
