@@ -13,6 +13,7 @@ class AdminConsole extends Component {
     }
 
     render() {
+        if (localStorage.getItem("userRole") === "Admin") {
         return (
                 <div className="row">
                     <div className="col-md-3">
@@ -39,7 +40,9 @@ class AdminConsole extends Component {
                     </div>
                 </div>
         )
-    }
+    } else {
+            return(<div><h1 className={"wbdv-access-forbidden"}>Access Forbidden</h1></div>)
+        }}
 }
 
 const stateToPropertyMapper = (state) => ({})

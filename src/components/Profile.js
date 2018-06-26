@@ -13,6 +13,31 @@ class Profile extends Component {
         super(props)
     }
 
+    componentDidMount() {
+    }
+
+    renderFollowButton() {
+        if (localStorage.getItem("username") !== this.props.match.params.username) {
+            return (
+                <button type="button" className="btn btn-primary btn-block"
+                        onClick={() => {
+                            return
+                        }}>
+                    Follow
+                </button>)
+        }
+    }
+
+    renderPersonalInfoOption() {
+        if (localStorage.getItem("username") === this.props.match.params.username ||
+            localStorage.getItem("userRole") === "Admin") {
+            return (<li className="list-group-item wbdv-options">
+                <Link to={"/profile/" + this.props.match.params.username + "/update"} className="wbdv-options-item">Personal
+                    Details</Link>
+            </li>)
+        }
+    }
+
     render() {
         let url = "https://picsum.photos/300/300?" + localStorage.getItem("username")
         return (
@@ -22,19 +47,15 @@ class Profile extends Component {
                         <img className="card-img-top" src={url} alt="Card cap"/>
                         <ul className="list-group">
                             <li className="list-group-item wbdv-options">
-                                <Link to={"/profile/"  + this.props.match.params.username+ "/view"} className="wbdv-options-item active">My Jobs</Link>
+                                <Link to={"/profile/" + this.props.match.params.username + "/view"}
+                                      className="wbdv-options-item active">Work Profile</Link>
                             </li>
-                            <li className="list-group-item wbdv-options">
-                                <Link to={"/profile/" + this.props.match.params.username + "/update"} className="wbdv-options-item">Manage Profile</Link>
-                            </li>
+                            {this.renderPersonalInfoOption()}
                         </ul>
-                        {this.props.match.params.username !== localStorage.getItem("username") &&
+
                         <div className="container wbdv-follow-container">
-                            <button type="button" className="btn btn-primary btn-block"
-                                    onClick={() => {return}}>
-                                Follow
-                            </button>
-                        </div>}
+                            {this.renderFollowButton()}
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-8">
@@ -50,13 +71,9 @@ class Profile extends Component {
     }
 }
 
-const stateToPropertyMapper = (state) => ({
-    username: state.ProfileReducer.username
-});
+const stateToPropertyMapper = (state) => ({});
 
-export const dispatcherToPropsMapper = (dispatch) => ({
-
-});
+export const dispatcherToPropsMapper = (dispatch) => ({});
 
 const ProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Profile)
 
