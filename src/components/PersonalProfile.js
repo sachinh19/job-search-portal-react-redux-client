@@ -4,7 +4,7 @@ import * as actions from "../actions";
 import '../styles/Profile.css'
 
 
-class ManageProfile extends Component {
+class PersonalProfile extends Component {
 
     constructor(props) {
         super(props)
@@ -359,6 +359,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     fetchUserProfile: (username) => actions.fetchUserProfile(dispatch, username)
 });
 
-const ManageProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(ManageProfile)
+const PersonalProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(PersonalProfile)
 
-export default ManageProfileContainer
+export default PersonalProfileContainer

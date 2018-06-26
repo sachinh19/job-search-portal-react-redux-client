@@ -346,8 +346,7 @@ export const deleteJob = (dispatch, jobId) => {
         }).then(dispatch({
             type: constants.REMOVE_JOB,
             jobId: jobId
-        }))
-            .then(dispatch({
+        })).then(dispatch({
                 type: constants.SUCCESS,
                 message: "Job Deleted Successfully"
             }))

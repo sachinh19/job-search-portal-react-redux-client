@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
 import '../styles/Profile.css'
-import ViewProfileContainer from "./MyJobs";
-import ManageProfileContainer from "./ManageProfile";
+import ViewProfileContainer from "./PublicProfile";
+import PersonalProfileContainer from "./PersonalProfile";
 import {Link, Route} from 'react-router-dom';
 
 
@@ -32,9 +32,10 @@ class Profile extends Component {
         if (localStorage.getItem("username") === this.props.match.params.username ||
             localStorage.getItem("userRole") === "Admin") {
             return (<li className="list-group-item wbdv-options">
-                <Link to={"/profile/" + this.props.match.params.username + "/update"} className="wbdv-options-item">Personal
-                    Details</Link>
-            </li>)
+                        <Link to={"/profile/" + this.props.match.params.username + "/update"} className="wbdv-options-item">
+                            Personal Profile
+                        </Link>
+                    </li>)
         }
     }
 
@@ -48,7 +49,7 @@ class Profile extends Component {
                         <ul className="list-group">
                             <li className="list-group-item wbdv-options">
                                 <Link to={"/profile/" + this.props.match.params.username + "/view"}
-                                      className="wbdv-options-item active">Work Profile</Link>
+                                      className="wbdv-options-item active">Public Profile</Link>
                             </li>
                             {this.renderPersonalInfoOption()}
                         </ul>
@@ -61,7 +62,7 @@ class Profile extends Component {
                 <div className="col-md-8">
                     <div className="container wbdv-option-list-container align-content-center">
                         <Route path={"/profile/:username/view"} component={ViewProfileContainer}/>
-                        <Route path={"/profile/:username/update"} component={ManageProfileContainer}/>
+                        <Route path={"/profile/:username/update"} component={PersonalProfileContainer}/>
                     </div>
                 </div>
                 <div className="col-md-1">

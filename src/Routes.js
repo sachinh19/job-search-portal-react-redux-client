@@ -14,7 +14,7 @@ import RegisterContainer from "./containers/Register";
 import SearchContainer from './containers/Search'
 import CreateJobContainer from "./containers/CreateJob";
 import ModeratorConsoleContainer from "./containers/ModeratorConsole";
-import MyJobsContainer from './components/MyJobs'
+import PublicProfileContainer from './components/PublicProfile'
 
 
 export default class Routes extends Component {

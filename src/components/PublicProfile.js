@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import * as actions from "../actions";
 import {Link} from 'react-router-dom'
 
-class MyJobs extends Component {
+class PublicProfile extends Component {
     constructor(props) {
         super(props)
         this.props.getJobsForUser(this.props.match.params.username);
@@ -103,6 +103,6 @@ export const dispatcherToPropsMapper = (dispatch) => ({
     getPersonJobs: (username) => actions.getPersonJobs(dispatch, username)
 })
 
-const MyJobsContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(MyJobs)
+const PublicProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(PublicProfile)
 
-export default MyJobsContainer
+export default PublicProfileContainer
