@@ -13,9 +13,9 @@ class NavBar extends Component{
 
     renderLogin() {
         if(this.props.username !== null){
-            return <span id={"logoutLink"}
+            return <Link to={""} id={"logoutLink"}
                          className={"wbdv-link nav-link"}
-                         onClick={this.props.logOut}>Logout</span>
+                         onClick={this.props.logOut}>Logout</Link>
         } else {
             return <Link to={`/login`} className={'wbdv-link nav-link'}>
                         Login
@@ -46,7 +46,7 @@ class NavBar extends Component{
         }
         return(
             <header className={"container-fluid"}>
-                <nav className={"navbar navbar-expand-md navbar-dark fixed-top bg-dark row"}>
+                <nav className={"navbar navbar-expand-md navbar-dark fixed-top row"}>
                     <div className={"col-md-2"}>
                         <a className={"navbar-brand"} href={"/"}>
                             <span>
@@ -56,21 +56,19 @@ class NavBar extends Component{
                     </div>
                     <div className={"col-md-6"}>
                         <form className={"form-inline row"}>
-                            <div className={"col-md-9"}>
+                            <div className={"col-md-12 wbdv-search-box"}>
                                 <input className={"form-control wbdv-search-bar input-lg"}
                                        type={"text"} placeholder={"Enter keywords to search Jobs"}
                                        onChange={()=> this.props.searchTextChanged(newSearchText.value)}
                                        ref={node => newSearchText=node}
                                        aria-label={"Search"}/>
-                            </div>
-                            <div className={"col-md-3"}>
-                                <button className={"btn btn-outline-success"}
+                                <button className={"btn btn-success wbdv-search-btn"}
                                         type={"button"}
                                         onClick={()=>{
                                             history.push('/search')
                                             this.props.searchJobsByKeyword(this.props.searchText)
                                         }}>
-                                    <span className={"text-center"}>
+                                    <span className={"text-center wbdv-search-btn-text"}>
                                     Find Jobs
                                     </span>
                                 </button>
