@@ -9,6 +9,14 @@ class Home extends Component {
         super(props)
     }
 
+    renderUsers() {
+
+    }
+
+    renderJobs() {
+
+    }
+
     render() {
         return (
             <div>
@@ -16,6 +24,12 @@ class Home extends Component {
                     <img className="wbdv-home-page-image"
                          src={require('../images/HomePage.jpg')}
                          alt={"Home Page Banner"}/>
+                </div>
+                <div className={"row wbdv-job-row"}>
+                    <div className={"col-md-6"}>
+                    </div>
+                    <div className={"col-md-6"}>
+                    </div>
                 </div>
                 <div className={"row wbdv-job-row"}>
                     <div className={"col-md-2"}>
@@ -31,13 +45,12 @@ class Home extends Component {
     }
 }
 
-// const stateToPropertyMapper = (state) => ({
-// });
-//
-// export const dispatcherToPropsMapper = (dispatch) => ({
-// });
+const stateToPropertyMapper = (state) => ({
 
+});
 
-const HomeContainer = connect()(Home)
+export const dispatcherToPropsMapper = (dispatch) => ({ });
+
+const HomeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Home)
 
 export default HomeContainer

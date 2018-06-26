@@ -20,7 +20,7 @@ class AdminConsoleCompanies extends Component {
                                 <Link to={`/company/${company.id}`}>{company.name}</Link>
                             </td>
                             <td>
-                                <button type="button" className="btn btn-danger"
+                                <button type="button" className="btn btn-outline-danger"
                                         onClick={() => {
                                             this.props.deleteCompany(company.id)
                                         }}>

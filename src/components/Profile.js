@@ -13,8 +13,6 @@ class Profile extends Component {
         super(props)
     }
 
-    componentDidMount() {}
-
     render() {
         let url = "https://picsum.photos/300/300?" + localStorage.getItem("username")
         return (
@@ -30,13 +28,13 @@ class Profile extends Component {
                                 <Link to={"/profile/" + this.props.match.params.username + "/update"} className="wbdv-options-item">Manage Profile</Link>
                             </li>
                         </ul>
-
+                        {this.props.match.params.username !== localStorage.getItem("username") &&
                         <div className="container wbdv-follow-container">
                             <button type="button" className="btn btn-primary btn-block"
                                     onClick={() => {return}}>
                                 Follow
                             </button>
-                        </div>
+                        </div>}
                     </div>
                 </div>
                 <div className="col-md-8">
@@ -52,9 +50,12 @@ class Profile extends Component {
     }
 }
 
-const stateToPropertyMapper = (state) => ({});
+const stateToPropertyMapper = (state) => ({
+    username: state.ProfileReducer.username
+});
 
 export const dispatcherToPropsMapper = (dispatch) => ({
+
 });
 
 const ProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(Profile)

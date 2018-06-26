@@ -19,10 +19,12 @@ class AdminConsoleUser extends Component {
                             <td><Link to={`/profile/${user.username}/view`}>{user.username}</Link></td>
                             <td>{user.roleType}</td>
                             <td>
-                                <button type="button" className="btn btn-danger" onClick={() => {
+                                <button type="button" className="btn btn-outline-danger" onClick={() => {
                                     this.props.deleteUser(user.id)
                                 }}><i className="fa fa-trash"/></button>
-                                <button type="button" className="btn btn-success" onClick={() => {
+                            </td>
+                            <td>
+                                <button type="button" className="btn btn-outline-warning" onClick={() => {
                                     this.props.editUser(user.username)
                                 }}><i className="fa fa-edit"/></button>
                             </td>

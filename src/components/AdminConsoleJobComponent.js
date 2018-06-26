@@ -20,11 +20,11 @@ class AdminConsoleJob extends Component {
                                 <Link to={`/job/${job.id}`}>{job.position}</Link>
                             </td>
                             <td>
-                                <button type="button" className="btn btn-danger"
+                                <button type="button" className="btn btn-outline-danger"
                                         onClick={() => {
                                             this.props.deleteJob(job.id)
                                         }}>
-                                    <i className="fa fa-trash"></i>
+                                    <i className="fa fa-trash "></i>
                                 </button>
                             </td>
                         </tr>

@@ -38,7 +38,7 @@ class NavBar extends Component{
         }
     }
 
-    render(){
+    render() {
         let newSearchText
         let userRole = ''
         if(localStorage.getItem("username")) {
