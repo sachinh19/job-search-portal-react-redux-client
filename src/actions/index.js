@@ -1525,7 +1525,7 @@ export const unfollowUser = (dispatch, unfollowUsername) => {
 };
 
 export const isFollowing = (dispatch, username) => {
-    fetch(('http://localhost:8080/api/isfollowing/'+username),{
+    fetch(('http://localhost:8080/api/isfollowing'),{
         credentials: 'include'
     }).then(response => {
         if (response.status === 200) {
