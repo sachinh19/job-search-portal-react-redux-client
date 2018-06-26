@@ -1431,11 +1431,35 @@ export const getTenMostAppliedJobs = (dispatch) => {
         }).then(topTenJobs => {
             dispatch({type: constants.TOP_TEN_JOBS, topTenJobs: topTenJobs})
         });
-}
+};
 
 
 export const editUser = (dispatch, username) => {
     history.push('/profile/' + username + '/update')
+};
+
+export const getFollowedBy = (dispatch) => {
+    fetch("http://localhost:8080/api/job")
+        .then(jobs => {
+            let filteredJobs = [];
+            if(jobs && jobs.length > 0) {
+                jobs.sort(compareApplicants)
+                filteredJobs = jobs.slice(0,10)
+            }
+            return filteredJobs;
+        })
+};
+
+export const getFollowing = (dispatch) => {
+    fetch("http://localhost:8080/api/job")
+        .then(jobs => {
+            let filteredJobs = [];
+            if(jobs && jobs.length > 0) {
+                jobs.sort(compareApplicants)
+                filteredJobs = jobs.slice(0,10)
+            }
+            return filteredJobs;
+        })
 };
 
 

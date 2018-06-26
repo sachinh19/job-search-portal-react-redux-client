@@ -7,6 +7,8 @@ class PublicProfile extends Component {
     constructor(props) {
         super(props)
         this.props.getJobsForUser(this.props.match.params.username);
+        this.props.getFollowedBy();
+        this.props.getFollowing();
         if(this.props.match.params.username && this.props.match.params.username !== 'JobSeeker')
             this.props.getPersonJobs(this.props.match.params.username);
     }
@@ -73,9 +75,9 @@ class PublicProfile extends Component {
                     </table>
                 </div>
                 {(this.props.username === 'Employer' ||
-                    this.props.username === 'Admin' ||
-                    this.props.username === 'Moderator') &&
-                    <div>
+                this.props.username === 'Admin' ||
+                this.props.username === 'Moderator') &&
+                <div>
                     <div className={"row"}>
                         <h1>Jobs Posted</h1>
                         <div className={"col-md-6"}></div>
@@ -86,7 +88,12 @@ class PublicProfile extends Component {
                                 {this.renderEmployerJobs()}
                             </tbody>
                         </table>
-                    </div></div>}
+                    </div>
+                </div>}
+                <div>
+
+                </div>
+
             </div>
         )
     }
@@ -100,7 +107,9 @@ const stateToPropertyMapper = (state) => ({
 
 export const dispatcherToPropsMapper = (dispatch) => ({
     getJobsForUser: (username) => actions.getJobsForUser(dispatch, username),
-    getPersonJobs: (username) => actions.getPersonJobs(dispatch, username)
+    getPersonJobs: (username) => actions.getPersonJobs(dispatch, username),
+    getFollowedBy: () => actions.getFollowedBy(dispatch),
+    getFollowing: () => actions.getFollowing(dispatch)
 })
 
 const PublicProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(PublicProfile)
