@@ -29,6 +29,11 @@ export const doLogin = (dispatch, username, password) => {
             localStorage.setItem('username', user.username);
             localStorage.setItem('userRole', user.roleType);
             dispatch({type: constants.RESET_LOGIN_CREDENTIALS, user: user});
+            dispatch({
+                type: constants.SET,
+                localUsername: user.username,
+                localRole: user.roleType
+            })
             history.push('/');
         }
     })
@@ -181,7 +186,9 @@ export const logOut = (dispatch) => {
         dispatch({
             type: constants.RESET_LOGIN_CREDENTIALS
         })
-        history.push("/");
+        dispatch({
+            type: constants.RESET
+        })
     })
 
 }
@@ -268,7 +275,7 @@ export const getNewCompanies = (dispatch) => {
 }
 
 export const getJobsForUser = (dispatch, username) => {
-    if(username){
+    if (username) {
         fetch('http://localhost:8080/api/person/job/' + username, {
             credentials: 'include'
         }).then((response) => {
@@ -287,8 +294,8 @@ export const getJobsForUser = (dispatch, username) => {
 }
 
 export const getPersonJobs = (dispatch, username) => {
-    if(username) {
-        if(localStorage.getItem("userRole") === 'Employer') {
+    if (username) {
+        if (localStorage.getItem("userRole") === 'Employer') {
             fetch('http://localhost:8080/api/employer/job/' + username, {
                 credentials: 'include'
             }).then((response) => {
@@ -583,7 +590,7 @@ export const addApplicant = (dispatch, jobId) => {
     } else {
         history.push('/login')
     }
-}
+};
 
 export const changeProfileUsername = (dispatch, username) => {
     dispatch({
@@ -681,7 +688,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
 
     if (localStorage.getItem("userRole") === "Admin" || localStorage.getItem("username") === username) {
         if (role === 'JobSeeker') {
-            fetch(('http://localhost:8080/api/jobseeker/USERNAME').replace('USERNAME',username), {
+            fetch(('http://localhost:8080/api/jobseeker/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -712,7 +719,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
                 }
             })
         } else if (role === 'Employer') {
-            fetch(('http://localhost:8080/api/employer/USERNAME').replace('USERNAME',username), {
+            fetch(('http://localhost:8080/api/employer/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -744,7 +751,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
                 }
             })
         } else if (role === 'Moderator') {
-            fetch(('http://localhost:8080/api/moderator/USERNAME').replace('USERNAME',username), {
+            fetch(('http://localhost:8080/api/moderator/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -773,7 +780,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
                 }
             })
         } else if (role === 'Admin') {
-            fetch(('http://localhost:8080/api/admin/USERNAME').replace('USERNAME',username), {
+            fetch(('http://localhost:8080/api/admin/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -807,7 +814,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
 
 export const fetchUserProfile = (dispatch, username) => {
     var role;
-    if (username && username!=='' && username!==null) {
+    if (username && username !== '' && username !== null) {
         fetch('http://localhost:8080/api/person/username/' + username, {
             credentials: 'include'
         })
@@ -1401,16 +1408,16 @@ export const getTenMostRecentlyJoinedUsers = (dispatch) => {
                 return null;
             }
         }).then(users => {
-            let filteredUsers = [];
-            if(users && users.length > 0) {
-                users = users.filter(user => user.roleType === "JobSeeker")
-                users.sort(compareDates);
-                filteredUsers = users.slice(0,10);
-            }
-            return filteredUsers;
-        }).then(topTenUsers => {
-            dispatch({type: constants.TOP_TEN_USERS, topTenUsers: topTenUsers})
-        });
+        let filteredUsers = [];
+        if (users && users.length > 0) {
+            users = users.filter(user => user.roleType === "JobSeeker")
+            users.sort(compareDates);
+            filteredUsers = users.slice(0, 10);
+        }
+        return filteredUsers;
+    }).then(topTenUsers => {
+        dispatch({type: constants.TOP_TEN_USERS, topTenUsers: topTenUsers})
+    });
 }
 
 export const getTenMostAppliedJobs = (dispatch) => {
@@ -1422,16 +1429,16 @@ export const getTenMostAppliedJobs = (dispatch) => {
                 return null;
             }
         }).then(jobs => {
-            let filteredJobs = [];
-            if(jobs && jobs.length > 0) {
-                jobs.sort(compareApplicants)
-                filteredJobs = jobs.slice(0,10)
-            }
-            return filteredJobs;
-        }).then(topTenJobs => {
-            dispatch({type: constants.TOP_TEN_JOBS, topTenJobs: topTenJobs})
-        });
-};
+        let filteredJobs = [];
+        if (jobs && jobs.length > 0) {
+            jobs.sort(compareApplicants)
+            filteredJobs = jobs.slice(0, 10)
+        }
+        return filteredJobs;
+    }).then(topTenJobs => {
+        dispatch({type: constants.TOP_TEN_JOBS, topTenJobs: topTenJobs})
+    });
+}
 
 
 export const editUser = (dispatch, username) => {
@@ -1439,7 +1446,7 @@ export const editUser = (dispatch, username) => {
 };
 
 
-function compareDates(a,b) {
+function compareDates(a, b) {
     let date_a = a.created.split(" ")[0];
     let date_b = b.created.split(" ")[0];
 
@@ -1450,7 +1457,7 @@ function compareDates(a,b) {
     return 0;
 }
 
-function compareApplicants(a,b) {
+function compareApplicants(a, b) {
 
     if (a.totalApplications > b.totalApplications)
         return -1;
@@ -1458,76 +1465,79 @@ function compareApplicants(a,b) {
         return 1;
     return 0;
 }
+
 export const followUser = (dispatch, followUsername) => {
     if (localStorage.getItem("username")) {
-fetch(('http://localhost:8080/api/follow'),{
-    method: 'PUT',
-    credentials: 'include',
-    body: JSON.stringify({
-        'username': followUsername
-    }),
-    headers: {
-        'content-type': 'application/json'
-    }
-}).then(response => {
-    if (response.status === 200) {
-        dispatch({
-            type: constants.SUCCESS,
-            message: "You started following "+followUsername
-        });
-        dispatch({
-            type: constants.SET_ISFOLLOWING,
-            status: true
+        fetch(('http://localhost:8080/api/follow'), {
+            method: 'PUT',
+            credentials: 'include',
+            body: JSON.stringify({
+                'username': followUsername
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                dispatch({
+                    type: constants.SUCCESS,
+                    message: "You started following " + followUsername
+                });
+                dispatch({
+                    type: constants.SET_ISFOLLOWING,
+                    status: true
+                })
+            } else {
+                dispatch({
+                    type: constants.ERROR,
+                    message: "Sorry !!! Some error occurred"
+                })
+            }
         })
     } else {
-        dispatch({
-            type: constants.ERROR,
-            message: "Sorry !!! Some error occurred"
-        })
-    }
-})} else {
         history.push("/login")
     }
 };
 
 export const unfollowUser = (dispatch, unfollowUsername) => {
     if (localStorage.getItem("username")) {
-    fetch(('http://localhost:8080/api/unfollow'),{
-        method: 'PUT',
-        credentials: 'include',
-        body: JSON.stringify({
-            'username': unfollowUsername
-        }),
-        headers: {
-            'content-type': 'application/json'
-        }
-    }).then(response => {
-        if (response.status === 200) {
-            dispatch({
-                type: constants.SUCCESS,
-                message: "You unfollowed "+unfollowUsername
-            });
-            dispatch({
-                type: constants.SET_ISFOLLOWING,
-                status: false
-            })
-        } else {
-            dispatch({
-                type: constants.ERROR,
-                message: "Sorry !!! Some error occurred"
-            })
-        }
-    })} else {
+        fetch(('http://localhost:8080/api/unfollow'), {
+            method: 'PUT',
+            credentials: 'include',
+            body: JSON.stringify({
+                'username': unfollowUsername
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                dispatch({
+                    type: constants.SUCCESS,
+                    message: "You unfollowed " + unfollowUsername
+                });
+                dispatch({
+                    type: constants.SET_ISFOLLOWING,
+                    status: false
+                })
+            } else {
+                dispatch({
+                    type: constants.ERROR,
+                    message: "Sorry !!! Some error occurred"
+                })
+            }
+        })
+    } else {
         history.push("/login")
     }
 };
 
 export const isFollowing = (dispatch, username) => {
-    fetch(('http://localhost:8080/api/isfollowing'),{
+    fetch(('http://localhost:8080/api/isfollowing'), {
         credentials: 'include'
     }).then(response => {
         if (response.status === 200) {
-           return response.json();
+            return response.json();
         } else {
             return null;
         }
@@ -1542,10 +1552,10 @@ export const isFollowing = (dispatch, username) => {
                 }
             })
         }
-            dispatch({
-                type: constants.SET_ISFOLLOWING,
-                status: followingStatus
-            })
+        dispatch({
+            type: constants.SET_ISFOLLOWING,
+            status: followingStatus
+        })
     })
 };
 

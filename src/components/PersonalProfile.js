@@ -49,8 +49,8 @@ class PersonalProfile extends Component {
         let interestedPositionFld;
         let totalExperienceFld;
 
-        if (localStorage.getItem("username") === this.props.match.params.username ||
-            localStorage.getItem("userRole") === "Admin") {
+        if (this.props.localUsername === this.props.match.params.username ||
+            this.props.localRole === "Admin") {
         return (
             <div className="container-profile">
                 <div className={"card container wbdv-profile-container"}>
@@ -334,7 +334,9 @@ const stateToPropertyMapper = (state) => ({
     tenure: state.ProfileReducer.tenure,
     interestedPosition: state.ProfileReducer.interestedPosition,
     totalExperience: state.ProfileReducer.totalExperience,
-    successMessageFld: state.ProfileReducer.successMessageFld
+    successMessageFld: state.ProfileReducer.successMessageFld,
+    localUsername: state.LocalStorageReducer.localUsername,
+    localRole: state.LocalStorageReducer.localRole
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({

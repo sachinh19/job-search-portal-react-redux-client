@@ -10,6 +10,7 @@ class PublicProfile extends Component {
         this.props.getFollowers();
         this.props.getFollowing();
         if(this.props.match.params.username && this.props.match.params.username !== 'JobSeeker')
+        if(this.props.match.params.username && this.props.localRole !== 'JobSeeker')
             this.props.getPersonJobs(this.props.match.params.username);
     }
 
@@ -112,10 +113,10 @@ class PublicProfile extends Component {
                         </tbody>
                     </table>
                 </div>
-                {(this.props.username === 'Employer' ||
-                this.props.username === 'Admin' ||
-                this.props.username === 'Moderator') &&
-                <div>
+                {(this.props.localRole === 'Employer' ||
+                    this.props.localRole === 'Admin' ||
+                    this.props.localRole === 'Moderator') &&
+                    <div>
                     <div className={"row"}>
                         <h1>Jobs Posted</h1>
                         <div className={"col-md-6"}></div>
@@ -154,7 +155,9 @@ const stateToPropertyMapper = (state) => ({
     personJobs : state.ProfileReducer.personJobs,
     username: state.ProfileReducer.username,
     followers: state.ProfileReducer.followers,
-    following: state.ProfileReducer.following
+    following: state.ProfileReducer.following,
+    localUsername: state.LocalStorageReducer.localUsername,
+    localRole: state.LocalStorageReducer.localRole
 })
 
 export const dispatcherToPropsMapper = (dispatch) => ({

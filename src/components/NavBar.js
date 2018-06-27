@@ -12,7 +12,7 @@ class NavBar extends Component{
     }
 
     renderLogin() {
-        if(this.props.username !== null){
+        if(this.props.localUsername !== null){
             return <Link to={""} id={"logoutLink"}
                          className={"wbdv-link nav-link"}
                          onClick={this.props.logOut}>Logout</Link>
@@ -25,13 +25,13 @@ class NavBar extends Component{
     }
 
     renderRegisterProfile() {
-        if(this.props.username == null){
+        if(this.props.localUsername == null){
             return <Link to={`/register`} className={'wbdv-link nav-link'}>
                 Register
                 <span className={"sr-only"}>(current)</span>
             </Link>
         } else {
-            return <Link to={"/profile/" + localStorage.getItem("username") + "/view"} className={'wbdv-link nav-link'}>
+            return <Link to={"/profile/" + this.props.localUsername + "/view"} className={'wbdv-link nav-link'}>
                 Profile
                 <span className={"sr-only"}>(current)</span>
             </Link>
@@ -41,8 +41,8 @@ class NavBar extends Component{
     render() {
         let newSearchText
         let userRole = ''
-        if(localStorage.getItem("username")) {
-            userRole = localStorage.getItem("userRole")?localStorage.getItem("userRole"):''
+        if(this.props.localUsername) {
+            userRole = this.props.localRole?this.props.localRole:''
         }
         return(
             <header className={"container-fluid"}>
@@ -174,8 +174,9 @@ class NavBar extends Component{
 
 
 const stateToPropertyMapper = (state) => ({
-    username:localStorage.getItem('username'),
-    searchText: state.JobsReducer.searchText
+    searchText: state.JobsReducer.searchText,
+    localUsername: state.LocalStorageReducer.localUsername,
+    localRole: state.LocalStorageReducer.localRole
 })
 
 export const dispatcherToPropsMapper = (dispatch) => ({
