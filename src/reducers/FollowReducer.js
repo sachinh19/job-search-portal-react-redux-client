@@ -10,7 +10,7 @@ const FollowReducer = (state = {followers:'', following:''}, action) => {
             };
         case constants.SET_FOLLOWING:
             return {
-                followers: state.followerList,
+                followers: state.followers,
                 following: action.following
             };
 
