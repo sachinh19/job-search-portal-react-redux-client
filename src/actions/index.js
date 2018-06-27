@@ -1494,7 +1494,7 @@ export const followUser = (dispatch, followUsername) => {
                     message: "Sorry !!! Some error occurred"
                 })
             }
-        })
+        }).then(() => window.location.reload())
     } else {
         history.push("/login")
     }
@@ -1528,7 +1528,7 @@ export const unfollowUser = (dispatch, unfollowUsername) => {
                     message: "Sorry !!! Some error occurred"
                 })
             }
-        })
+        }).then(() => window.location.reload())
     } else {
         history.push("/login")
     }
