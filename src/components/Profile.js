@@ -14,6 +14,13 @@ class Profile extends Component {
     }
 
     componentDidMount() {
+        if (this.props.localUsername !== this.props.match.params.username) {
+            this.props.isFollowing(this.props.match.params.username)}
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.localUsername !== newProps.match.params.username) {
+            this.props.isFollowing(newProps.match.params.username)}
     }
 
     renderFollowButton() {
@@ -92,7 +99,9 @@ const stateToPropertyMapper = (state) => ({
 export const dispatcherToPropsMapper = (dispatch) => ({
     followUser: (followUsername) => actions.followUser(dispatch, followUsername),
     unfollowUser: (unfollowUsername) => actions.unfollowUser(dispatch, unfollowUsername),
-    isFollowing: (username) => actions.isFollowing(dispatch,username)
+    isFollowing: (username) => actions.isFollowing(dispatch,username),
+    findFollowers: (username) => actions.findFollowers(dispatch, username),
+    findFollowing: (username) => actions.findFollowing(dispatch, username)
 
 });
 

@@ -1493,7 +1493,7 @@ export const followUser = (dispatch, followUsername) => {
                     message: "Sorry !!! Some error occurred"
                 })
             }
-        })
+        }).then(() => window.location.reload())
     } else {
         history.push("/login")
     }
@@ -1526,14 +1526,14 @@ export const unfollowUser = (dispatch, unfollowUsername) => {
                     message: "Sorry !!! Some error occurred"
                 })
             }
-        })
+        }).then(() => window.location.reload())
     } else {
         history.push("/login")
     }
 };
 
 export const isFollowing = (dispatch, username) => {
-    fetch(('http://localhost:8080/api/isfollowing'), {
+    fetch(('http://localhost:8080/api/following'), {
         credentials: 'include'
     }).then(response => {
         if (response.status === 200) {
@@ -1559,34 +1559,48 @@ export const isFollowing = (dispatch, username) => {
     })
 };
 
-export const getFollowers = (dispatch) => {
-    fetch("http://localhost:8080/api/followers", {
-        credentials: 'include'
-    })
-        .then(response => {
-            if (response.status === 200) {
-                return response.json()
-            } else {
-                return null;
-            }
-        }).then(followers => dispatch({
-            type: constants.FOLLOWERS,
-            followers : followers
-        }))
+export const findFollowers = (dispatch, username) => {
+    if (username) {
+        fetch('http://localhost:8080/api/followers/'+username)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(users => {
+                if (users) {
+                    dispatch({
+                        type: constants.SET_FOLLOWERS,
+                        followers: users
+                    })
+                }
+        })
+    }
 };
 
-export const getFollowing = (dispatch) => {
-    fetch("http://localhost:8080/api/following", {
-        credentials: 'include'
-    })
-        .then(response => {
-            if (response.status === 200)
-                return response.json();
-            else
-                return null;
-        }).then(following =>
-        dispatch({
-            type: constants.FOLLOWING,
-            following : following
-        }))
+export const findFollowing = (dispatch, username) => {
+    if (username) {
+        fetch('http://localhost:8080/api/following/'+username)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(users => {
+            if (users) {
+                dispatch({
+                    type: constants.SET_FOLLOWING,
+                    following: users
+                })
+            }
+        })
+    }
 };
+
+export const resetFollowList =(dispatch) => {
+    dispatch({
+        type: constants.RESET_FOLLOWLIST
+    })
+}

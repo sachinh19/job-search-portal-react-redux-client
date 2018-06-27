@@ -14,6 +14,7 @@ import CreateJobReducer from './CreateJobReducer';
 import EditQueryReducer from './EditQueryReducer';
 import HomeReducer from './HomeReducer';
 import LocalStorageReducer from "./LocalStorageReducer";
+import FollowReducer from "./FollowReducer";
 
 const RootReducer = combineReducers({
     JobsReducer,
@@ -31,7 +32,8 @@ const RootReducer = combineReducers({
     ProfileReducer,
     EditQueryReducer,
     HomeReducer,
-    LocalStorageReducer
+    LocalStorageReducer,
+    FollowReducer
 });
 
 export default RootReducer;
