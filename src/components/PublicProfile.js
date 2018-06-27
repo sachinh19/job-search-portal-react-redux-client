@@ -7,7 +7,7 @@ class PublicProfile extends Component {
     constructor(props) {
         super(props)
         this.props.getJobsForUser(this.props.match.params.username);
-        this.props.getFollowedBy();
+        this.props.getFollowers();
         this.props.getFollowing();
         if(this.props.match.params.username && this.props.match.params.username !== 'JobSeeker')
             this.props.getPersonJobs(this.props.match.params.username);
@@ -58,7 +58,45 @@ class PublicProfile extends Component {
                 </tr>);
         }
     }
+    renderFollowers() {
+        let userList = null;
+        if (this.props.followers != null && this.props.followers.length >0) {
+            userList = this.props.followers.map(user=>{
+                return (<tr key={user.id}>
+                    <td>
+                        <Link to={`/user/${user.id}`}>{user.username}</Link>
+                    </td>
+                </tr>)})
+            return userList;
+        }else {
+            return(
+                <tr>
+                    <td>
+                        <h3>No User listings available</h3>
+                    </td>
+                </tr>);
+        }
+    }
 
+    renderFollowing() {
+        let userList = null;
+        if (this.props.following != null && this.props.following.length >0) {
+            userList = this.props.following.map(user=>{
+                return (<tr key={user.id}>
+                    <td>
+                        <Link to={`/user/${user.id}`}>{user.username}</Link>
+                    </td>
+                </tr>)})
+            return userList;
+        }else {
+            return(
+                <tr>
+                    <td>
+                        <h3>No User listings available</h3>
+                    </td>
+                </tr>);
+        }
+    }
     render() {
         return (
             <div className="wbdv-all-jobs">
@@ -90,10 +128,22 @@ class PublicProfile extends Component {
                         </table>
                     </div>
                 </div>}
-                <div>
-
+                <div className="wbdv-jobs-list col-md-10 card">
+                <h3><i>Followers</i></h3>
+                    <table className="table table-hover">
+                        <tbody>
+                        {this.renderFollowers()}
+                        </tbody>
+                    </table>
                 </div>
-
+                <div className="wbdv-jobs-list col-md-10 card">
+                    <h3><i>Following</i></h3>
+                    <table className="table table-hover">
+                        <tbody>
+                        {this.renderFollowing()}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
@@ -102,13 +152,15 @@ class PublicProfile extends Component {
 const stateToPropertyMapper = (state) => ({
     jobs: state.ProfileReducer.jobs,
     personJobs : state.ProfileReducer.personJobs,
-    username: state.ProfileReducer.username
+    username: state.ProfileReducer.username,
+    followers: state.ProfileReducer.followers,
+    following: state.ProfileReducer.following
 })
 
 export const dispatcherToPropsMapper = (dispatch) => ({
     getJobsForUser: (username) => actions.getJobsForUser(dispatch, username),
     getPersonJobs: (username) => actions.getPersonJobs(dispatch, username),
-    getFollowedBy: () => actions.getFollowedBy(dispatch),
+    getFollowers: () => actions.getFollowers(dispatch),
     getFollowing: () => actions.getFollowing(dispatch)
 })
 

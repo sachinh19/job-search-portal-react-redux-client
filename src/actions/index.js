@@ -1438,30 +1438,6 @@ export const editUser = (dispatch, username) => {
     history.push('/profile/' + username + '/update')
 };
 
-export const getFollowedBy = (dispatch) => {
-    fetch("http://localhost:8080/api/job")
-        .then(jobs => {
-            let filteredJobs = [];
-            if(jobs && jobs.length > 0) {
-                jobs.sort(compareApplicants)
-                filteredJobs = jobs.slice(0,10)
-            }
-            return filteredJobs;
-        })
-};
-
-export const getFollowing = (dispatch) => {
-    fetch("http://localhost:8080/api/job")
-        .then(jobs => {
-            let filteredJobs = [];
-            if(jobs && jobs.length > 0) {
-                jobs.sort(compareApplicants)
-                filteredJobs = jobs.slice(0,10)
-            }
-            return filteredJobs;
-        })
-};
-
 
 function compareDates(a,b) {
     let date_a = a.created.split(" ")[0];
@@ -1514,7 +1490,6 @@ fetch(('http://localhost:8080/api/follow'),{
     }
 };
 
-
 export const unfollowUser = (dispatch, unfollowUsername) => {
     if (localStorage.getItem("username")) {
     fetch(('http://localhost:8080/api/unfollow'),{
@@ -1561,17 +1536,47 @@ export const isFollowing = (dispatch, username) => {
         let followingStatus = false;
 
         if (followingList != null) {
-
             followingList.map(following => {
                 if (following.username === username) {
                     followingStatus = true;
                 }
             })
-
         }
             dispatch({
                 type: constants.SET_ISFOLLOWING,
                 status: followingStatus
             })
     })
+};
+
+export const getFollowers = (dispatch) => {
+    fetch("http://localhost:8080/api/followers", {
+        credentials: 'include'
+    })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                return null;
+            }
+        }).then(followers => dispatch({
+            type: constants.FOLLOWERS,
+            followers : followers
+        }))
+};
+
+export const getFollowing = (dispatch) => {
+    fetch("http://localhost:8080/api/following", {
+        credentials: 'include'
+    })
+        .then(response => {
+            if (response.status === 200)
+                return response.json();
+            else
+                return null;
+        }).then(following =>
+        dispatch({
+            type: constants.FOLLOWING,
+            following : following
+        }))
 };
