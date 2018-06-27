@@ -2,6 +2,8 @@
 
 This repository contains the source code for a project which is a requirement in the course CS5610 - Web development.
 
+The Java middle tier for this project is stored [here](https://github.com/sachinh19/webdev-cs5610-project-team-2070-backend)
+
 ### Project Team : 2070
 
 #### Team Members:
