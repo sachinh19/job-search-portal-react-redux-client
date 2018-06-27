@@ -13,13 +13,13 @@ class AdminConsole extends Component {
     }
 
     render() {
-        if (localStorage.getItem("userRole") === "Admin") {
+        if (this.props.localRole === "Admin") {
         return (
                 <div className="row">
                     <div className="col-md-3">
                         <div className="container wbdv-options-container">
                             <ul className="list-group">
-                                <li className="list-group-item wbdv-options">
+                                <li className="list-group-item wbdv-options ">
                                     <Link to={`/console/jobs`} className="wbdv-options-item">View All Jobs</Link>
                                 </li>
                                 <li className="list-group-item wbdv-options">
@@ -45,7 +45,9 @@ class AdminConsole extends Component {
         }}
 }
 
-const stateToPropertyMapper = (state) => ({})
+const stateToPropertyMapper = (state) => ({
+    localRole: state.LocalStorageReducer.localRole
+})
 
 export const dispatcherToPropsMapper = (dispatch) => ({})
 

@@ -109,13 +109,13 @@ class Job extends Component {
     }
 
     renderApplyButton() {
-        if (this.props.currentUser === undefined) {
+        if (this.props.localUsername === undefined) {
             return (<button type="button" className="btn btn-primary btn-block wbdv-applyBtn"
                             onClick={() => this.props.addApplicant(this.props.job.id)}>
                 Apply Now
             </button>)
         }
-        if (this.props.currentUser !== undefined) {
+        if (this.props.localUsername !== undefined) {
 
             this.props.getApplicationStatus(this.props.job.id)
 
@@ -138,14 +138,14 @@ class Job extends Component {
     }
 
     renderEditOption() {
-        if (localStorage.getItem("userRole") === "Admin" || localStorage.getItem("userRole") === "Moderator") {
+        if (this.props.localRole === "Admin" || this.props.localRole === "Moderator") {
             return (<div className={"wbdv-edit-job"}>
                 <button type="button" className="btn btn-info wbdv-edit-jobBtn"
                         onClick={() => {this.navigateToEditJobPage()}}>
                     <i className={"fa fa-edit"}></i> Edit Job Details
                 </button>
             </div>)
-        } else if (localStorage.getItem("userRole") === "Employer" && this.props.job.company !== undefined) {
+        } else if (this.props.localRole === "Employer" && this.props.job.company !== undefined) {
 
             this.props.isAuthenticated(this.props.job.company.name)
             return (<div className={"wbdv-edit-job"} hidden={!this.props.authenticatedUser}>
@@ -201,12 +201,13 @@ class Job extends Component {
 const stateToPropertyMapper = (state) => ({
     job: state.JobReducer.job,
     queries: state.QueriesReducer.queries,
-    currentUser: localStorage.getItem("username"),
     hasApplied: state.JobReducer.hasApplied,
     post: state.JobReducer.post,
     id: state.EditQueryReducer.id,
     updatedPost: state.EditQueryReducer.updatedPost,
-    authenticatedUser: state.JobReducer.authenticatedUser
+    authenticatedUser: state.JobReducer.authenticatedUser,
+    localUsername: state.LocalStorageReducer.localUsername,
+    localRole: state.LocalStorageReducer.localRole
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({

@@ -13,6 +13,7 @@ import ProfileReducer from './ProfileReducer';
 import CreateJobReducer from './CreateJobReducer';
 import EditQueryReducer from './EditQueryReducer';
 import HomeReducer from './HomeReducer';
+import LocalStorageReducer from "./LocalStorageReducer";
 
 const RootReducer = combineReducers({
     JobsReducer,
@@ -29,7 +30,8 @@ const RootReducer = combineReducers({
     CreateJobReducer,
     ProfileReducer,
     EditQueryReducer,
-    HomeReducer
+    HomeReducer,
+    LocalStorageReducer
 });
 
 export default RootReducer;

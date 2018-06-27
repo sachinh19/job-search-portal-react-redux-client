@@ -45,7 +45,7 @@ class JobList extends Component {
 
     render (){
         this.props.jobs.sort(compare)
-        let role = localStorage.getItem("userRole");
+        let role = this.props.localRole;
         return (
             <div>
                 <table className="table table-hover">
@@ -126,7 +126,8 @@ class JobList extends Component {
 
 
 const stateToPropsMapper = (state) => ({
-    jobs: state.JobsReducer.jobs
+    jobs: state.JobsReducer.jobs,
+    localRole: state.LocalStorageReducer.localRole
 })
 
 const dispatchToPropsMatcher = dispatch => ({

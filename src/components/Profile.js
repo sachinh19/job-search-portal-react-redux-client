@@ -17,7 +17,7 @@ class Profile extends Component {
     }
 
     renderFollowButton() {
-        if (localStorage.getItem("username") !== this.props.match.params.username) {
+        if (this.props.localUsername !== this.props.match.params.username) {
             this.props.isFollowing(this.props.match.params.username)
             if (!this.props.isFollowingUser) {
                 return (
@@ -40,17 +40,17 @@ class Profile extends Component {
     }
 
     renderPersonalInfoOption() {
-        if (localStorage.getItem("username") === this.props.match.params.username ||
-            localStorage.getItem("userRole") === "Admin") {
+        if (this.props.localUsername === this.props.match.params.username ||
+            this.props.localRole === "Admin") {
             return (<li className="list-group-item wbdv-options">
                 <Link to={"/profile/" + this.props.match.params.username + "/update"} className="wbdv-options-item">Personal
-                    Details</Link>
+                    Profile</Link>
             </li>)
         }
     }
 
     render() {
-        let url = "https://picsum.photos/300/300?" + localStorage.getItem("username")
+        let url = "https://picsum.photos/300/300?" + this.props.localUsername
         return (
             <div className="row">
                 <div className="col-md-3">
@@ -59,7 +59,7 @@ class Profile extends Component {
                         <ul className="list-group">
                             <li className="list-group-item wbdv-options">
                                 <Link to={"/profile/" + this.props.match.params.username + "/view"}
-                                      className="wbdv-options-item active">Work Profile</Link>
+                                      className="wbdv-options-item active">Public Profile</Link>
                             </li>
                             {this.renderPersonalInfoOption()}
                         </ul>
@@ -83,7 +83,9 @@ class Profile extends Component {
 }
 
 const stateToPropertyMapper = (state) => ({
-    isFollowingUser: state.ProfileReducer.isFollowingUser
+    isFollowingUser: state.ProfileReducer.isFollowingUser,
+    localUsername: state.LocalStorageReducer.localUsername,
+    localRole: state.LocalStorageReducer.localRole
 });
 
 export const dispatcherToPropsMapper = (dispatch) => ({

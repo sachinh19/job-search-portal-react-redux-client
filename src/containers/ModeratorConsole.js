@@ -13,7 +13,7 @@ class ModeratorConsole extends Component {
     }
 
     render() {
-        if (localStorage.getItem("userRole") === "Moderator") {
+        if (this.props.localRole === "Moderator") {
             return (
                 <div className="row">
                     <div className="col-md-3">
@@ -44,7 +44,10 @@ class ModeratorConsole extends Component {
     }
 }
 
-const stateToPropertyMapper = (state) => ({})
+const stateToPropertyMapper = (state) => ({
+    localUsername: state.LocalStorageReducer.localUsername,
+    localRole: state.LocalStorageReducer.localRole
+})
 
 export const dispatcherToPropsMapper = (dispatch) => ({})
 

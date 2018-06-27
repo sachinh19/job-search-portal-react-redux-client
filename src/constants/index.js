@@ -65,3 +65,5 @@ export const GET_JOBS_FOR_USER = 'GET_JOBS_FOR_USER';
 export const TOP_TEN_USERS = 'TOP_TEN_USERS';
 export const TOP_TEN_JOBS = 'TOP_TEN_JOBS';
 export const SET_ISFOLLOWING = 'SET_ISFOLLOWING';
+export const SET = 'SET';
+export const RESET = 'RESET';

@@ -46,3 +46,7 @@
     margin-top: 94px;
     margin-left: 10px;
 }
+
+.wbdv-options:hover{
+    background-color: darkgray !important;
+}
