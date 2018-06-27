@@ -59,7 +59,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
         }
     }).then(userDup => {
         if (!userDup && role === 'JobSeeker') {
-            fetch('http://localhost:8080/api/register/jobseeker', {
+            fetch('https://team-2070-backend.herokuapp.com/api/register/jobseeker', {
                 method: 'post',
                 body: JSON.stringify({
                     'username': username,
@@ -90,7 +90,7 @@ export const doRegister = (dispatch, username, password, password2, role, compan
                 }
             })
         } else if (!userDup && role === 'Employer') {
-            fetch('http://localhost:8080/api/register/employer', {
+            fetch('https://team-2070-backend.herokuapp.com/api/register/employer', {
                 method: 'post',
                 body: JSON.stringify({
                     'username': username,
