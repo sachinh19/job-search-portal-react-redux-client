@@ -1,6 +1,7 @@
 import * as constants from '../constants'
 
-const LocalStorageReducer = (state = {localUsername:null,localRole:null}, action) => {
+const LocalStorageReducer = (state = {localUsername:localStorage.getItem("username"),
+    localRole:localStorage.getItem("userRole")}, action) => {
 
     switch (action.type) {
         case constants.SET:

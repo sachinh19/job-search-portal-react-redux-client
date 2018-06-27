@@ -7,7 +7,7 @@ class MyJobs extends Component {
     constructor(props) {
         super(props)
         this.props.getJobsForUser(this.props.match.params.username);
-        if(this.props.match.params.username && this.props.match.params.username !== 'JobSeeker')
+        if(this.props.match.params.username && this.props.localRole !== 'JobSeeker')
             this.props.getPersonJobs(this.props.match.params.username);
     }
 
@@ -72,9 +72,9 @@ class MyJobs extends Component {
                         </tbody>
                     </table>
                 </div>
-                {(this.props.username === 'Employer' ||
-                    this.props.username === 'Admin' ||
-                    this.props.username === 'Moderator') &&
+                {(this.props.localRole === 'Employer' ||
+                    this.props.localRole === 'Admin' ||
+                    this.props.localRole === 'Moderator') &&
                     <div>
                     <div className={"row"}>
                         <h1>Jobs Posted</h1>
@@ -95,7 +95,8 @@ class MyJobs extends Component {
 const stateToPropertyMapper = (state) => ({
     jobs: state.ProfileReducer.jobs,
     personJobs : state.ProfileReducer.personJobs,
-    username: state.ProfileReducer.username
+    localUsername: state.LocalStorageReducer.localUsername,
+    localRole: state.LocalStorageReducer.localRole
 })
 
 export const dispatcherToPropsMapper = (dispatch) => ({
