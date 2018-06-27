@@ -70,3 +70,5 @@ export const RESET = 'RESET';
 export const SET_FOLLOWING = 'SET_FOLLOWING';
 export const SET_FOLLOWERS = 'SET_FOLLOWERS';
 export const RESET_FOLLOWLIST = 'RESET_FOLLOWLIST';
+export const FOLLOWING = 'FOLLOWING';
+export const FOLLOWERS = 'FOLLOWERS';
