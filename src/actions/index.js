@@ -584,7 +584,7 @@ export const addApplicant = (dispatch, jobId) => {
     } else {
         history.push('/login')
     }
-}
+};
 
 export const changeProfileUsername = (dispatch, username) => {
     dispatch({
