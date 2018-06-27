@@ -1535,7 +1535,7 @@ export const unfollowUser = (dispatch, unfollowUsername) => {
 };
 
 export const isFollowing = (dispatch, username) => {
-    fetch(('http://localhost:8080/api/isfollowing'), {
+    fetch(('http://localhost:8080/api/following'), {
         credentials: 'include'
     }).then(response => {
         if (response.status === 200) {
@@ -1562,3 +1562,49 @@ export const isFollowing = (dispatch, username) => {
         })
     })
 };
+
+export const findFollowers = (dispatch, username) => {
+    if (username) {
+        fetch('http://localhost:8080/api/followers/'+username)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(users => {
+                if (users) {
+                    dispatch({
+                        type: constants.SET_FOLLOWERS,
+                        followers: users
+                    })
+                }
+        })
+    }
+};
+
+export const findFollowing = (dispatch, username) => {
+    if (username) {
+        fetch('http://localhost:8080/api/following/'+username)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    return null;
+                }
+            }).then(users => {
+            if (users) {
+                dispatch({
+                    type: constants.SET_FOLLOWING,
+                    following: users
+                })
+            }
+        })
+    }
+};
+
+export const resetFollowList =(dispatch) => {
+    dispatch({
+        type: constants.RESET_FOLLOWLIST
+    })
+}

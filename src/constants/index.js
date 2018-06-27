@@ -67,3 +67,6 @@ export const TOP_TEN_JOBS = 'TOP_TEN_JOBS';
 export const SET_ISFOLLOWING = 'SET_ISFOLLOWING';
 export const SET = 'SET';
 export const RESET = 'RESET';
+export const SET_FOLLOWING = 'SET_FOLLOWING';
+export const SET_FOLLOWERS = 'SET_FOLLOWERS';
+export const RESET_FOLLOWLIST = 'RESET_FOLLOWLIST';
