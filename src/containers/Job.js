@@ -180,9 +180,7 @@ class Job extends Component {
                                       onChange={() => this.props.changePost(postFld.value)}>
 
                             </textarea>
-                            <button onClick={() => {
-                                this.props.submitPost(this.props.post, this.props.job.id)
-                            }} type="button" className="btn btn-outline-primary wbdv-submit-btn">
+                            <button onClick={() => {this.props.submitPost(this.props.post, this.props.job.id)}} type="button" className="btn btn-outline-primary wbdv-submit-btn">
                                 Submit
                             </button>
                         </div>

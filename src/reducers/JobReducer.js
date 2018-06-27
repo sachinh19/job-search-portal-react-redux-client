@@ -34,7 +34,7 @@ const JobReducer = (state = {job: {}, hasApplied: false, post: '', authenticated
             return {
                 job: state.job,
                 hasApplied: state.hasApplied,
-                post: '',
+                post: state.post,
                 authenticatedUser: true
             }
         default :
