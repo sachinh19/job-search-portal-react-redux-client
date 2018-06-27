@@ -3,7 +3,7 @@ import history from '../History'
 
 export const doLogin = (dispatch, username, password) => {
 
-    fetch('http://localhost:8080/api/login', {
+    fetch('https://team-2070-backend.herokuapp.com/api/login', {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify({
@@ -41,7 +41,7 @@ export const doLogin = (dispatch, username, password) => {
 
 export const doRegister = (dispatch, username, password, password2, role, companyName) => {
 
-    fetch('http://localhost:8080/api/person/username/' + username, {
+    fetch('https://team-2070-backend.herokuapp.com/api/person/username/' + username, {
         credentials: 'include'
     })
         .then(response => {
@@ -178,7 +178,7 @@ export const changeCompanyName = (dispatch, companyName) => {
 
 export const logOut = (dispatch) => {
 
-    fetch('http://localhost:8080/api/logout', {
+    fetch('https://team-2070-backend.herokuapp.com/api/logout', {
         credentials: 'include'
     }).then(() => {
         localStorage.removeItem('username');
@@ -194,7 +194,7 @@ export const logOut = (dispatch) => {
 }
 
 export const findAllJobs = (dispatch) => {
-    fetch('http://localhost:8080/api/job')
+    fetch('https://team-2070-backend.herokuapp.com/api/job')
         .then((response) => {
             if (response.status === 200)
                 return response.json();
@@ -222,7 +222,7 @@ export const searchJobsByKeyword = (dispatch, searchText) => {
     if (searchText === '')
         findAllJobs(dispatch);
     else {
-        fetch(('http://localhost:8080/api/searchJob/' + searchText))
+        fetch(('https://team-2070-backend.herokuapp.com/api/searchJob/' + searchText))
             .then((response) => {
                 console.log(response)
                 if (response.status === 200)
@@ -241,7 +241,7 @@ export const searchJobsByKeyword = (dispatch, searchText) => {
 
 export const getNewJobs = (dispatch) => {
 
-    fetch('http://localhost:8080/api/getjobs', {
+    fetch('https://team-2070-backend.herokuapp.com/api/getjobs', {
         credentials: 'include'
     })
         .then((response) => {
@@ -258,7 +258,7 @@ export const getNewJobs = (dispatch) => {
 }
 
 export const getNewCompanies = (dispatch) => {
-    fetch('http://localhost:8080/api/getcompanies', {
+    fetch('https://team-2070-backend.herokuapp.com/api/getcompanies', {
         credentials: 'include'
     })
         .then((response) => {
@@ -276,7 +276,7 @@ export const getNewCompanies = (dispatch) => {
 
 export const getJobsForUser = (dispatch, username) => {
     if (username) {
-        fetch('http://localhost:8080/api/person/job/' + username, {
+        fetch('https://team-2070-backend.herokuapp.com/api/person/job/' + username, {
             credentials: 'include'
         }).then((response) => {
             if (response.status === 200)
@@ -296,7 +296,7 @@ export const getJobsForUser = (dispatch, username) => {
 export const getPersonJobs = (dispatch, username) => {
     if (username) {
         if (localStorage.getItem("userRole") === 'Employer') {
-            fetch('http://localhost:8080/api/employer/job/' + username, {
+            fetch('https://team-2070-backend.herokuapp.com/api/employer/job/' + username, {
                 credentials: 'include'
             }).then((response) => {
                 if (response.status === 200)
@@ -310,7 +310,7 @@ export const getPersonJobs = (dispatch, username) => {
                 })
             })
         } else {
-            fetch('http://localhost:8080/api/person/company/job/' + username, {
+            fetch('https://team-2070-backend.herokuapp.com/api/person/company/job/' + username, {
                 credentials: 'include'
             }).then((response) => {
                 if (response.status === 200)
@@ -328,7 +328,7 @@ export const getPersonJobs = (dispatch, username) => {
 }
 
 export const updateJobList = (dispatch) => {
-    fetch('http://localhost:8080/api/job')
+    fetch('https://team-2070-backend.herokuapp.com/api/job')
         .then((response) => {
             if (response.status === 200)
                 return response.json();
@@ -347,7 +347,7 @@ export const updateJobList = (dispatch) => {
 export const deleteJob = (dispatch, jobId) => {
     var choice = window.confirm("Do you want to delete this job?")
     if (choice === true) {
-        fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/job/JID').replace('JID', jobId), {
             method: 'delete',
             credentials: 'include'
         }).then(dispatch({
@@ -361,7 +361,7 @@ export const deleteJob = (dispatch, jobId) => {
 }
 
 export const updateUserList = (dispatch) => {
-    fetch('http://localhost:8080/api/person', {
+    fetch('https://team-2070-backend.herokuapp.com/api/person', {
         credentials: 'include'
     })
         .then((response) => {
@@ -382,7 +382,7 @@ export const updateUserList = (dispatch) => {
 export const deletePerson = (dispatch, userId) => {
     var choice = window.confirm("Do you want to delete this user?")
     if (choice === true) {
-        fetch(('http://localhost:8080/api/person/PID').replace('PID', userId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/person/PID').replace('PID', userId), {
             method: 'delete',
             credentials: 'include'
         }).then(dispatch({
@@ -398,7 +398,7 @@ export const deletePerson = (dispatch, userId) => {
 
 
 export const updateCompanyList = (dispatch) => {
-    fetch('http://localhost:8080/api/company', {
+    fetch('https://team-2070-backend.herokuapp.com/api/company', {
         credentials: 'include'
     }).then((response) => {
         if (response.status === 200)
@@ -417,7 +417,7 @@ export const updateCompanyList = (dispatch) => {
 export const deleteCompany = (dispatch, companyId) => {
     const choice = window.confirm("Do you want to delete this company?");
     if (choice === true) {
-        fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/company/CID').replace('CID', companyId), {
             method: 'delete',
             credentials: 'include'
         }).then(dispatch({
@@ -433,7 +433,7 @@ export const deleteCompany = (dispatch, companyId) => {
 
 
 export const getJobDetails = (dispatch, jobId) => {
-    fetch(('http://localhost:8080/api/job/JID').replace('JID', jobId), {
+    fetch(('https://team-2070-backend.herokuapp.com/api/job/JID').replace('JID', jobId), {
         credentials: 'include'
     })
         .then((response) => {
@@ -452,7 +452,7 @@ export const getJobDetails = (dispatch, jobId) => {
 
 export const getQueries = (dispatch, jobId) => {
     if (jobId) {
-        fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/job/JID/query').replace('JID', jobId), {
             credentials: 'include'
         })
             .then((response) => {
@@ -486,7 +486,7 @@ export const getQueries = (dispatch, jobId) => {
 }
 
 export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
-    fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
+    fetch(('https://team-2070-backend.herokuapp.com/api/query/QID').replace('QID', queryId), {
         method: 'put',
         credentials: 'include',
         body: JSON.stringify({
@@ -511,7 +511,7 @@ export const changeQueryStatus = (dispatch, queryId, newStatus, jobId) => {
 
 export const getCompanyDetails = (dispatch, companyId) => {
     if (companyId) {
-        fetch(('http://localhost:8080/api/company/CID').replace('CID', companyId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/company/CID').replace('CID', companyId), {
             credentials: 'include'
         }).then((response) => {
             if (response.status === 200)
@@ -528,7 +528,7 @@ export const getCompanyDetails = (dispatch, companyId) => {
 }
 
 export const getCompanyEmployees = (dispatch, companyId) => {
-    fetch(('http://localhost:8080/api/company/CID/employees').replace('CID', companyId), {
+    fetch(('https://team-2070-backend.herokuapp.com/api/company/CID/employees').replace('CID', companyId), {
         credentials: 'include'
     }).then((response) => {
         if (response.status === 200)
@@ -544,7 +544,7 @@ export const getCompanyEmployees = (dispatch, companyId) => {
 }
 
 export const getCompanyJobs = (dispatch, companyId) => {
-    fetch(('http://localhost:8080/api/company/CID/jobs').replace('CID', companyId), {
+    fetch(('https://team-2070-backend.herokuapp.com/api/company/CID/jobs').replace('CID', companyId), {
         credentials: 'include'
     }).then((response) => {
         if (response.status === 200)
@@ -561,7 +561,7 @@ export const getCompanyJobs = (dispatch, companyId) => {
 
 export const addApplicant = (dispatch, jobId) => {
     if (localStorage.getItem("username")) {
-        fetch(('http://localhost:8080/api/job/JID/addapplicant').replace('JID', jobId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/job/JID/addapplicant').replace('JID', jobId), {
             method: 'put',
             credentials: 'include'
         }).then((response) => {
@@ -688,7 +688,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
 
     if (localStorage.getItem("userRole") === "Admin" || localStorage.getItem("username") === username) {
         if (role === 'JobSeeker') {
-            fetch(('http://localhost:8080/api/jobseeker/USERNAME').replace('USERNAME', username), {
+            fetch(('https://team-2070-backend.herokuapp.com/api/jobseeker/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -719,7 +719,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
                 }
             })
         } else if (role === 'Employer') {
-            fetch(('http://localhost:8080/api/employer/USERNAME').replace('USERNAME', username), {
+            fetch(('https://team-2070-backend.herokuapp.com/api/employer/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -751,7 +751,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
                 }
             })
         } else if (role === 'Moderator') {
-            fetch(('http://localhost:8080/api/moderator/USERNAME').replace('USERNAME', username), {
+            fetch(('https://team-2070-backend.herokuapp.com/api/moderator/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -780,7 +780,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
                 }
             })
         } else if (role === 'Admin') {
-            fetch(('http://localhost:8080/api/admin/USERNAME').replace('USERNAME', username), {
+            fetch(('https://team-2070-backend.herokuapp.com/api/admin/USERNAME').replace('USERNAME', username), {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -815,7 +815,7 @@ export const updateProfile = (dispatch, username, password, firstName, lastName,
 export const fetchUserProfile = (dispatch, username) => {
     var role;
     if (username && username !== '' && username !== null) {
-        fetch('http://localhost:8080/api/person/username/' + username, {
+        fetch('https://team-2070-backend.herokuapp.com/api/person/username/' + username, {
             credentials: 'include'
         })
             .then(response => {
@@ -829,7 +829,7 @@ export const fetchUserProfile = (dispatch, username) => {
         }).then(() => {
             switch (role) {
                 case "JobSeeker":
-                    fetch('http://localhost:8080/api/jobseeker/username/' + username)
+                    fetch('https://team-2070-backend.herokuapp.com/api/jobseeker/username/' + username)
                         .then(response => {
                             if (response.status === 200) {
                                 return response.json()
@@ -848,7 +848,7 @@ export const fetchUserProfile = (dispatch, username) => {
                     })
                     break;
                 case "Employer":
-                    fetch('http://localhost:8080/api/employer/username/' + username)
+                    fetch('https://team-2070-backend.herokuapp.com/api/employer/username/' + username)
                         .then(response => {
                             if (response.status === 200) {
                                 return response.json()
@@ -867,7 +867,7 @@ export const fetchUserProfile = (dispatch, username) => {
                     })
                     break;
                 case "Admin":
-                    fetch('http://localhost:8080/api/admin/username/' + username)
+                    fetch('https://team-2070-backend.herokuapp.com/api/admin/username/' + username)
                         .then(response => {
                             if (response.status === 200) {
                                 return response.json()
@@ -886,7 +886,7 @@ export const fetchUserProfile = (dispatch, username) => {
                     })
                     break;
                 case "Moderator":
-                    fetch('http://localhost:8080/api/moderator/username/' + username)
+                    fetch('https://team-2070-backend.herokuapp.com/api/moderator/username/' + username)
                         .then(response => {
                             if (response.status === 200) {
                                 return response.json()
@@ -918,7 +918,7 @@ export const fetchUserProfile = (dispatch, username) => {
 }
 export const getApplicationStatus = (dispatch, jobId) => {
     if (jobId) {
-        fetch(('http://localhost:8080/api/job/JID/status').replace('JID', jobId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/job/JID/status').replace('JID', jobId), {
             credentials: 'include'
         }).then(response => {
             if (response.status === 200) {
@@ -939,7 +939,7 @@ export const createJob = (dispatch) => {
     let username = localStorage.getItem("username")
     if (username && username !== null && username !== '') {
         let role = localStorage.getItem("userRole")
-        let url = "http://localhost:8080/api/employer/username/" + username;
+        let url = "https://team-2070-backend.herokuapp.com/api/employer/username/" + username;
         let job = {
             'position': 'Default Position',
             'description': '<p><h5>New Job Description</h5></p>',
@@ -961,7 +961,7 @@ export const createJob = (dispatch) => {
             }).then(user => {
                 let userCompany = user.companyName
 
-                return fetch('http://localhost:8080/api/job/userdefined', {
+                return fetch('https://team-2070-backend.herokuapp.com/api/job/userdefined', {
                     method: 'POST',
                     body: JSON.stringify({
                         'position': 'Default Position',
@@ -992,7 +992,7 @@ export const createJob = (dispatch) => {
                 }
             });
         } else {
-            fetch('http://localhost:8080/api/job/userdefined', {
+            fetch('https://team-2070-backend.herokuapp.com/api/job/userdefined', {
                 method: 'POST',
                 body: JSON.stringify(job),
                 headers: {
@@ -1027,7 +1027,7 @@ export const changePost = (dispatch, post) => {
 export const submitPost = (dispatch, post, jobId) => {
     if (jobId) {
         if (localStorage.getItem("username")) {
-            fetch(('http://localhost:8080/api/job/JID/query').replace('JID', jobId), {
+            fetch(('https://team-2070-backend.herokuapp.com/api/job/JID/query').replace('JID', jobId), {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -1064,7 +1064,7 @@ export const saveJob = (dispatch, jobId, position, description, keywords, jobTyp
     if (!jobId && localStorage.getItem("jobId")) {
         jobId = localStorage.getItem("jobId");
     }
-    fetch('http://localhost:8080/api/job/' + jobId, {
+    fetch('https://team-2070-backend.herokuapp.com/api/job/' + jobId, {
         method: 'PUT',
         body: JSON.stringify({
             'jobId': jobId,
@@ -1123,7 +1123,7 @@ export const fetchJobDetails = (dispatch, jobId) => {
     if (!jobId && localStorage.getItem("jobId")) {
         jobId = localStorage.getItem("jobId");
     }
-    fetch('http://localhost:8080/api/job/' + jobId, {
+    fetch('https://team-2070-backend.herokuapp.com/api/job/' + jobId, {
         credentials: 'include'
     }).then(response => {
         if (response.status === 200) {
@@ -1146,7 +1146,7 @@ export const fetchJobDetails = (dispatch, jobId) => {
 export const deleteProfile = (dispatch, userId, role) => {
     var choice = window.confirm("Do you want to delete your profile?")
     if (choice === true) {
-        fetch(('http://localhost:8080/api/person/' + userId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/person/' + userId), {
             method: 'delete',
             credentials: 'include'
         }).then(
@@ -1172,7 +1172,7 @@ export const changeUpdatePost = (dispatch, updatedPost) => {
 
 export const updatePost = (dispatch, post, queryId) => {
     if (queryId) {
-        fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/query/QID').replace('QID', queryId), {
             method: 'put',
             credentials: 'include',
             body: JSON.stringify({
@@ -1206,7 +1206,7 @@ export const updatePost = (dispatch, post, queryId) => {
 
 export const deleteQuery = (dispatch, queryId) => {
     if (queryId) {
-        fetch(('http://localhost:8080/api/query/QID').replace('QID', queryId), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/query/QID').replace('QID', queryId), {
             method: 'delete',
             credentials: 'include'
         }).then(() => {
@@ -1234,7 +1234,7 @@ export const updateQueryCall = (dispatch, queryId, post) => {
 
 export const isAuthenticated = (dispatch, companyName) => {
     if (companyName) {
-        fetch('http://localhost:8080/api/person/currentuser', {
+        fetch('https://team-2070-backend.herokuapp.com/api/person/currentuser', {
             credentials: 'include'
         }).then(response => {
             if (response.status === 200) {
@@ -1266,7 +1266,7 @@ export const resetCreateFlag = (dispatch) => {
 };
 
 export const createNewUser = (dispatch, username, password, role, companyName) => {
-    fetch('http://localhost:8080/api/person/username/' + username, {
+    fetch('https://team-2070-backend.herokuapp.com/api/person/username/' + username, {
         credentials: 'include'
     })
         .then(response => {
@@ -1286,7 +1286,7 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
         if (!userDup) {
             switch (role) {
                 case 'JobSeeker':
-                    fetch('http://localhost:8080/api/register/jobseeker', {
+                    fetch('https://team-2070-backend.herokuapp.com/api/register/jobseeker', {
                         method: 'post',
                         body: JSON.stringify({
                             'username': username,
@@ -1313,7 +1313,7 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
                     });
                     break;
                 case 'Employer':
-                    fetch('http://localhost:8080/api/register/employer', {
+                    fetch('https://team-2070-backend.herokuapp.com/api/register/employer', {
                         method: 'post',
                         body: JSON.stringify({
                             'username': username,
@@ -1341,7 +1341,7 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
                     });
                     break;
                 case 'Moderator':
-                    fetch('http://localhost:8080/api/register/moderator', {
+                    fetch('https://team-2070-backend.herokuapp.com/api/register/moderator', {
                         method: 'post',
                         body: JSON.stringify({
                             'username': username,
@@ -1368,7 +1368,7 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
                     });
                     break;
                 case 'Admin':
-                    fetch('http://localhost:8080/api/register/admin', {
+                    fetch('https://team-2070-backend.herokuapp.com/api/register/admin', {
                         method: 'post',
                         body: JSON.stringify({
                             'username': username,
@@ -1400,7 +1400,7 @@ export const createNewUser = (dispatch, username, password, role, companyName) =
 };
 
 export const getTenMostRecentlyJoinedUsers = (dispatch) => {
-    fetch("http://localhost:8080/api/person")
+    fetch("https://team-2070-backend.herokuapp.com/api/person")
         .then(response => {
             if (response.status === 200) {
                 return response.json()
@@ -1421,7 +1421,7 @@ export const getTenMostRecentlyJoinedUsers = (dispatch) => {
 }
 
 export const getTenMostAppliedJobs = (dispatch) => {
-    fetch("http://localhost:8080/api/job")
+    fetch("https://team-2070-backend.herokuapp.com/api/job")
         .then(response => {
             if (response.status === 200) {
                 return response.json()
@@ -1468,7 +1468,7 @@ function compareApplicants(a, b) {
 
 export const followUser = (dispatch, followUsername) => {
     if (localStorage.getItem("username")) {
-        fetch(('http://localhost:8080/api/follow'), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/follow'), {
             method: 'PUT',
             credentials: 'include',
             body: JSON.stringify({
@@ -1501,7 +1501,7 @@ export const followUser = (dispatch, followUsername) => {
 
 export const unfollowUser = (dispatch, unfollowUsername) => {
     if (localStorage.getItem("username")) {
-        fetch(('http://localhost:8080/api/unfollow'), {
+        fetch(('https://team-2070-backend.herokuapp.com/api/unfollow'), {
             method: 'PUT',
             credentials: 'include',
             body: JSON.stringify({
@@ -1533,7 +1533,7 @@ export const unfollowUser = (dispatch, unfollowUsername) => {
 };
 
 export const isFollowing = (dispatch, username) => {
-    fetch(('http://localhost:8080/api/following'), {
+    fetch(('https://team-2070-backend.herokuapp.com/api/following'), {
         credentials: 'include'
     }).then(response => {
         if (response.status === 200) {
@@ -1561,7 +1561,7 @@ export const isFollowing = (dispatch, username) => {
 
 export const findFollowers = (dispatch, username) => {
     if (username) {
-        fetch('http://localhost:8080/api/followers/'+username)
+        fetch('https://team-2070-backend.herokuapp.com/api/followers/'+username)
             .then(response => {
                 if (response.status === 200) {
                     return response.json()
@@ -1581,7 +1581,7 @@ export const findFollowers = (dispatch, username) => {
 
 export const findFollowing = (dispatch, username) => {
     if (username) {
-        fetch('http://localhost:8080/api/following/'+username)
+        fetch('https://team-2070-backend.herokuapp.com/api/following/'+username)
             .then(response => {
                 if (response.status === 200) {
                     return response.json()
